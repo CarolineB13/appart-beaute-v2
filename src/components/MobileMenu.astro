@@ -1,0 +1,226 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  links: Link[];
+}
+
+const { links } = Astro.props;
+---
+
+<div class="mobile-menu">
+  <button
+    class="menu-toggle"
+    type="button"
+    aria-label="Ouvrir le menu"
+    aria-expanded="false"
+    aria-controls="mobile-navigation"
+  >
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="menu-panel" id="mobile-navigation">
+    <div class="menu-content">
+      <p class="menu-eyebrow">Appart & Beauté</p>
+
+      <nav aria-label="Navigation mobile">
+        {
+          links.map((link) => (
+            <a href={link.href} class="mobile-link">
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <a
+        href="#"
+        class="mobile-booking"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Prendre rendez-vous
+      </a>
+
+      <p class="menu-location">La Valentine · Marseille 11e</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const menus = document.querySelectorAll(".mobile-menu");
+
+  menus.forEach((menu) => {
+    const toggle = menu.querySelector(".menu-toggle");
+    const panel = menu.querySelector(".menu-panel");
+    const links = menu.querySelectorAll(".mobile-link");
+
+    if (!(toggle instanceof HTMLButtonElement)) return;
+    if (!(panel instanceof HTMLElement)) return;
+
+    const openMenu = () => {
+      menu.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Fermer le menu");
+
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeMenu = () => {
+      menu.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Ouvrir le menu");
+
+      document.body.style.overflow = "";
+    };
+
+    toggle.addEventListener("click", () => {
+      if (menu.classList.contains("is-open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    links.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    });
+  });
+</script>
+
+<style>
+  .mobile-menu {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .mobile-menu {
+      display: block;
+    }
+
+    .menu-toggle {
+      position: relative;
+      z-index: 101;
+      display: flex;
+      width: 44px;
+      height: 44px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 253, 251, 0.65);
+      color: var(--color-text);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-toggle span {
+      width: 19px;
+      height: 1.5px;
+      background: currentColor;
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    }
+
+    .is-open .menu-toggle span:first-child {
+      transform: translateY(4.25px) rotate(45deg);
+    }
+
+    .is-open .menu-toggle span:last-child {
+      transform: translateY(-4.25px) rotate(-45deg);
+    }
+
+    .menu-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(219, 169, 147, 0.4),
+          transparent 42%
+        ),
+        var(--color-bg-soft);
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-12px);
+
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .is-open .menu-panel {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .menu-content {
+      width: min(100% - 48px, 520px);
+      margin-inline: auto;
+    }
+
+    .menu-eyebrow {
+      margin-bottom: 28px;
+      color: var(--color-terracotta-dark);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-link {
+      padding: 9px 0;
+      font-family: var(--font-title);
+      font-size: clamp(2.4rem, 9vw, 4rem);
+      line-height: 1.05;
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .mobile-link:hover {
+      color: var(--color-terracotta);
+      transform: translateX(5px);
+    }
+
+    .mobile-booking {
+      display: inline-flex;
+      margin-top: 38px;
+      padding: 15px 24px;
+      border-radius: 999px;
+      background: var(--color-terracotta);
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .menu-location {
+      margin-top: 30px;
+      color: var(--color-text-soft);
+      font-size: 0.82rem;
+    }
+  }
+</style>

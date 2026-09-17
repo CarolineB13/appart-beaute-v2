@@ -1,0 +1,28 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Appart & Beauté | Institut de beauté à La Valentine",
+  description = "Institut de beauté à La Valentine, Marseille 11e : Lash Lift Coréen, extensions de cils, browlift, onglerie et épilation.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>

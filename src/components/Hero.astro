@@ -1,0 +1,357 @@
+<section class="hero">
+  <div class="hero-decoration hero-decoration-one"></div>
+  <div class="hero-decoration hero-decoration-two"></div>
+
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <p class="eyebrow">Institut de beauté · La Valentine · Marseille 11e</p>
+
+      <h1>
+        Institut de beauté
+        <span>à La Valentine</span>
+      </h1>
+
+      <p class="hero-signature">Une parenthèse rien que pour vous</p>
+
+      <p class="hero-text">
+        Appart & Beauté vous accueille dans un univers doux et intimiste, dédié
+        à la beauté du regard, des ongles et à votre bien-être.
+      </p>
+
+      <div class="hero-actions">
+        <a
+          class="primary-button"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Prendre rendez-vous
+        </a>
+
+        <a class="secondary-button" href="#prestations">
+          Découvrir les prestations
+        </a>
+      </div>
+
+      <div class="hero-rating">
+        <span class="stars">★★★★★</span>
+        <span>Des clientes fidèles et conquises</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="image-frame image-main">
+        <img
+          src="/images/hero-beaute.webp"
+          alt="Cabine de soin de l'institut Appart & Beauté à La Valentine"
+        />
+      </div>
+
+      <div class="image-frame image-small">
+        <img
+          src="/images/hero-detail.webp"
+          alt="Espace beauté chez Appart & Beauté à Marseille 11e"
+        />
+      </div>
+
+      <span class="handwritten"> prendre soin de soi </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 160px 0 90px;
+
+    background: linear-gradient(110deg, #f8f0e9 0%, #f9f3ed 48%, #ead2c4 100%);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: center;
+    gap: 80px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+  }
+
+  .eyebrow {
+    margin-bottom: 22px;
+    color: var(--color-terracotta-dark);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 650px;
+    font-size: clamp(3rem, 4.5vw, 4.8rem);
+    line-height: 1.03;
+  }
+
+  h1 span {
+    display: block;
+  }
+
+  .hero-signature {
+    margin-top: 18px;
+    color: var(--color-terracotta);
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 3.2vw, 3.4rem);
+    font-style: italic;
+    line-height: 1.1;
+  }
+
+  .hero-text {
+    max-width: 520px;
+    margin-top: 24px;
+    color: var(--color-text-soft);
+    font-size: 1.05rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 24px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+
+    transition:
+      background 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .primary-button {
+    background: var(--color-terracotta);
+    color: white;
+  }
+
+  .primary-button:hover {
+    background: var(--color-terracotta-dark);
+    transform: translateY(-2px);
+  }
+
+  .secondary-button {
+    border: 1px solid rgba(53, 40, 35, 0.2);
+    background: rgba(255, 255, 255, 0.45);
+  }
+
+  .secondary-button:hover {
+    border-color: var(--color-terracotta);
+  }
+
+  .hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    color: var(--color-text-soft);
+    font-size: 0.88rem;
+  }
+
+  .stars {
+    color: var(--color-terracotta);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-visual {
+    position: relative;
+    min-height: 620px;
+  }
+
+  .image-frame {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-main {
+    top: 0;
+    right: 0;
+    width: 78%;
+    height: 560px;
+    border-radius: 180px 180px 40px 40px;
+
+    box-shadow: 0 25px 70px rgba(90, 56, 42, 0.14);
+  }
+
+  .image-main img {
+    object-position: center 45%;
+  }
+
+  .image-small {
+    bottom: 35px;
+    left: 0;
+    z-index: 2;
+    width: 230px;
+    height: 280px;
+    border: 10px solid rgba(248, 240, 233, 0.95);
+    border-radius: 28px;
+
+    box-shadow: 0 20px 50px rgba(90, 56, 42, 0.12);
+  }
+
+  .handwritten {
+    position: absolute;
+    right: 30px;
+    bottom: 38px;
+    z-index: 3;
+    color: var(--color-terracotta-dark);
+    font-family: var(--font-title);
+    font-size: 1.6rem;
+    font-style: italic;
+    opacity: 0.9;
+    transform: rotate(-4deg);
+  }
+
+  .hero-decoration {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(1px);
+  }
+
+  .hero-decoration-one {
+    top: -160px;
+    right: -130px;
+    width: 420px;
+    height: 420px;
+    background: #dba993;
+    opacity: 0.28;
+  }
+
+  .hero-decoration-two {
+    bottom: -180px;
+    left: -140px;
+    width: 420px;
+    height: 420px;
+    background: #efd8ca;
+    opacity: 0.55;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      min-height: auto;
+      padding: 135px 0 45px;
+    }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 10vw, 4.6rem);
+    }
+
+    .hero-visual {
+      min-height: 480px;
+    }
+
+    .image-main {
+      width: 88%;
+      height: 440px;
+    }
+
+    .image-small {
+      width: 170px;
+      height: 210px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero {
+      min-height: auto;
+      padding: 130px 0 12px;
+    }
+
+    .hero-inner {
+      gap: 28px;
+    }
+
+    h1 {
+      font-size: clamp(2.75rem, 11.5vw, 3.7rem);
+      line-height: 1.02;
+    }
+
+    .hero-signature {
+      margin-top: 16px;
+      font-size: clamp(2rem, 8.5vw, 2.7rem);
+    }
+
+    .hero-text {
+      margin-top: 22px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      margin-top: 28px;
+    }
+
+    .primary-button,
+    .secondary-button {
+      width: 100%;
+      min-height: 54px;
+    }
+
+    .hero-rating {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 22px;
+    }
+
+    .hero-visual {
+      min-height: 330px;
+    }
+
+    .image-main {
+      width: 92%;
+      height: 320px;
+      border-radius: 105px 105px 26px 26px;
+    }
+
+    .image-small {
+      bottom: 12px;
+      width: 118px;
+      height: 145px;
+      border-width: 7px;
+    }
+
+    .handwritten {
+      display: none;
+    }
+
+    .hero-decoration-one {
+      top: -100px;
+      right: -130px;
+      width: 300px;
+      height: 300px;
+      opacity: 0.18;
+    }
+  }
+</style>
