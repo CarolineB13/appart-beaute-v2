@@ -1,0 +1,395 @@
+<section class="services-section" id="prestations">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <p class="eyebrow">Nos expertises</p>
+
+        <h2>
+          Des soins pensés
+          <span>pour vous révéler</span>
+        </h2>
+      </div>
+
+      <p class="services-intro">
+        Du regard aux ongles, Appart & Beauté vous propose des prestations
+        réalisées avec précision dans une atmosphère douce et intimiste.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <a class="service-card service-card-large" href="/beaute-du-regard/">
+        <div class="service-image">
+          <img
+            src="/images/prestation-regard.webp"
+            alt="Beauté du regard chez Appart & Beauté"
+          />
+        </div>
+
+        <div class="service-overlay"></div>
+
+        <div class="service-content">
+          <span class="service-number">01</span>
+
+          <div>
+            <h3>Beauté du regard</h3>
+            <p>Lash Lift Coréen, rehaussement de cils et browlift.</p>
+
+            <span class="service-link">
+              Découvrir
+              <span>→</span>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <a class="service-card" href="/extensions-de-cils-marseille/">
+        <div class="service-image">
+          <img
+            src="/images/prestation-extensions.webp"
+            alt="Extensions de cils à Marseille chez Appart & Beauté"
+          />
+        </div>
+
+        <div class="service-overlay"></div>
+
+        <div class="service-content">
+          <span class="service-number">02</span>
+
+          <div>
+            <h3>Extensions de cils</h3>
+            <p>Cil à cil, hybride et volume pour intensifier le regard.</p>
+
+            <span class="service-link">
+              Découvrir
+              <span>→</span>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <a class="service-card" href="/onglerie-la-valentine/">
+        <div class="service-image">
+          <img
+            src="/images/prestation-onglerie.webp"
+            alt="Onglerie à La Valentine chez Appart & Beauté"
+          />
+        </div>
+
+        <div class="service-overlay"></div>
+
+        <div class="service-content">
+          <span class="service-number">03</span>
+
+          <div>
+            <h3>Onglerie</h3>
+            <p>Gel, semi-permanent, remplissage et mise en beauté des mains.</p>
+
+            <span class="service-link">
+              Découvrir
+              <span>→</span>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <a class="service-card service-card-wide" href="/epilation-la-valentine/">
+        <div class="service-image">
+          <img
+            src="/images/prestation-epilation.webp"
+            alt="Épilation à La Valentine chez Appart & Beauté"
+          />
+        </div>
+
+        <div class="service-overlay"></div>
+
+        <div class="service-content">
+          <span class="service-number">04</span>
+
+          <div>
+            <h3>Épilation</h3>
+            <p>Des prestations femme et homme réalisées avec soin.</p>
+
+            <span class="service-link">
+              Découvrir
+              <span>→</span>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="services-footer">
+      <a href="/prestations/" class="all-services-link">
+        Voir toutes les prestations
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    position: relative;
+    padding: 110px 0;
+    overflow: hidden;
+    background: var(--color-bg-soft);
+  }
+
+  .services-header {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: end;
+    gap: 80px;
+    margin-bottom: 55px;
+  }
+
+  .eyebrow {
+    margin-bottom: 16px;
+    color: var(--color-terracotta-dark);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 650px;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1;
+  }
+
+  h2 span {
+    display: block;
+    margin-top: 6px;
+    color: var(--color-terracotta);
+    font-style: italic;
+  }
+
+  .services-intro {
+    max-width: 440px;
+    padding-bottom: 8px;
+    color: var(--color-text-soft);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 390px;
+    gap: 22px;
+  }
+
+  .service-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 390px;
+    border-radius: 28px;
+    isolation: isolate;
+  }
+
+  .service-card-large {
+    grid-row: span 2;
+  }
+
+  .service-card-wide {
+    grid-column: 2;
+  }
+
+  .service-image {
+    position: absolute;
+    inset: 0;
+  }
+
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+
+  .service-card:hover .service-image img {
+    transform: scale(1.045);
+  }
+
+  .service-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to top,
+      rgba(48, 31, 25, 0.78) 0%,
+      rgba(48, 31, 25, 0.22) 55%,
+      rgba(48, 31, 25, 0.05) 100%
+    );
+  }
+
+  .service-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 28px;
+
+    color: white;
+  }
+
+  .service-number {
+    align-self: flex-end;
+
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+
+    font-size: 0.75rem;
+  }
+
+  .service-content h3 {
+    margin-bottom: 8px;
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: white;
+  }
+
+  .service-content p {
+    max-width: 390px;
+    margin-bottom: 18px;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  .service-link span {
+    transition: transform 0.25s ease;
+  }
+
+  .service-card:hover .service-link span {
+    transform: translateX(5px);
+  }
+
+  .services-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 35px;
+  }
+
+  .all-services-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding-bottom: 4px;
+
+    border-bottom: 1px solid rgba(148, 82, 62, 0.4);
+
+    color: var(--color-terracotta-dark);
+
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .all-services-link span {
+    transition: transform 0.25s ease;
+  }
+
+  .all-services-link:hover span {
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 900px) {
+    .services-section {
+      padding: 80px 0;
+    }
+
+    .services-header {
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin-bottom: 45px;
+    }
+
+    .services-intro {
+      max-width: 620px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 330px;
+    }
+
+    .service-card {
+      min-height: 330px;
+    }
+
+    .service-card-large {
+      grid-row: auto;
+    }
+
+    .service-card-wide {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .services-section {
+      padding: 65px 0;
+    }
+
+    .services-header {
+      gap: 20px;
+      margin-bottom: 35px;
+    }
+
+    h2 {
+      font-size: clamp(2.7rem, 12vw, 3.6rem);
+    }
+
+    .services-intro {
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+      gap: 16px;
+    }
+
+    .service-card,
+    .service-card-large,
+    .service-card-wide {
+      grid-column: auto;
+      grid-row: auto;
+
+      min-height: 320px;
+    }
+
+    .service-content {
+      padding: 22px;
+    }
+
+    .service-content h3 {
+      font-size: 2.25rem;
+    }
+
+    .services-footer {
+      justify-content: flex-start;
+      margin-top: 28px;
+    }
+  }
+</style>

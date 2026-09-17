@@ -1,0 +1,46 @@
+---
+const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
+---
+
+<section class="planity-booking">
+  <div class="planity-container" id="planity-appointment"></div>
+</section>
+
+<script define:vars={{ planityKey }}>
+  const container = document.getElementById("planity-appointment");
+
+  if (container && planityKey) {
+    window.planity = {
+      key: planityKey,
+      primaryColor: "#b86f55",
+      appointmentContainer: container,
+    };
+  }
+</script>
+
+<script
+  is:inline
+  src="https://d2skjte8udjqxw.cloudfront.net/widget/production/2/polyfills.latest.js"
+></script>
+
+<script
+  is:inline
+  src="https://d2skjte8udjqxw.cloudfront.net/widget/production/2/app.latest.js"
+></script>
+
+<style>
+  .planity-booking {
+    width: 100%;
+  }
+
+  .planity-container {
+    width: 100%;
+    min-height: 600px;
+  }
+
+  @media (max-width: 560px) {
+    .planity-container {
+      min-height: 500px;
+    }
+  }
+</style>
