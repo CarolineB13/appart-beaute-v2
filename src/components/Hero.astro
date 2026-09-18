@@ -1,348 +1,501 @@
 <section class="hero">
-  <div class="hero-decoration hero-decoration-one"></div>
-  <div class="hero-decoration hero-decoration-two"></div>
+  <div class="hero-stage">
+    <div class="hero-artwork" aria-hidden="true"></div>
 
-  <div class="container hero-inner">
-    <div class="hero-content">
-      <p class="eyebrow">Institut de beauté · La Valentine · Marseille 11e</p>
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="hero-location">
+          <span>Institut de beauté · La Valentine</span>
+          <span>Marseille 11e</span>
+        </p>
 
-      <h1>
-        Institut de beauté
-        <span>à La Valentine</span>
-      </h1>
+        <h1>
+          <span>Bien plus</span>
+          <span>qu’un institut,</span>
+          <span>un lieu pour</span>
+          <span class="script-word">vous.</span>
+        </h1>
 
-      <p class="hero-signature">Une parenthèse rien que pour vous</p>
+        <p class="hero-services">
+          Soins · Beauté du regard
+          <br />
+          Onglerie · Épilation
+        </p>
 
-      <p class="hero-text">
-        Appart & Beauté vous accueille dans un univers doux et intimiste, dédié
-        à la beauté du regard, des ongles et à votre bien-être.
-      </p>
-
-      <div class="hero-actions">
-        <a class="primary-button" href="/reservation/"> Prendre rendez-vous </a>
-
-        <a class="secondary-button" href="#prestations">
-          Découvrir les prestations
+        <a class="hero-booking" href="/reservation/">
+          <span>Prendre rendez-vous</span>
+          <span class="booking-arrow">→</span>
         </a>
-      </div>
-
-      <div class="hero-rating">
-        <span class="stars">★★★★★</span>
-        <span>Des clientes fidèles et conquises</span>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="image-frame image-main">
-        <img
-          src="/images/hero-beaute.webp"
-          alt="Cabine de soin de l'institut Appart & Beauté à La Valentine"
-        />
-      </div>
-
-      <div class="image-frame image-small">
-        <img
-          src="/images/hero-detail.webp"
-          alt="Espace beauté chez Appart & Beauté à Marseille 11e"
-        />
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
-    padding: 160px 0 90px;
+  @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
 
-    background: linear-gradient(110deg, #f8f0e9 0%, #f9f3ed 48%, #ead2c4 100%);
+  /* =====================================================
+     MOBILE FIRST
+     ===================================================== */
+
+  .hero {
+    overflow: hidden;
+
+    padding-top: 74px;
+
+    background: var(--color-bg-soft);
   }
+
+  .hero-stage {
+    position: relative;
+
+    overflow: hidden;
+
+    background: #f8eee6;
+  }
+
+  /*
+   * Illustration verticale dédiée au mobile.
+   */
+
+  .hero-artwork {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url("/images/hero-pampas-mobile.webp");
+
+    background-repeat: no-repeat;
+
+    background-position: center top;
+
+    background-size: 100% auto;
+
+    pointer-events: none;
+  }
+
+  /*
+   * Le contenu reste dans le flux.
+   */
 
   .hero-inner {
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    align-items: center;
-    gap: 80px;
-  }
-
-  .hero-content {
     position: relative;
+
     z-index: 2;
-    max-width: 620px;
+
+    padding-top: clamp(285px, 67vw, 440px);
+
+    padding-bottom: 30px;
   }
 
-  .eyebrow {
-    margin-bottom: 22px;
+  .hero-copy {
+    width: 100%;
+  }
+
+  /* =====================================================
+     LOCALISATION
+     ===================================================== */
+
+  .hero-location {
+    display: flex;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 0.18rem;
+
+    margin-bottom: 18px;
+
     color: var(--color-terracotta-dark);
-    font-size: 0.78rem;
+
+    font-size: 0.62rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+
+    letter-spacing: 0.14em;
+
+    line-height: 1.55;
+
     text-transform: uppercase;
+
+    white-space: normal;
   }
 
-  h1 {
-    max-width: 650px;
-    font-size: clamp(3rem, 4.5vw, 4.8rem);
-    line-height: 1.03;
-  }
-
-  h1 span {
+  .hero-location span {
     display: block;
   }
 
-  .hero-signature {
-    margin-top: 18px;
-    color: var(--color-terracotta);
+  /* =====================================================
+     TITRE
+     ===================================================== */
+
+  .hero h1 {
+    max-width: 470px;
+
+    margin: 0;
+
+    color: var(--color-text);
+
     font-family: var(--font-title);
-    font-size: clamp(2rem, 3.2vw, 3.4rem);
-    font-style: italic;
-    line-height: 1.1;
+
+    font-size: clamp(2.9rem, 8.5vw, 3.85rem);
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
   }
 
-  .hero-text {
-    max-width: 520px;
-    margin-top: 24px;
-    color: var(--color-text-soft);
-    font-size: 1.05rem;
+  .hero h1 > span {
+    display: block;
   }
 
-  .hero-actions {
+  .script-word {
+    width: max-content;
+
+    margin-top: 7px;
+
+    color: var(--color-terracotta);
+
+    font-family: "Allura", cursive;
+
+    font-size: 1.48em;
+    font-weight: 400;
+
+    line-height: 0.78;
+
+    letter-spacing: 0;
+
+    transform: rotate(-4deg);
+
+    transform-origin: left center;
+  }
+
+  /* =====================================================
+     UNIVERS
+     ===================================================== */
+
+  .hero-services {
+    margin-top: 12px;
+
+    color: var(--color-text);
+
+    font-size: 0.68rem;
+    font-weight: 600;
+
+    letter-spacing: 0.17em;
+
+    line-height: 1.9;
+
+    text-align: center;
+
+    text-transform: uppercase;
+  }
+
+  /* =====================================================
+     CTA
+     ===================================================== */
+
+  .hero-booking {
     display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 34px;
-  }
 
-  .primary-button,
-  .secondary-button {
-    display: inline-flex;
+    width: min(82%, 310px);
+
+    min-height: 52px;
+
     align-items: center;
-    justify-content: center;
-    padding: 15px 24px;
+    justify-content: space-between;
+
+    margin-top: 19px;
+    margin-inline: auto;
+
+    padding: 13px 21px;
+
     border-radius: 999px;
-    font-size: 0.92rem;
+
+    background: var(--color-terracotta);
+
+    color: white;
+
+    font-size: 0.74rem;
+    font-weight: 600;
+
+    letter-spacing: 0.045em;
+
+    text-transform: uppercase;
 
     transition:
       background 0.25s ease,
-      border-color 0.25s ease,
       transform 0.25s ease;
   }
 
-  .primary-button {
-    background: var(--color-terracotta);
-    color: white;
-  }
-
-  .primary-button:hover {
+  .hero-booking:hover {
     background: var(--color-terracotta-dark);
+
     transform: translateY(-2px);
   }
 
-  .secondary-button {
-    border: 1px solid rgba(53, 40, 35, 0.2);
-    background: rgba(255, 255, 255, 0.45);
+  .booking-arrow {
+    font-size: 1rem;
+
+    transition: transform 0.25s ease;
   }
 
-  .secondary-button:hover {
-    border-color: var(--color-terracotta);
+  .hero-booking:hover .booking-arrow {
+    transform: translateX(4px);
   }
 
-  .hero-rating {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 28px;
-    color: var(--color-text-soft);
-    font-size: 0.88rem;
+  /* =====================================================
+     PETITS MOBILES
+     ===================================================== */
+
+  @media (max-width: 390px) {
+    .hero-inner {
+      padding-top: clamp(250px, 66vw, 290px);
+
+      padding-bottom: 26px;
+    }
+
+    .hero-location {
+      margin-bottom: 16px;
+
+      font-size: 0.56rem;
+
+      letter-spacing: 0.12em;
+
+      line-height: 1.5;
+    }
+
+    .hero h1 {
+      font-size: 2.7rem;
+    }
+
+    .hero-services {
+      margin-top: 12px;
+
+      font-size: 0.62rem;
+    }
+
+    .hero-booking {
+      width: min(86%, 295px);
+
+      margin-top: 18px;
+    }
   }
 
-  .stars {
-    color: var(--color-terracotta);
-    letter-spacing: 0.1em;
-  }
+  /* =====================================================
+     TABLETTE
+     ===================================================== */
 
-  .hero-visual {
-    position: relative;
-    min-height: 620px;
-  }
-
-  .image-frame {
-    position: absolute;
-    overflow: hidden;
-  }
-
-  .image-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .image-main {
-    top: 0;
-    right: 0;
-    width: 78%;
-    height: 560px;
-    border-radius: 180px 180px 40px 40px;
-
-    box-shadow: 0 25px 70px rgba(90, 56, 42, 0.14);
-  }
-
-  .image-main img {
-    object-position: center 45%;
-  }
-
-  .image-small {
-    bottom: 35px;
-    left: 0;
-    z-index: 2;
-    width: 230px;
-    height: 280px;
-    border: 10px solid rgba(248, 240, 233, 0.95);
-    border-radius: 28px;
-
-    box-shadow: 0 20px 50px rgba(90, 56, 42, 0.12);
-  }
-
-  .handwritten {
-    position: absolute;
-    right: 30px;
-    bottom: 38px;
-    z-index: 3;
-    color: var(--color-terracotta-dark);
-    font-family: var(--font-title);
-    font-size: 1.6rem;
-    font-style: italic;
-    opacity: 0.9;
-    transform: rotate(-4deg);
-  }
-
-  .hero-decoration {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(1px);
-  }
-
-  .hero-decoration-one {
-    top: -160px;
-    right: -130px;
-    width: 420px;
-    height: 420px;
-    background: #dba993;
-    opacity: 0.28;
-  }
-
-  .hero-decoration-two {
-    bottom: -180px;
-    left: -140px;
-    width: 420px;
-    height: 420px;
-    background: #efd8ca;
-    opacity: 0.55;
-  }
-
-  @media (max-width: 900px) {
+  @media (min-width: 700px) and (max-width: 999px) {
     .hero {
-      min-height: auto;
-      padding: 135px 0 45px;
+      padding-top: 88px;
     }
 
     .hero-inner {
-      grid-template-columns: 1fr;
-      gap: 40px;
+      padding-top: clamp(430px, 63vw, 510px);
+
+      padding-bottom: 38px;
     }
 
-    h1 {
-      font-size: clamp(3rem, 10vw, 4.6rem);
+    .hero-copy {
+      max-width: 590px;
     }
 
-    .hero-visual {
-      min-height: 480px;
+    .hero-location {
+      font-size: 0.66rem;
     }
 
-    .image-main {
-      width: 88%;
-      height: 440px;
+    .hero h1 {
+      font-size: 5rem;
     }
 
-    .image-small {
-      width: 170px;
-      height: 210px;
+    .hero-services {
+      margin-top: 18px;
+
+      font-size: 0.74rem;
+    }
+
+    .hero-booking {
+      width: 310px;
+
+      margin-top: 20px;
+      margin-inline: 0;
     }
   }
 
-  @media (max-width: 560px) {
+  /* =====================================================
+     DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1000px) {
     .hero {
-      min-height: auto;
-      padding: 130px 0 12px;
+      padding-top: 92px;
+
+      background: #faf5f0;
     }
 
-    .hero-inner {
-      gap: 28px;
+    /*
+     * Version horizontale dédiée au desktop.
+     */
+
+    .hero-stage {
+      position: relative;
+
+      min-height: 720px;
+
+      overflow: hidden;
+
+      background: #faf5f0;
     }
 
-    h1 {
-      font-size: clamp(2.75rem, 11.5vw, 3.7rem);
-      line-height: 1.02;
-    }
+    .hero-artwork {
+      position: absolute;
 
-    .hero-signature {
-      margin-top: 16px;
-      font-size: clamp(2rem, 8.5vw, 2.7rem);
-    }
+      inset: 0;
 
-    .hero-text {
-      margin-top: 22px;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    .hero-actions {
-      flex-direction: column;
-      margin-top: 28px;
-    }
-
-    .primary-button,
-    .secondary-button {
       width: 100%;
-      min-height: 54px;
+      height: 100%;
+
+      background-image: url("/images/hero-pampas-desktop.webp");
+
+      background-repeat: no-repeat;
+
+      background-position: center center;
+
+      background-size: cover;
     }
 
-    .hero-rating {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 4px;
+    /*
+     * Voile léger derrière le texte.
+     */
+
+    .hero-artwork::after {
+      position: absolute;
+
+      inset: 0 auto 0 0;
+
+      width: 44%;
+
+      background: linear-gradient(
+        90deg,
+        rgba(250, 245, 240, 0.28) 0%,
+        rgba(250, 245, 240, 0.08) 72%,
+        transparent 100%
+      );
+
+      content: "";
+    }
+
+    .hero-inner {
+      display: flex;
+
+      min-height: 720px;
+
+      align-items: center;
+
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .hero-copy {
+      position: relative;
+
+      z-index: 3;
+
+      width: 46%;
+      max-width: 630px;
+
+      padding: 32px 35px 32px 0;
+    }
+
+    /*
+     * Localisation sur une seule ligne sur desktop.
+     */
+
+    .hero-location {
+      flex-direction: row;
+
+      align-items: center;
+
+      gap: 0;
+
+      margin-bottom: 25px;
+
+      font-size: 0.66rem;
+
+      letter-spacing: 0.16em;
+
+      line-height: 1.4;
+
+      white-space: nowrap;
+    }
+
+    .hero-location span + span::before {
+      content: " · ";
+      white-space: pre;
+    }
+
+    .hero h1 {
+      max-width: 590px;
+
+      font-size: clamp(4.1rem, 4.45vw, 5.35rem);
+
+      line-height: 0.94;
+    }
+
+    .script-word {
+      margin-top: 9px;
+
+      font-size: 1.42em;
+    }
+
+    .hero-services {
       margin-top: 22px;
+
+      font-size: 0.7rem;
+
+      line-height: 1.95;
+
+      text-align: left;
     }
 
-    .hero-visual {
-      min-height: 330px;
+    .hero-booking {
+      width: 285px;
+
+      min-height: 54px;
+
+      margin-top: 19px;
+      margin-inline: 0;
+
+      padding-inline: 23px;
+    }
+  }
+
+  /* =====================================================
+     GRAND DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1400px) {
+    .hero-stage {
+      min-height: 760px;
     }
 
-    .image-main {
-      width: 92%;
-      height: 320px;
-      border-radius: 105px 105px 26px 26px;
+    .hero-inner {
+      min-height: 760px;
     }
 
-    .image-small {
-      bottom: 12px;
-      width: 118px;
-      height: 145px;
-      border-width: 7px;
+    .hero-copy {
+      width: 44%;
+
+      max-width: 650px;
     }
 
-    .handwritten {
-      display: none;
-    }
-
-    .hero-decoration-one {
-      top: -100px;
-      right: -130px;
-      width: 300px;
-      height: 300px;
-      opacity: 0.18;
+    .hero h1 {
+      font-size: clamp(4.5rem, 4.6vw, 5.8rem);
     }
   }
 </style>

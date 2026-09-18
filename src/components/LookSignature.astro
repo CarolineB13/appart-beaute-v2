@@ -1,0 +1,664 @@
+<section class="look-section" id="regard">
+  <div class="container">
+    <div class="look-heading">
+      <p class="eyebrow">Signature Appart & Beauté</p>
+
+      <h2>
+        Le regard,
+        <span>notre spécialité</span>
+      </h2>
+
+      <p class="look-intro">
+        Deux techniques différentes, un même objectif : révéler votre regard
+        tout en respectant votre beauté naturelle.
+      </p>
+    </div>
+
+    <div class="look-editorial">
+      <!-- LASH LIFT CORÉEN -->
+
+      <article class="look-card lash-card">
+        <a href="/lash-lift-coreen-marseille/" class="look-image lash-image">
+          <img
+            src="/images/lash-lift-coreen.webp"
+            alt="Lash Lift Coréen à Marseille chez Appart & Beauté"
+          />
+
+          <span class="priority-badge"> À découvrir </span>
+        </a>
+
+        <div class="look-content lash-content">
+          <p class="look-type">Beauté des cils</p>
+
+          <h3>
+            Lash Lift
+            <em>Coréen</em>
+          </h3>
+
+          <p class="look-description">
+            Une technique nouvelle génération qui sublime les cils naturels,
+            accentue leur courbure et ouvre le regard sans extensions.
+          </p>
+
+          <div class="look-actions">
+            <a class="look-link" href="/lash-lift-coreen-marseille/">
+              Découvrir
+              <span>→</span>
+            </a>
+
+            <a class="book-link" href="/reservation/"> Réserver </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- MOT DÉCORATIF -->
+
+      <div class="look-word" aria-hidden="true">REGARD</div>
+
+      <!-- BROWLIFT -->
+
+      <article class="look-card brow-card">
+        <div class="look-content brow-content">
+          <p class="look-type">Beauté des sourcils</p>
+
+          <h3>
+            Brow<em>lift</em>
+          </h3>
+
+          <p class="look-description">
+            Une mise en beauté des sourcils qui permet de les discipliner,
+            redessiner leur ligne et créer un effet naturellement plus fourni.
+          </p>
+
+          <div class="look-actions">
+            <a class="look-link" href="/browlift-marseille/">
+              Découvrir
+              <span>→</span>
+            </a>
+
+            <a class="book-link" href="/reservation/"> Réserver </a>
+          </div>
+        </div>
+
+        <a href="/browlift-marseille/" class="look-image brow-image">
+          <img
+            src="/images/browlift.webp"
+            alt="Browlift à Marseille chez Appart & Beauté"
+          />
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* =====================================================
+     MOBILE FIRST
+     ===================================================== */
+
+  .look-section {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 40px 0 72px;
+
+    background: var(--color-bg-warm);
+  }
+
+  /* =====================================================
+     INTRO
+     ===================================================== */
+
+  .look-heading {
+    max-width: 580px;
+  }
+
+  .look-heading h2 {
+    margin-top: 14px;
+
+    font-size: clamp(3rem, 13vw, 4.1rem);
+
+    line-height: 0.95;
+  }
+
+  .look-heading h2 span {
+    display: block;
+
+    color: var(--color-terracotta);
+
+    font-style: italic;
+  }
+
+  .look-intro {
+    max-width: 510px;
+
+    margin-top: 22px;
+
+    font-size: 0.96rem;
+
+    line-height: 1.65;
+  }
+
+  /* =====================================================
+     COMPOSITION
+     ===================================================== */
+
+  .look-editorial {
+    position: relative;
+
+    margin-top: 38px;
+  }
+
+  .look-card {
+    position: relative;
+  }
+
+  /* =====================================================
+     IMAGES
+     ===================================================== */
+
+  .look-image {
+    position: relative;
+
+    display: block;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow-soft);
+  }
+
+  .look-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.65s ease;
+  }
+
+  .look-image:hover img {
+    transform: scale(1.035);
+  }
+
+  /* =====================================================
+     LASH LIFT
+     ===================================================== */
+
+  .lash-image {
+    width: calc(100% - 34px);
+    height: 350px;
+
+    border-radius: 105px 24px 24px 24px;
+  }
+
+  .lash-image img {
+    object-position: 61% 34%;
+
+    transform: scale(1.17);
+  }
+
+  .lash-image:hover img {
+    transform: scale(1.2);
+  }
+
+  .priority-badge {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    display: inline-flex;
+
+    min-height: 34px;
+
+    align-items: center;
+
+    padding: 7px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.55);
+
+    border-radius: 999px;
+
+    background: rgba(184, 101, 75, 0.88);
+
+    color: white;
+
+    font-size: 0.59rem;
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+
+    backdrop-filter: blur(6px);
+  }
+
+  /* =====================================================
+     BLOCS TEXTE
+     ===================================================== */
+
+  .look-content {
+    position: relative;
+
+    z-index: 3;
+
+    width: calc(100% - 30px);
+
+    padding: 26px 23px 25px;
+
+    border-radius: 26px;
+
+    background: rgba(255, 253, 251, 0.97);
+
+    box-shadow: var(--shadow-card);
+
+    backdrop-filter: blur(10px);
+  }
+
+  .lash-content {
+    margin-top: -32px;
+    margin-left: auto;
+  }
+
+  .look-type {
+    margin-bottom: 7px;
+
+    color: var(--color-terracotta-dark);
+
+    font-size: 0.67rem;
+    font-weight: 600;
+
+    letter-spacing: 0.17em;
+
+    text-transform: uppercase;
+  }
+
+  .look-content h3 {
+    font-size: 2.85rem;
+
+    line-height: 0.95;
+  }
+
+  .look-content h3 em {
+    display: inline-block;
+
+    color: var(--color-terracotta);
+
+    font-weight: 500;
+  }
+
+  .look-description {
+    margin-top: 17px;
+
+    font-size: 0.91rem;
+
+    line-height: 1.6;
+  }
+
+  /* =====================================================
+     ACTIONS
+     ===================================================== */
+
+  .look-actions {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 23px;
+  }
+
+  .look-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--color-terracotta-dark);
+
+    font-size: 0.87rem;
+    font-weight: 500;
+  }
+
+  .look-link span {
+    transition: transform 0.2s ease;
+  }
+
+  .look-link:hover span {
+    transform: translateX(5px);
+  }
+
+  .book-link {
+    padding-bottom: 2px;
+
+    border-bottom: 1px solid rgba(159, 83, 61, 0.4);
+
+    color: var(--color-text-soft);
+
+    font-size: 0.82rem;
+  }
+
+  /* =====================================================
+     REGARD
+     ===================================================== */
+
+  .look-word {
+    position: relative;
+
+    z-index: 0;
+
+    margin: 30px -10px 12px;
+
+    color: rgba(196, 119, 91, 0.075);
+
+    font-family: var(--font-title);
+
+    font-size: clamp(4.2rem, 19vw, 5.8rem);
+
+    letter-spacing: -0.06em;
+
+    line-height: 0.72;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* =====================================================
+     BROWLIFT
+     ===================================================== */
+
+  .brow-card {
+    display: flex;
+
+    flex-direction: column;
+
+    padding-top: 6px;
+  }
+
+  .brow-content {
+    order: 1;
+
+    width: calc(100% - 28px);
+
+    margin: 0 auto -48px 0;
+
+    border-radius: 28px 28px 28px 12px;
+  }
+
+  .brow-image {
+    order: 2;
+
+    z-index: 1;
+
+    width: calc(100% - 48px);
+    height: 330px;
+
+    margin-left: auto;
+
+    border-radius: 24px 24px 105px 24px;
+  }
+
+  .brow-image img {
+    object-position: center 26%;
+  }
+
+  /* =====================================================
+     PETITS MOBILES
+     ===================================================== */
+
+  @media (max-width: 390px) {
+    .look-section {
+      padding-bottom: 50px;
+    }
+
+    .look-heading h2 {
+      font-size: 2.85rem;
+    }
+
+    .look-intro {
+      font-size: 0.92rem;
+    }
+
+    .look-editorial {
+      margin-top: 34px;
+    }
+
+    .lash-image {
+      height: 330px;
+    }
+
+    .look-content {
+      padding: 24px 20px;
+    }
+
+    .look-content h3 {
+      font-size: 2.6rem;
+    }
+
+    .look-word {
+      margin: 26px -8px 10px;
+
+      font-size: 4.3rem;
+    }
+
+    .brow-content {
+      margin-bottom: -44px;
+    }
+
+    .brow-image {
+      height: 310px;
+    }
+  }
+
+  /* =====================================================
+     TABLETTE
+     ===================================================== */
+
+  @media (min-width: 700px) and (max-width: 999px) {
+    .look-section {
+      padding: 80px 0 95px;
+    }
+
+    .look-heading h2 {
+      font-size: 5rem;
+    }
+
+    .lash-card,
+    .brow-card {
+      max-width: 650px;
+    }
+
+    .brow-card {
+      margin-left: auto;
+    }
+
+    .look-word {
+      margin: 38px 0 20px;
+
+      font-size: 7rem;
+
+      text-align: center;
+    }
+  }
+
+  /* =====================================================
+     DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1000px) {
+    .look-section {
+      padding: 88px 0 105px;
+    }
+
+    /*
+     * Intro plus compacte.
+     */
+
+    .look-heading {
+      display: grid;
+
+      max-width: none;
+
+      grid-template-columns:
+        1fr
+        0.82fr;
+
+      column-gap: 70px;
+
+      align-items: end;
+    }
+
+    .look-heading .eyebrow {
+      grid-column: 1 / -1;
+    }
+
+    .look-heading h2 {
+      font-size: clamp(4.5rem, 5.5vw, 5.7rem);
+    }
+
+    .look-intro {
+      margin-top: 0;
+
+      padding-bottom: 5px;
+
+      font-size: 1rem;
+    }
+
+    /*
+     * Composition resserrée.
+     */
+
+    .look-editorial {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        0.1fr
+        minmax(0, 1fr);
+
+      align-items: center;
+
+      gap: 24px;
+
+      margin-top: 45px;
+    }
+
+    .lash-card,
+    .brow-card {
+      max-width: none;
+    }
+
+    /*
+     * REGARD devient une ponctuation
+     * beaucoup plus légère.
+     */
+
+    .look-word {
+      align-self: center;
+
+      margin: 0;
+
+      color: rgba(196, 119, 91, 0.07);
+
+      font-size: 5.2rem;
+
+      writing-mode: vertical-rl;
+
+      transform: rotate(180deg);
+    }
+
+    /* =========================
+       Lash desktop
+       ========================= */
+
+    .lash-image {
+      width: 94%;
+      height: 500px;
+
+      border-radius: 150px 30px 30px 30px;
+    }
+
+    .look-content {
+      width: 86%;
+
+      padding: 30px 28px;
+    }
+
+    .lash-content {
+      margin-top: -55px;
+      margin-left: auto;
+    }
+
+    .look-content h3 {
+      font-size: 3.45rem;
+    }
+
+    /* =========================
+       Brow desktop
+       ========================= */
+
+    .brow-card {
+      margin-top: 20px;
+      padding-top: 0;
+    }
+
+    .brow-content {
+      width: 89%;
+
+      margin: 0 auto -48px 0;
+
+      border-radius: 30px 30px 30px 14px;
+    }
+
+    .brow-image {
+      width: 93%;
+      height: 440px;
+
+      margin-left: auto;
+
+      border-radius: 30px 30px 150px 30px;
+    }
+
+    .brow-image img {
+      object-position: center 25%;
+    }
+  }
+
+  /* =====================================================
+     GRAND DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1400px) {
+    .look-section {
+      padding: 95px 0 115px;
+    }
+
+    .look-heading {
+      column-gap: 85px;
+    }
+
+    .look-editorial {
+      gap: 30px;
+
+      margin-top: 50px;
+    }
+
+    .look-word {
+      font-size: 5.6rem;
+    }
+
+    .lash-image {
+      height: 520px;
+    }
+
+    .brow-image {
+      height: 460px;
+    }
+  }
+</style>

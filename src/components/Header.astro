@@ -23,9 +23,11 @@ const navLinks = [
       {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
 
-    <a class="booking-button" href="/reservation/"> Réserver </a>
+    <div class="header-actions">
+      <a class="booking-button" href="/reservation/"> Réserver </a>
 
-    <MobileMenu links={navLinks} />
+      <MobileMenu links={navLinks} />
+    </div>
   </div>
 </header>
 
@@ -34,121 +36,147 @@ const navLinks = [
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 200;
+    z-index: 100;
+
     width: 100%;
-    padding: 24px 0;
+
+    padding: 14px 0;
+
+    background: rgba(255, 253, 251, 0.97);
+
+    border-bottom: 1px solid rgba(53, 39, 33, 0.05);
+
+    backdrop-filter: blur(12px);
   }
 
   .header-inner {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
+
+    gap: 12px;
   }
 
   .brand {
     display: flex;
+
     align-items: center;
+
     flex-shrink: 0;
   }
 
   .brand-logo {
     display: block;
-    width: 230px;
+
+    width: 135px;
     height: auto;
   }
 
   .desktop-nav {
+    display: none;
+  }
+
+  .header-actions {
     display: flex;
+
     align-items: center;
-    gap: 28px;
-    margin-left: auto;
+
+    gap: 8px;
   }
 
-  .desktop-nav a {
-    position: relative;
-    font-size: 0.92rem;
-  }
-
-  .desktop-nav a::after {
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--color-terracotta);
-    content: "";
-    transition: width 0.25s ease;
-  }
-
-  .desktop-nav a:hover::after {
-    width: 100%;
-  }
-
+  /* Pas de bouton Réserver dans le header mobile */
   .booking-button {
-    padding: 14px 26px;
-    border-radius: 999px;
-    background: var(--color-terracotta);
-    color: white;
-    font-size: 0.95rem;
-    font-weight: 500;
-
-    transition:
-      background 0.25s ease,
-      transform 0.25s ease;
+    display: none;
   }
 
-  .booking-button:hover {
-    background: var(--color-terracotta-dark);
-    transform: translateY(-1px);
-  }
-
-  @media (max-width: 900px) {
-    .desktop-nav {
-      display: none;
-    }
-
-    .header-inner {
-      gap: 12px;
+  @media (min-width: 600px) {
+    .site-header {
+      padding: 17px 0;
     }
 
     .brand-logo {
-      width: 160px;
+      width: 170px;
+    }
+  }
+
+  @media (min-width: 901px) {
+    .site-header {
+      padding: 20px 0;
     }
 
-    .booking-button {
+    .brand-logo {
+      width: 220px;
+    }
+
+    .desktop-nav {
+      display: flex;
+
+      align-items: center;
+
+      gap: 28px;
+
       margin-left: auto;
-      padding: 12px 20px;
+    }
+
+    .desktop-nav a {
+      position: relative;
+
       font-size: 0.9rem;
     }
 
-    .site-header {
-      padding: 18px 0;
-    }
-  }
+    .desktop-nav a::after {
+      position: absolute;
 
-  @media (max-width: 560px) {
-    .site-header {
-      padding: 16px 0;
+      bottom: -6px;
+      left: 0;
+
+      width: 0;
+      height: 1px;
+
+      background: var(--color-terracotta);
+
+      content: "";
+
+      transition: width 0.25s ease;
     }
 
-    .brand-logo {
-      width: 135px;
+    .desktop-nav a:hover::after {
+      width: 100%;
+    }
+
+    .header-actions {
+      margin-left: 14px;
     }
 
     .booking-button {
-      padding: 11px 18px;
-      font-size: 0.85rem;
-    }
-  }
+      display: inline-flex;
 
-  @media (max-width: 390px) {
-    .brand-logo {
-      width: 120px;
+      min-height: 46px;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 11px 25px;
+
+      border-radius: 999px;
+
+      background: var(--color-terracotta);
+
+      color: white;
+
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
     }
 
-    .booking-button {
-      padding: 10px 15px;
+    .booking-button:hover {
+      background: var(--color-terracotta-dark);
+
+      transform: translateY(-1px);
     }
   }
 </style>

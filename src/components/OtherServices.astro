@@ -1,0 +1,677 @@
+<section class="other-services" id="prestations">
+  <!--
+    Forme utilisée uniquement pour les cartes horizontales
+    mobile / tablette.
+  -->
+
+  <svg
+    class="shape-defs"
+    width="0"
+    height="0"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <defs>
+      <clipPath id="service-image-shape" clipPathUnits="objectBoundingBox">
+        <path
+          d="
+            M 0.09 0
+            H 1
+
+            C 0.93 0
+              0.87 0.055
+              0.87 0.12
+
+            V 0.88
+
+            C 0.87 0.945
+              0.815 1
+              0.75 1
+
+            H 0.09
+
+            C 0.04 1
+              0 0.96
+              0 0.91
+
+            V 0.09
+
+            C 0 0.04
+              0.04 0
+              0.09 0
+
+            Z
+          "
+        ></path>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <div class="container services-container">
+    <header class="services-heading">
+      <p class="eyebrow">Prendre soin de soi</p>
+
+      <h2>Nos prestations</h2>
+
+      <span class="heading-line" aria-hidden="true"></span>
+    </header>
+
+    <div class="services-list">
+      <!-- REGARD -->
+
+      <a class="service-card" href="/beaute-du-regard-marseille/">
+        <div class="service-image service-image-regard">
+          <img
+            src="/images/prestation-extensions.webp"
+            alt="Beauté du regard chez Appart & Beauté à Marseille"
+          />
+        </div>
+
+        <div class="service-content">
+          <div>
+            <p class="service-label">Cils & sourcils</p>
+
+            <h3>Regard</h3>
+          </div>
+
+          <span class="service-arrow" aria-hidden="true"> → </span>
+        </div>
+      </a>
+
+      <!-- ONGLERIE -->
+
+      <a class="service-card" href="/onglerie-marseille/">
+        <div class="service-image">
+          <img
+            src="/images/prestation-onglerie.webp"
+            alt="Onglerie chez Appart & Beauté à La Valentine"
+          />
+        </div>
+
+        <div class="service-content">
+          <div>
+            <p class="service-label">Beauté des mains</p>
+
+            <h3>Onglerie</h3>
+          </div>
+
+          <span class="service-arrow" aria-hidden="true"> → </span>
+        </div>
+      </a>
+
+      <!-- ÉPILATION -->
+
+      <a class="service-card" href="/epilation-marseille/">
+        <div class="service-image">
+          <img
+            src="/images/prestation-epilation.webp"
+            alt="Épilation chez Appart & Beauté à La Valentine Marseille 11e"
+          />
+        </div>
+
+        <div class="service-content">
+          <div>
+            <p class="service-label">Douceur & soin</p>
+
+            <h3>Épilation</h3>
+          </div>
+
+          <span class="service-arrow" aria-hidden="true"> → </span>
+        </div>
+      </a>
+    </div>
+
+    <div class="services-bottom">
+      <a href="/prestations/" class="all-services">
+        Découvrir toutes les prestations
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* =====================================================
+     SVG INVISIBLE
+     ===================================================== */
+
+  .shape-defs {
+    position: absolute;
+
+    width: 0;
+    height: 0;
+
+    overflow: hidden;
+  }
+
+  /* =====================================================
+     MOBILE FIRST
+     ===================================================== */
+
+  .other-services {
+    padding: 45px 0 70px;
+
+    background: var(--color-bg-soft);
+  }
+
+  .services-container {
+    max-width: 1180px;
+  }
+
+  /* =====================================================
+     TITRE
+     ===================================================== */
+
+  .services-heading {
+    margin-bottom: 30px;
+  }
+
+  .services-heading h2 {
+    margin-top: 8px;
+
+    color: var(--color-text);
+
+    font-family: var(--font-title);
+
+    font-size: clamp(2.8rem, 11vw, 3.8rem);
+
+    font-weight: 500;
+
+    line-height: 1;
+  }
+
+  .heading-line {
+    display: block;
+
+    width: 52px;
+    height: 2px;
+
+    margin-top: 17px;
+
+    background: var(--color-terracotta);
+  }
+
+  /* =====================================================
+     LISTE
+     ===================================================== */
+
+  .services-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+  /* =====================================================
+     CARTE MOBILE
+     ===================================================== */
+
+  .service-card {
+    display: grid;
+
+    height: 135px;
+
+    grid-template-columns:
+      48%
+      52%;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(159, 83, 61, 0.06);
+
+    border-radius: 28px;
+
+    background: #f3e6dc;
+
+    box-shadow: 0 10px 28px rgba(86, 54, 42, 0.055);
+
+    transition:
+      transform 0.28s ease,
+      box-shadow 0.28s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 16px 36px rgba(86, 54, 42, 0.09);
+  }
+
+  /* =====================================================
+     IMAGE MOBILE
+     ===================================================== */
+
+  .service-image {
+    position: relative;
+
+    width: 100%;
+    min-height: 135px;
+
+    overflow: hidden;
+
+    -webkit-clip-path: url("#service-image-shape");
+
+    clip-path: url("#service-image-shape");
+  }
+
+  .service-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.55s ease;
+  }
+
+  .service-card:hover .service-image img {
+    transform: scale(1.045);
+  }
+
+  /* =====================================================
+     PHOTO REGARD
+     ===================================================== */
+
+  .service-image-regard img {
+    object-position: 61% 38%;
+
+    transform: scale(1.08);
+  }
+
+  .service-card:hover .service-image-regard img {
+    transform: scale(1.12);
+  }
+
+  /* =====================================================
+     CONTENU
+     ===================================================== */
+
+  .service-content {
+    position: relative;
+
+    display: flex;
+
+    min-width: 0;
+
+    align-items: center;
+
+    /*
+     * La flèche est désormais en position absolue.
+     * On réserve donc simplement sa place à droite.
+     */
+
+    padding: 20px 57px 20px 23px;
+  }
+
+  .service-label {
+    margin-bottom: 7px;
+
+    color: var(--color-terracotta-dark);
+
+    font-size: 0.55rem;
+    font-weight: 600;
+
+    letter-spacing: 0.13em;
+
+    line-height: 1.3;
+
+    text-transform: uppercase;
+  }
+
+  .service-content h3 {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-family: var(--font-title);
+
+    font-size: clamp(1.6rem, 7vw, 2rem);
+
+    font-weight: 500;
+
+    line-height: 1.02;
+  }
+
+  /* =====================================================
+     FLÈCHE
+     ===================================================== */
+
+  .service-arrow {
+    position: absolute;
+
+    right: 14px;
+    bottom: 14px;
+
+    display: flex;
+
+    width: 36px;
+    height: 36px;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 50%;
+
+    background: var(--color-terracotta);
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 1rem;
+    font-weight: 300;
+
+    line-height: 1;
+
+    box-shadow: 0 4px 12px rgba(159, 83, 61, 0.14);
+
+    transition:
+      background 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .service-card:hover .service-arrow {
+    background: var(--color-terracotta-dark);
+
+    transform: translateX(3px);
+  }
+
+  /* =====================================================
+     LIEN FINAL
+     ===================================================== */
+
+  .services-bottom {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 25px;
+  }
+
+  .all-services {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding-bottom: 3px;
+
+    border-bottom: 1px solid rgba(159, 83, 61, 0.32);
+
+    color: var(--color-terracotta-dark);
+
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .all-services span {
+    transition: transform 0.25s ease;
+  }
+
+  .all-services:hover span {
+    transform: translateX(4px);
+  }
+
+  /* =====================================================
+     PETITS MOBILES
+     ===================================================== */
+
+  @media (max-width: 390px) {
+    .other-services {
+      padding: 55px 0 62px;
+    }
+
+    .service-card {
+      height: 122px;
+
+      grid-template-columns:
+        42%
+        58%;
+
+      border-radius: 26px;
+    }
+
+    .service-image {
+      min-height: 122px;
+    }
+
+    .service-content {
+      padding: 17px 51px 17px 18px;
+    }
+
+    .service-content h3 {
+      font-size: 1.5rem;
+    }
+
+    .service-label {
+      font-size: 0.51rem;
+    }
+
+    .service-arrow {
+      right: 12px;
+      bottom: 12px;
+
+      width: 33px;
+      height: 33px;
+
+      font-size: 0.92rem;
+    }
+  }
+
+  /* =====================================================
+     TABLETTE
+     ===================================================== */
+
+  @media (min-width: 700px) and (max-width: 999px) {
+    .other-services {
+      padding: 75px 0 84px;
+    }
+
+    .services-heading {
+      margin-bottom: 36px;
+    }
+
+    .services-heading h2 {
+      font-size: 4rem;
+    }
+
+    .heading-line {
+      width: 64px;
+    }
+
+    .services-list {
+      gap: 18px;
+    }
+
+    .service-card {
+      height: 165px;
+
+      grid-template-columns:
+        42%
+        58%;
+
+      border-radius: 30px;
+    }
+
+    .service-image {
+      min-height: 165px;
+    }
+
+    .service-content {
+      padding: 26px 72px 26px 32px;
+    }
+
+    .service-content h3 {
+      font-size: 2.35rem;
+    }
+
+    .service-label {
+      font-size: 0.59rem;
+    }
+
+    .service-arrow {
+      right: 20px;
+      bottom: 20px;
+
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  /* =====================================================
+     DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1000px) {
+    .other-services {
+      padding: 88px 0 96px;
+    }
+
+    .services-heading {
+      margin-bottom: 40px;
+    }
+
+    .services-heading h2 {
+      font-size: 4.5rem;
+    }
+
+    .heading-line {
+      width: 68px;
+    }
+
+    .services-list {
+      display: grid;
+
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      gap: 22px;
+    }
+
+    .service-card {
+      display: flex;
+
+      height: auto;
+      min-height: 0;
+
+      flex-direction: column;
+
+      overflow: hidden;
+
+      border-radius: 32px;
+    }
+
+    .service-image {
+      flex: 0 0 265px;
+
+      width: 100%;
+      height: 265px;
+      min-height: 265px;
+
+      border-radius: 31px 31px 0 0;
+
+      -webkit-clip-path: none;
+      clip-path: none;
+    }
+
+    .service-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .service-image-regard img {
+      object-position: 61% 35%;
+
+      transform: scale(1.08);
+    }
+
+    /*
+     * Zone crème sous la photo.
+     */
+
+    .service-content {
+      flex: 1;
+
+      min-height: 138px;
+
+      align-items: center;
+
+      padding: 24px 75px 25px 27px;
+    }
+
+    .service-label {
+      margin-bottom: 8px;
+
+      font-size: 0.58rem;
+    }
+
+    .service-content h3 {
+      font-size: 2.35rem;
+    }
+
+    /*
+     * Sur desktop la flèche reste en bas à droite,
+     * mais légèrement plus grande.
+     */
+
+    .service-arrow {
+      right: 22px;
+      bottom: 22px;
+
+      width: 42px;
+      height: 42px;
+
+      font-size: 1.05rem;
+    }
+
+    .services-bottom {
+      margin-top: 28px;
+    }
+  }
+
+  /* =====================================================
+     GRAND DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1400px) {
+    .services-list {
+      gap: 26px;
+    }
+
+    .service-card {
+      border-radius: 34px;
+    }
+
+    .service-image {
+      flex-basis: 290px;
+
+      height: 290px;
+      min-height: 290px;
+
+      border-radius: 33px 33px 0 0;
+    }
+
+    .service-content {
+      min-height: 145px;
+
+      padding: 26px 78px 27px 30px;
+    }
+
+    .service-content h3 {
+      font-size: 2.55rem;
+    }
+
+    .service-arrow {
+      right: 24px;
+      bottom: 24px;
+
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>

@@ -2,16 +2,19 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
-import LashLiftFeature from "../components/LashLiftFeature.astro";
-import Services from "../components/Services.astro";
+import LookSignature from "../components/LookSignature.astro";
+import OtherServices from "../components/OtherServices.astro";
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Institut de beauté La Valentine Marseille 11 | Appart & Beauté"
+  description="Appart & Beauté, institut de beauté à La Valentine, Marseille 11e : Lash Lift Coréen, browlift, extensions de cils, onglerie et épilation."
+>
   <Header />
 
   <main>
     <Hero />
-    <LashLiftFeature />
-    <Services />
+    <LookSignature />
+    <OtherServices />
   </main>
 </BaseLayout>
