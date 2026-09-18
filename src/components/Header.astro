@@ -1,112 +1,179 @@
 ---
 import MobileMenu from "./MobileMenu.astro";
 
-const navLinks = [
-  { label: "Prestations", href: "/#prestations" },
-  { label: "L'institut", href: "/#institut" },
-  { label: "Tarifs", href: "/#tarifs" },
-  { label: "Contact", href: "/#contact" },
+const links = [
+  {
+    label: "Prestations",
+    href: "/prestations/",
+  },
+  {
+    label: "L’institut",
+    href: "/institut/",
+  },
+  {
+    label: "Tarifs",
+    href: "/tarifs/",
+  },
+  {
+    label: "Contact",
+    href: "/contact/",
+  },
 ];
 ---
 
-<header class="site-header">
-  <div class="container header-inner">
-    <a href="/" class="brand" aria-label="Appart & Beauté - Accueil">
-      <img
-        src="/logo/logo-appart-beaute.svg"
-        alt="Appart & Beauté Institut"
-        class="brand-logo"
-      />
+<header class="site-header" data-site-header>
+  <div class="header-shell">
+    <a href="/" class="header-logo" aria-label="Appart & Beauté - Accueil">
+      <img src="/logo/logo-appart-beaute.svg" alt="Appart & Beauté" />
     </a>
 
+    <!-- DESKTOP -->
+
     <nav class="desktop-nav" aria-label="Navigation principale">
-      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
 
-    <div class="header-actions">
-      <a class="booking-button" href="/reservation/"> Réserver </a>
+    <a href="/reservation/" class="desktop-booking">
+      Réserver
+      <span>→</span>
+    </a>
 
-      <MobileMenu links={navLinks} />
-    </div>
+    <!-- MOBILE -->
+
+    <MobileMenu links={links} />
   </div>
 </header>
 
+<script>
+  const header = document.querySelector("[data-site-header]");
+
+  const updateHeader = () => {
+    if (!(header instanceof HTMLElement)) {
+      return;
+    }
+
+    header.classList.toggle("is-scrolled", window.scrollY > 30);
+  };
+
+  updateHeader();
+
+  window.addEventListener("scroll", updateHeader, { passive: true });
+</script>
+
 <style>
+  /* =====================================================
+     HEADER
+     ===================================================== */
+
   .site-header {
-    position: absolute;
+    position: fixed;
+
+    z-index: 1000;
+
     top: 0;
     left: 0;
-    z-index: 100;
 
     width: 100%;
 
-    padding: 14px 0;
+    padding: 11px 14px;
 
-    background: rgba(255, 253, 251, 0.97);
-
-    border-bottom: 1px solid rgba(53, 39, 33, 0.05);
-
-    backdrop-filter: blur(12px);
+    transition: padding 0.3s ease;
   }
 
-  .header-inner {
+  .header-shell {
     display: flex;
+
+    width: 100%;
+    max-width: 1440px;
+
+    min-height: 58px;
 
     align-items: center;
     justify-content: space-between;
 
-    gap: 12px;
+    margin-inline: auto;
+
+    padding: 0 3px;
+
+    border: 1px solid transparent;
+
+    border-radius: 22px;
+
+    background: transparent;
+
+    transition:
+      min-height 0.3s ease,
+      padding 0.3s ease,
+      background 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
-  .brand {
-    display: flex;
+  /* =====================================================
+     LOGO
+     ===================================================== */
 
-    align-items: center;
-
-    flex-shrink: 0;
-  }
-
-  .brand-logo {
+  .header-logo {
     display: block;
 
-    width: 135px;
+    width: 138px;
+
+    transition: width 0.3s ease;
+  }
+
+  .header-logo img {
+    display: block;
+
+    width: 100%;
     height: auto;
   }
 
-  .desktop-nav {
+  /* =====================================================
+     SCROLL
+     ===================================================== */
+
+  .site-header.is-scrolled {
+    padding: 7px 10px;
+  }
+
+  .site-header.is-scrolled .header-shell {
+    min-height: 54px;
+
+    padding: 0 8px 0 12px;
+
+    border-color: rgba(159, 83, 61, 0.1);
+
+    background: rgba(250, 245, 240, 0.97);
+
+    box-shadow: 0 8px 25px rgba(64, 43, 34, 0.08);
+  }
+
+  .site-header.is-scrolled .header-logo {
+    width: 116px;
+  }
+
+  /* =====================================================
+     DESKTOP
+     ===================================================== */
+
+  .desktop-nav,
+  .desktop-booking {
     display: none;
-  }
-
-  .header-actions {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-  }
-
-  /* Pas de bouton Réserver dans le header mobile */
-  .booking-button {
-    display: none;
-  }
-
-  @media (min-width: 600px) {
-    .site-header {
-      padding: 17px 0;
-    }
-
-    .brand-logo {
-      width: 170px;
-    }
   }
 
   @media (min-width: 901px) {
     .site-header {
-      padding: 20px 0;
+      padding: 14px 30px;
     }
 
-    .brand-logo {
-      width: 220px;
+    .header-shell {
+      min-height: 66px;
+
+      padding: 0 10px;
+    }
+
+    .header-logo {
+      width: 205px;
     }
 
     .desktop-nav {
@@ -114,50 +181,62 @@ const navLinks = [
 
       align-items: center;
 
-      gap: 28px;
+      gap: 34px;
 
       margin-left: auto;
+      margin-right: 32px;
     }
 
     .desktop-nav a {
       position: relative;
 
-      font-size: 0.9rem;
+      color: var(--color-text);
+
+      font-size: 0.76rem;
+      font-weight: 500;
+
+      letter-spacing: 0.06em;
+
+      text-transform: uppercase;
     }
 
     .desktop-nav a::after {
       position: absolute;
 
-      bottom: -6px;
+      right: 0;
+      bottom: -7px;
       left: 0;
 
-      width: 0;
       height: 1px;
 
       background: var(--color-terracotta);
 
       content: "";
 
-      transition: width 0.25s ease;
+      transform: scaleX(0);
+
+      transform-origin: right;
+
+      transition: transform 0.25s ease;
     }
 
     .desktop-nav a:hover::after {
-      width: 100%;
+      transform: scaleX(1);
+
+      transform-origin: left;
     }
 
-    .header-actions {
-      margin-left: 14px;
-    }
-
-    .booking-button {
+    .desktop-booking {
       display: inline-flex;
 
-      min-height: 46px;
+      min-height: 45px;
 
       align-items: center;
       justify-content: center;
 
-      padding: 11px 25px;
+      gap: 13px;
+
+      padding: 11px 19px;
 
       border-radius: 999px;
 
@@ -165,18 +244,36 @@ const navLinks = [
 
       color: white;
 
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 0.71rem;
+      font-weight: 600;
+
+      letter-spacing: 0.07em;
+
+      text-transform: uppercase;
 
       transition:
         background 0.25s ease,
         transform 0.25s ease;
     }
 
-    .booking-button:hover {
+    .desktop-booking:hover {
       background: var(--color-terracotta-dark);
 
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+    }
+
+    .site-header.is-scrolled {
+      padding: 8px 24px;
+    }
+
+    .site-header.is-scrolled .header-shell {
+      min-height: 58px;
+
+      padding: 0 13px 0 17px;
+    }
+
+    .site-header.is-scrolled .header-logo {
+      width: 170px;
     }
   }
 </style>

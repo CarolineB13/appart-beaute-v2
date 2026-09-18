@@ -25,21 +25,68 @@ const { links } = Astro.props;
 
   <div class="menu-panel" id="mobile-navigation">
     <div class="menu-content">
-      <p class="menu-eyebrow">Appart & Beauté</p>
+      <!-- HAUT -->
 
-      <nav aria-label="Navigation mobile">
-        {
-          links.map((link) => (
-            <a href={link.href} class="mobile-link">
-              {link.label}
-            </a>
-          ))
-        }
-      </nav>
+      <div class="menu-top">
+        <a href="/" class="menu-logo" aria-label="Appart & Beauté - Accueil">
+          <img src="/logo/logo-appart-beaute.svg" alt="" />
+        </a>
+      </div>
 
-      <a href="/reservation/" class="mobile-booking"> Prendre rendez-vous </a>
+      <!-- NAVIGATION -->
 
-      <p class="menu-location">La Valentine · Marseille 11e</p>
+      <div class="menu-main">
+        <p class="menu-eyebrow">Prendre soin de soi</p>
+
+        <nav aria-label="Navigation mobile">
+          {
+            links.map((link) => (
+              <a href={link.href} class="mobile-link">
+                <span>{link.label}</span>
+
+                <i class="menu-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H16.5" />
+
+                    <path d="M12.5 7.8C14.2 9.1 15.7 10.5 18 12C15.7 13.5 14.2 14.9 12.5 16.2" />
+                  </svg>
+                </i>
+              </a>
+            ))
+          }
+        </nav>
+
+        <!-- CTA -->
+
+        <a href="/reservation/" class="mobile-booking">
+          <span> Prendre rendez-vous </span>
+
+          <i class="booking-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 12H16.5"></path>
+
+              <path
+                d="M12.5 7.8C14.2 9.1 15.7 10.5 18 12C15.7 13.5 14.2 14.9 12.5 16.2"
+              ></path>
+            </svg>
+          </i>
+        </a>
+      </div>
+
+      <!-- TEXTE MANUSCRIT -->
+
+      <p class="menu-handwritten" aria-hidden="true">
+        Un moment
+        <span>pour vous.</span>
+      </p>
+
+      <!-- BAS -->
+
+      <p class="menu-location">
+        <span> Institut de beauté </span>
+
+        La Valentine · Marseille 11e
+      </p>
     </div>
   </div>
 </div>
@@ -49,15 +96,22 @@ const { links } = Astro.props;
 
   menus.forEach((menu) => {
     const toggle = menu.querySelector(".menu-toggle");
+
     const panel = menu.querySelector(".menu-panel");
-    const links = menu.querySelectorAll(".mobile-link");
+
+    const links = menu.querySelectorAll(
+      ".mobile-link, .mobile-booking, .menu-logo",
+    );
 
     if (!(toggle instanceof HTMLButtonElement)) return;
+
     if (!(panel instanceof HTMLElement)) return;
 
     const openMenu = () => {
       menu.classList.add("is-open");
+
       toggle.setAttribute("aria-expanded", "true");
+
       toggle.setAttribute("aria-label", "Fermer le menu");
 
       document.body.style.overflow = "hidden";
@@ -65,7 +119,9 @@ const { links } = Astro.props;
 
     const closeMenu = () => {
       menu.classList.remove("is-open");
+
       toggle.setAttribute("aria-expanded", "false");
+
       toggle.setAttribute("aria-label", "Ouvrir le menu");
 
       document.body.style.overflow = "";
@@ -96,124 +152,453 @@ const { links } = Astro.props;
     display: none;
   }
 
+  /* =====================================================
+     MOBILE
+     ===================================================== */
+
   @media (max-width: 900px) {
     .mobile-menu {
       display: block;
     }
 
+    /* ===================================================
+       BOUTON
+       =================================================== */
+
     .menu-toggle {
       position: relative;
-      z-index: 101;
+
+      z-index: 1002;
+
       display: flex;
-      width: 44px;
-      height: 44px;
+
+      width: 46px;
+      height: 46px;
+
       flex-direction: column;
+
       align-items: center;
       justify-content: center;
+
       gap: 7px;
-      border: 0;
+
+      padding: 0;
+
+      border: 1px solid rgba(159, 83, 61, 0.15);
+
       border-radius: 50%;
-      background: rgba(255, 253, 251, 0.65);
-      color: var(--color-text);
+
+      background: var(--color-terracotta);
+
+      color: white;
+
+      box-shadow: 0 6px 18px rgba(159, 83, 61, 0.2);
+
       cursor: pointer;
-      backdrop-filter: blur(10px);
+
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .menu-toggle:hover {
+      transform: scale(1.04);
     }
 
     .menu-toggle span {
-      width: 19px;
+      display: block;
+
       height: 1.5px;
+
+      border-radius: 999px;
+
       background: currentColor;
+
       transition:
+        width 0.3s ease,
         transform 0.3s ease,
-        opacity 0.3s ease;
+        margin 0.3s ease;
     }
 
+    .menu-toggle span:first-child {
+      width: 20px;
+    }
+
+    .menu-toggle span:last-child {
+      width: 14px;
+
+      margin-left: 6px;
+    }
+
+    /* ===================================================
+       CROIX
+       =================================================== */
+
     .is-open .menu-toggle span:first-child {
+      width: 20px;
+
       transform: translateY(4.25px) rotate(45deg);
     }
 
     .is-open .menu-toggle span:last-child {
+      width: 20px;
+
+      margin-left: 0;
+
       transform: translateY(-4.25px) rotate(-45deg);
     }
 
+    /* ===================================================
+       PANEL
+       =================================================== */
+
     .menu-panel {
       position: fixed;
+
+      z-index: 1001;
+
       inset: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
+
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+
+      overflow: hidden;
+
+      visibility: hidden;
+
       background:
         radial-gradient(
           circle at 100% 0%,
-          rgba(219, 169, 147, 0.4),
-          transparent 42%
+          rgba(211, 146, 117, 0.22),
+          transparent 35%
         ),
-        var(--color-bg-soft);
+        #f7eee7;
 
       opacity: 0;
+
       pointer-events: none;
-      transform: translateY(-12px);
 
       transition:
         opacity 0.3s ease,
-        transform 0.3s ease;
+        visibility 0.3s ease;
     }
 
     .is-open .menu-panel {
+      visibility: visible;
+
       opacity: 1;
+
       pointer-events: auto;
-      transform: translateY(0);
     }
 
+    /* ===================================================
+       STRUCTURE
+       =================================================== */
+
     .menu-content {
-      width: min(100% - 48px, 520px);
-      margin-inline: auto;
+      position: relative;
+
+      z-index: 2;
+
+      display: flex;
+
+      width: 100%;
+      height: 100%;
+
+      flex-direction: column;
+
+      padding: 17px 24px 22px;
+    }
+
+    /* ===================================================
+       LOGO
+       =================================================== */
+
+    .menu-top {
+      display: flex;
+
+      min-height: 50px;
+
+      align-items: center;
+
+      padding-right: 60px;
+    }
+
+    .menu-logo {
+      display: block;
+
+      width: 138px;
+    }
+
+    .menu-logo img {
+      display: block;
+
+      width: 100%;
+      height: auto;
+    }
+
+    /* ===================================================
+       NAVIGATION
+       =================================================== */
+
+    .menu-main {
+      margin-top: clamp(46px, 8vh, 70px);
     }
 
     .menu-eyebrow {
-      margin-bottom: 28px;
+      margin-bottom: 18px;
+
       color: var(--color-terracotta-dark);
-      font-size: 0.72rem;
+
+      font-size: 0.61rem;
       font-weight: 600;
+
       letter-spacing: 0.2em;
+
       text-transform: uppercase;
     }
 
     nav {
       display: flex;
+
       flex-direction: column;
+
+      border-top: 1px solid rgba(72, 51, 42, 0.12);
     }
 
     .mobile-link {
-      padding: 9px 0;
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 13px 1px;
+
+      border-bottom: 1px solid rgba(72, 51, 42, 0.12);
+
+      color: var(--color-text);
+
+      transition: color 0.25s ease;
+    }
+
+    .mobile-link > span {
       font-family: var(--font-title);
-      font-size: clamp(2.4rem, 9vw, 4rem);
-      line-height: 1.05;
+
+      font-size: clamp(2.4rem, 10vw, 3.5rem);
+
+      font-weight: 500;
+
+      line-height: 1;
+    }
+
+    /* ===================================================
+       FLÈCHES DESSINÉES
+       =================================================== */
+
+    .menu-arrow {
+      display: flex;
+
+      width: 38px;
+      height: 38px;
+
+      flex: 0 0 auto;
+
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid rgba(196, 119, 91, 0.22);
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.25);
+
+      color: var(--color-terracotta);
+
+      font-style: normal;
+
       transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .menu-arrow svg {
+      width: 17px;
+      height: 17px;
+
+      stroke: currentColor;
+
+      stroke-width: 1.55;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .mobile-link:hover {
-      color: var(--color-terracotta);
-      transform: translateX(5px);
+      color: var(--color-terracotta-dark);
+    }
+
+    .mobile-link:hover .menu-arrow {
+      border-color: rgba(196, 119, 91, 0.42);
+
+      background: rgba(196, 119, 91, 0.08);
+
+      transform: translateX(3px);
+    }
+
+    /* ===================================================
+       RÉSERVATION
+       =================================================== */
+
+    .mobile-booking {
+      display: flex;
+
+      width: 100%;
+      min-height: 55px;
+
+      align-items: center;
+      justify-content: space-between;
+
+      margin-top: 34px;
+
+      padding: 13px 20px 13px 22px;
+
+      border-radius: 999px;
+
+      background: var(--color-terracotta);
+
+      color: white;
+
+      font-size: 0.72rem;
+      font-weight: 600;
+
+      letter-spacing: 0.07em;
+
+      text-transform: uppercase;
+
+      box-shadow: 0 8px 22px rgba(159, 83, 61, 0.16);
+
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .mobile-booking:hover {
+      background: var(--color-terracotta-dark);
+
+      transform: translateY(-2px);
+    }
+
+    .booking-arrow {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+
+      font-style: normal;
+    }
+
+    .booking-arrow svg {
+      width: 19px;
+      height: 19px;
+
+      stroke: currentColor;
+
+      stroke-width: 1.6;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ===================================================
+       TEXTE MANUSCRIT
+       =================================================== */
+
+    .menu-handwritten {
+      margin: auto 0 auto;
+
+      padding-left: 8px;
+
+      color: rgba(196, 119, 91, 0.74);
+
+      font-family: var(--font-handwritten-ms-madi);
+
+      font-size: clamp(3.6rem, 16vw, 5.3rem);
+
+      line-height: 0.72;
+
+      transform: rotate(-4deg);
+
+      pointer-events: none;
+    }
+
+    .menu-handwritten span {
+      display: block;
+
+      margin-left: 32px;
+    }
+
+    /* ===================================================
+       LOCALISATION
+       =================================================== */
+
+    .menu-location {
+      margin: 0;
+
+      color: var(--color-text-soft);
+
+      font-size: 0.75rem;
+
+      line-height: 1.5;
+    }
+
+    .menu-location span {
+      display: block;
+
+      margin-bottom: 3px;
+
+      color: var(--color-terracotta-dark);
+
+      font-size: 0.52rem;
+      font-weight: 600;
+
+      letter-spacing: 0.16em;
+
+      text-transform: uppercase;
+    }
+  }
+
+  /* =====================================================
+     PETITS ÉCRANS EN HAUTEUR
+     ===================================================== */
+
+  @media (max-width: 900px) and (max-height: 700px) {
+    .menu-main {
+      margin-top: 25px;
+    }
+
+    .mobile-link {
+      padding: 8px 1px;
+    }
+
+    .mobile-link > span {
+      font-size: 2.1rem;
     }
 
     .mobile-booking {
-      display: inline-flex;
-      margin-top: 38px;
-      padding: 15px 24px;
-      border-radius: 999px;
-      background: var(--color-terracotta);
-      color: white;
-      font-size: 0.9rem;
-      font-weight: 500;
+      margin-top: 22px;
+    }
+
+    .menu-handwritten {
+      font-size: 3rem;
     }
 
     .menu-location {
-      margin-top: 30px;
-      color: var(--color-text-soft);
-      font-size: 0.82rem;
+      display: none;
     }
   }
 </style>
