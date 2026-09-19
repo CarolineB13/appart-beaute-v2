@@ -1,0 +1,418 @@
+---
+const photos = [
+  {
+    desktop: "/images/institut/institut-principale-desktop.webp",
+    mobile: "/images/institut/institut-principale-mobile.webp",
+    alt: "Vue générale de l’institut Appart & Beauté avec cheminée, coin détente et espace onglerie.",
+  },
+  {
+    desktop: "/images/institut/institut-onglerie-desktop.webp",
+    mobile: "/images/institut/institut-onglerie-mobile.webp",
+    alt: "Espace onglerie lumineux avec décoration en pampas.",
+  },
+  {
+    desktop: "/images/institut/institut-cabine-desktop.webp",
+    mobile: "/images/institut/institut-cabine-mobile.webp",
+    alt: "Cabine de soins lumineuse dans des tons naturels et chaleureux.",
+  },
+  {
+    desktop: "/images/institut/institut-detail-desktop.webp",
+    mobile: "/images/institut/institut-detail-mobile.webp",
+    alt: "Détail de l’espace onglerie et de la décoration pampas.",
+  },
+];
+---
+
+<section id="institut" class="institut">
+  <div class="institut__inner">
+    <div class="institut__content">
+      <p class="institut__script">L’institut</p>
+
+      <h2>Un lieu doux, chaleureux et intimiste</h2>
+
+      <p class="institut__lead">
+        Appart & Beauté vous accueille dans un univers pensé comme une
+        parenthèse : des matières naturelles, des tons doux et une ambiance
+        chaleureuse pour profiter pleinement de votre rendez-vous.
+      </p>
+
+      <p class="institut__text">
+        Du coin onglerie à la cabine de soins, chaque espace a été imaginé pour
+        que vous vous sentiez bien, tout simplement.
+      </p>
+
+      <a class="institut__link" href="/linstitut">
+        Découvrir l’institut
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="institut__media">
+      <div class="institut__carousel" data-institut-carousel>
+        <div class="institut__track" data-institut-track>
+          {
+            photos.map((photo, index) => (
+              <figure class="institut__slide" data-slide>
+                <picture>
+                  <source media="(max-width: 768px)" srcset={photo.mobile} />
+                  <img
+                    src={photo.desktop}
+                    alt={photo.alt}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    width="1600"
+                    height="1200"
+                  />
+                </picture>
+              </figure>
+            ))
+          }
+        </div>
+
+        <div class="institut__controls">
+          <div class="institut__dots" aria-label="Choisir une photo">
+            {
+              photos.map((_, index) => (
+                <button
+                  class:list={["institut__dot", { "is-active": index === 0 }]}
+                  type="button"
+                  aria-label={`Afficher la photo ${index + 1}`}
+                  data-dot={index}
+                />
+              ))
+            }
+          </div>
+
+          <div class="institut__arrows">
+            <button
+              class="institut__arrow"
+              type="button"
+              aria-label="Photo précédente"
+              data-prev
+            >
+              ←
+            </button>
+            <button
+              class="institut__arrow"
+              type="button"
+              aria-label="Photo suivante"
+              data-next
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll("[data-institut-carousel]").forEach((carousel) => {
+    const track = carousel.querySelector("[data-institut-track]");
+    const slides = [...carousel.querySelectorAll("[data-slide]")];
+    const dots = [...carousel.querySelectorAll("[data-dot]")];
+    const prev = carousel.querySelector("[data-prev]");
+    const next = carousel.querySelector("[data-next]");
+
+    if (!track || slides.length === 0) return;
+
+    let current = 0;
+
+    const updateDots = (index) => {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("is-active", i === index);
+        dot.setAttribute("aria-current", i === index ? "true" : "false");
+      });
+    };
+
+    const goTo = (index) => {
+      current = (index + slides.length) % slides.length;
+      slides[current].scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+      updateDots(current);
+    };
+
+    prev?.addEventListener("click", () => goTo(current - 1));
+    next?.addEventListener("click", () => goTo(current + 1));
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => goTo(index));
+    });
+
+    let ticking = false;
+
+    track.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+
+        ticking = true;
+        requestAnimationFrame(() => {
+          const trackLeft = track.getBoundingClientRect().left;
+          let nearestIndex = 0;
+          let nearestDistance = Infinity;
+
+          slides.forEach((slide, index) => {
+            const distance = Math.abs(
+              slide.getBoundingClientRect().left - trackLeft,
+            );
+            if (distance < nearestDistance) {
+              nearestDistance = distance;
+              nearestIndex = index;
+            }
+          });
+
+          if (nearestIndex !== current) {
+            current = nearestIndex;
+            updateDots(current);
+          }
+
+          ticking = false;
+        });
+      },
+      { passive: true },
+    );
+  });
+</script>
+
+<style>
+  .institut {
+    --institut-bg: var(--color-cream, #faf6f1);
+    --institut-text: var(--color-text, #3b2925);
+    --institut-muted: var(--color-muted, #705f58);
+    --institut-accent: var(--color-terracotta, #b66f56);
+    --institut-accent-soft: var(--color-terracotta-soft, #d7a18d);
+
+    padding: clamp(5rem, 8vw, 8rem) 1.25rem;
+    background: var(--institut-bg);
+  }
+
+  .institut__inner {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.35fr);
+    gap: clamp(3rem, 7vw, 6.5rem);
+    align-items: center;
+  }
+
+  .institut__content {
+    max-width: 460px;
+  }
+
+  .institut__script {
+    margin: 0 0 0.35rem;
+    color: var(--institut-accent);
+    font-family: "Ms Madi", cursive;
+    font-size: clamp(2.1rem, 3.4vw, 3rem);
+    line-height: 1;
+  }
+
+  .institut h2 {
+    margin: 0 0 1.35rem;
+    color: var(--institut-text);
+    font: inherit;
+    font-family: var(--font-heading, inherit);
+    font-size: clamp(2rem, 3.2vw, 3.15rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  .institut__lead,
+  .institut__text {
+    margin: 0;
+    color: var(--institut-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .institut__text {
+    margin-top: 0.8rem;
+  }
+
+  .institut__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 1.75rem;
+    color: var(--institut-text);
+    font-size: 0.93rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid var(--institut-accent-soft);
+    padding-bottom: 0.28rem;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      gap 180ms ease;
+  }
+
+  .institut__link:hover {
+    color: var(--institut-accent);
+    border-color: var(--institut-accent);
+    gap: 0.85rem;
+  }
+
+  .institut__media {
+    min-width: 0;
+  }
+
+  .institut__carousel {
+    position: relative;
+  }
+
+  .institut__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    border-radius: 1.5rem;
+  }
+
+  .institut__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .institut__slide {
+    flex: 0 0 100%;
+    margin: 0;
+    scroll-snap-align: start;
+    overflow: hidden;
+    background: #eadfd7;
+  }
+
+  .institut__slide picture,
+  .institut__slide img {
+    display: block;
+    width: 100%;
+  }
+
+  .institut__slide img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .institut__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.15rem;
+  }
+
+  .institut__dots {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .institut__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #cfbfb7;
+    cursor: pointer;
+    transition:
+      width 180ms ease,
+      border-radius 180ms ease,
+      background 180ms ease;
+  }
+
+  .institut__dot.is-active {
+    width: 26px;
+    border-radius: 99px;
+    background: var(--institut-accent);
+  }
+
+  .institut__arrows {
+    display: flex;
+    gap: 0.55rem;
+  }
+
+  .institut__arrow {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(59, 41, 37, 0.16);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--institut-text);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .institut__arrow:hover {
+    background: var(--institut-accent);
+    border-color: var(--institut-accent);
+    color: #fff;
+  }
+
+  @media (max-width: 820px) {
+    .institut {
+      padding: 4.5rem 0;
+    }
+
+    .institut__inner {
+      display: block;
+    }
+
+    .institut__content {
+      max-width: none;
+      padding: 0 1.15rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .institut__script {
+      font-size: 2.35rem;
+    }
+
+    .institut h2 {
+      font-size: clamp(2rem, 8.5vw, 2.75rem);
+      max-width: 11em;
+    }
+
+    .institut__track {
+      gap: 0.85rem;
+      padding: 0 1.15rem;
+      border-radius: 0;
+      scroll-padding-left: 1.15rem;
+    }
+
+    .institut__slide {
+      flex-basis: 84%;
+      border-radius: 1.15rem;
+    }
+
+    .institut__slide img {
+      aspect-ratio: 4 / 5;
+    }
+
+    .institut__controls {
+      margin: 1rem 1.15rem 0;
+    }
+
+    .institut__arrows {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .institut__link,
+    .institut__dot,
+    .institut__arrow {
+      transition: none;
+    }
+  }
+</style>
