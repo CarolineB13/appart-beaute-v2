@@ -59,9 +59,10 @@ const {
 
         revealElements.forEach((element) => revealObserver.observe(element));
       } else {
-        revealElements.forEach((element) => element.classList.add("is-visible"));
+        revealElements.forEach((element) =>
+          element.classList.add("is-visible"),
+        );
       }
     </script>
-
   </body>
 </html>

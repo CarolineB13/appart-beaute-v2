@@ -1,0 +1,872 @@
+---
+import { Image } from "astro:assets";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import Footer from "../components/Footer.astro";
+
+import regardImage from "../assets/images/regard/prestation-regard.webp";
+import lashLiftImage from "../assets/images/regard/lash-lift-coreen.webp";
+import browliftImage from "../assets/images/regard/browlift.webp";
+import extensionsImage from "../assets/images/prestations/prestation-extensions.webp";
+import onglerieImage from "../assets/images/prestations/prestation-onglerie.webp";
+import epilationImage from "../assets/images/prestations/prestation-epilation.webp";
+---
+
+<BaseLayout
+  title="Prestations beauté à La Valentine Marseille 11 | Appart & Beauté"
+  description="Découvrez les prestations Appart & Beauté à La Valentine, Marseille 11e : Lash Lift Coréen, browlift, extensions de cils, onglerie et épilation."
+>
+  <Header />
+
+  <main>
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="services-page-hero">
+      <div class="container services-page-heading" data-reveal>
+        <p class="eyebrow">Appart & Beauté · La Valentine</p>
+
+        <h1>
+          Des prestations pensées
+          <span>pour vous révéler</span>
+        </h1>
+
+        <span class="heading-line" aria-hidden="true"></span>
+
+        <p class="services-page-intro">
+          Beauté du regard, onglerie et épilation : trois univers, une même
+          attention portée au détail, au naturel et à votre bien-être.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         REGARD — UNIVERS PRIORITAIRE
+         ===================================================== -->
+
+    <section class="regard-universe">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Cils & sourcils</p>
+
+          <h2>
+            Beauté
+            <span>du regard</span>
+          </h2>
+
+          <span class="heading-line" aria-hidden="true"></span>
+
+          <p class="section-intro">
+            Du Lash Lift Coréen aux extensions de cils, chaque prestation est
+            pensée pour ouvrir le regard, structurer les sourcils et sublimer
+            vos traits sans les transformer.
+          </p>
+        </div>
+
+        <div class="regard-feature">
+          <a
+            class="regard-feature-image"
+            href="/beaute-du-regard-marseille/"
+            data-reveal="image"
+          >
+            <Image
+              src={regardImage}
+              alt="Beauté du regard chez Appart & Beauté à La Valentine Marseille 11e"
+              widths={[640, 900, 1200]}
+              sizes="(min-width: 1000px) 55vw, 100vw"
+            />
+          </a>
+
+          <div
+            class="regard-feature-copy"
+            data-reveal
+            style="--reveal-delay: 80ms"
+          >
+            <p class="feature-label">Notre expertise signature</p>
+
+            <h3>Révéler le regard sans le transformer</h3>
+
+            <p>
+              Courber, discipliner, intensifier ou structurer : nous vous
+              orientons vers la technique la plus adaptée au résultat souhaité.
+            </p>
+
+            <a class="primary-link" href="/beaute-du-regard-marseille/">
+              Découvrir la beauté du regard
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="regard-services">
+          <a
+            class="mini-service"
+            href="/lash-lift-coreen-marseille/"
+            data-reveal
+            style="--reveal-delay: 40ms"
+          >
+            <div class="mini-service-image">
+              <Image
+                src={lashLiftImage}
+                alt="Lash Lift Coréen à Marseille chez Appart & Beauté"
+                widths={[360, 520, 700]}
+                sizes="(min-width: 1000px) 28vw, 50vw"
+              />
+            </div>
+
+            <div class="mini-service-copy">
+              <p class="mini-kicker">Nouvelle génération</p>
+              <h3>Lash Lift Coréen</h3>
+              <p>
+                Courber les cils naturels et ouvrir le regard sans extensions.
+              </p>
+              <span class="mini-link">Découvrir <i>→</i></span>
+            </div>
+          </a>
+
+          <a
+            class="mini-service"
+            href="/browlift-marseille/"
+            data-reveal
+            style="--reveal-delay: 100ms"
+          >
+            <div class="mini-service-image">
+              <Image
+                src={browliftImage}
+                alt="Browlift à Marseille chez Appart & Beauté"
+                widths={[360, 520, 700]}
+                sizes="(min-width: 1000px) 28vw, 50vw"
+              />
+            </div>
+
+            <div class="mini-service-copy">
+              <p class="mini-kicker">Beauté des sourcils</p>
+              <h3>Browlift</h3>
+              <p>
+                Discipliner et redessiner les sourcils pour un effet plus
+                fourni.
+              </p>
+              <span class="mini-link">Découvrir <i>→</i></span>
+            </div>
+          </a>
+
+          <a
+            class="mini-service"
+            href="/extensions-de-cils-marseille/"
+            data-reveal
+            style="--reveal-delay: 160ms"
+          >
+            <div class="mini-service-image">
+              <Image
+                src={extensionsImage}
+                alt="Extensions de cils à Marseille chez Appart & Beauté"
+                widths={[360, 520, 700]}
+                sizes="(min-width: 1000px) 28vw, 50vw"
+              />
+            </div>
+
+            <div class="mini-service-copy">
+              <p class="mini-kicker">Intensité sur mesure</p>
+              <h3>Extensions de cils</h3>
+              <p>Cil à cil, hybride ou volume pour intensifier le regard.</p>
+              <span class="mini-link">Découvrir <i>→</i></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ONGLERIE + ÉPILATION
+         ===================================================== -->
+
+    <section class="other-universes">
+      <div class="container">
+        <div class="section-heading section-heading--compact" data-reveal>
+          <p class="eyebrow">Prendre soin de soi</p>
+
+          <h2>
+            Les autres
+            <span>univers</span>
+          </h2>
+
+          <span class="heading-line" aria-hidden="true"></span>
+        </div>
+
+        <div class="other-universes-grid">
+          <article class="universe-card" data-reveal>
+            <a class="universe-card-image" href="/onglerie-la-valentine/">
+              <Image
+                src={onglerieImage}
+                alt="Onglerie à La Valentine chez Appart & Beauté"
+                widths={[520, 760, 1000]}
+                sizes="(min-width: 1000px) 45vw, 100vw"
+              />
+            </a>
+
+            <div class="universe-card-content">
+              <p class="mini-kicker">Beauté des mains</p>
+              <h3>Onglerie</h3>
+
+              <p>
+                Gel, semi-permanent, remplissage et mise en beauté des mains,
+                dans une ambiance douce et soignée.
+              </p>
+
+              <ul class="service-list">
+                <li>Gel</li>
+                <li>Semi-permanent</li>
+                <li>Remplissage</li>
+                <li>Mise en beauté des mains</li>
+              </ul>
+
+              <a class="primary-link" href="/onglerie-la-valentine/">
+                Découvrir l’onglerie
+                <span>→</span>
+              </a>
+            </div>
+          </article>
+
+          <article
+            class="universe-card universe-card--offset"
+            data-reveal
+            style="--reveal-delay: 100ms"
+          >
+            <a class="universe-card-image" href="/epilation-la-valentine/">
+              <Image
+                src={epilationImage}
+                alt="Épilation à La Valentine Marseille 11e chez Appart & Beauté"
+                widths={[520, 760, 1000]}
+                sizes="(min-width: 1000px) 45vw, 100vw"
+              />
+            </a>
+
+            <div class="universe-card-content">
+              <p class="mini-kicker">Douceur & précision</p>
+              <h3>Épilation</h3>
+
+              <p>
+                Des prestations femme et homme réalisées avec attention, pour
+                une peau nette et un résultat soigné.
+              </p>
+
+              <ul class="service-list">
+                <li>Visage</li>
+                <li>Corps</li>
+                <li>Femme</li>
+                <li>Homme</li>
+              </ul>
+
+              <a class="primary-link" href="/epilation-la-valentine/">
+                Découvrir l’épilation
+                <span>→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         BESOIN D’AIDE
+         ===================================================== -->
+
+    <section class="choice-help">
+      <div class="container">
+        <div class="choice-help-card" data-reveal>
+          <div>
+            <p class="eyebrow">Besoin d’aide ?</p>
+
+            <h2>
+              Vous hésitez
+              <span>entre deux prestations ?</span>
+            </h2>
+
+            <p>
+              Consultez les prestations et disponibilités sur Planity, ou
+              contactez directement Marjorie si vous avez besoin d’être
+              conseillée.
+            </p>
+          </div>
+
+          <div class="choice-help-actions">
+            <a class="choice-button" href="/reservation/">
+              Voir les disponibilités
+              <span>→</span>
+            </a>
+
+            <a class="choice-phone" href="tel:+33613405635"> 06 13 40 56 35 </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FinalCTA />
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* =====================================================
+     HERO
+     ===================================================== */
+
+  .services-page-hero {
+    padding: 108px 0 44px;
+    background: var(--color-bg-soft);
+  }
+
+  .services-page-heading {
+    max-width: 920px;
+  }
+
+  .services-page-heading h1 {
+    max-width: 860px;
+    margin-top: 10px;
+    font-size: clamp(3.1rem, 12vw, 4.45rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+
+  .services-page-heading h1 span {
+    display: block;
+    color: var(--color-terracotta);
+    font-style: italic;
+  }
+
+  .heading-line {
+    display: block;
+    width: 52px;
+    height: 2px;
+    margin-top: 20px;
+    background: var(--color-terracotta);
+  }
+
+  .services-page-intro,
+  .section-intro {
+    max-width: 620px;
+    margin-top: 18px;
+    font-size: 0.97rem;
+    line-height: 1.7;
+  }
+
+  /* =====================================================
+     REGARD
+     ===================================================== */
+
+  .regard-universe {
+    padding: 42px 0 56px;
+    background: var(--color-bg-warm);
+  }
+
+  .section-heading {
+    max-width: 700px;
+  }
+
+  .section-heading h2 {
+    margin-top: 9px;
+    font-size: clamp(2.85rem, 11vw, 3.9rem);
+    line-height: 0.96;
+  }
+
+  .section-heading h2 span {
+    display: block;
+    color: var(--color-terracotta);
+    font-style: italic;
+  }
+
+  .regard-feature {
+    display: grid;
+    gap: 26px;
+    margin-top: 34px;
+  }
+
+  .regard-feature-image {
+    display: block;
+    overflow: hidden;
+    min-height: 390px;
+    border-radius: 92px 24px 24px 24px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .regard-feature-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 390px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .regard-feature-image:hover img {
+    transform: scale(1.025);
+  }
+
+  .regard-feature-copy {
+    padding: 2px 2px 0;
+  }
+
+  .feature-label,
+  .mini-kicker {
+    color: var(--color-terracotta-dark);
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .regard-feature-copy h3 {
+    margin-top: 9px;
+    font-size: 2.35rem;
+    line-height: 1.02;
+  }
+
+  .regard-feature-copy > p:not(.feature-label) {
+    margin-top: 16px;
+    font-size: 0.94rem;
+    line-height: 1.68;
+  }
+
+  .primary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 22px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid rgba(159, 83, 61, 0.32);
+    color: var(--color-terracotta-dark);
+    font-size: 0.83rem;
+    font-weight: 500;
+  }
+
+  .primary-link span {
+    transition: transform 0.25s ease;
+  }
+
+  .primary-link:hover span {
+    transform: translateX(4px);
+  }
+
+  .regard-services {
+    display: grid;
+    gap: 16px;
+    margin-top: 34px;
+  }
+
+  .mini-service {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    overflow: hidden;
+    border-radius: 26px;
+    background: rgba(255, 253, 251, 0.78);
+    box-shadow: var(--shadow-card);
+  }
+
+  .mini-service-image {
+    min-height: 190px;
+  }
+
+  .mini-service-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 190px;
+    object-fit: cover;
+  }
+
+  .mini-service-copy {
+    padding: 20px 18px;
+  }
+
+  .mini-service h3 {
+    margin-top: 7px;
+    font-size: 1.65rem;
+  }
+
+  .mini-service-copy > p:not(.mini-kicker) {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .mini-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 13px;
+    color: var(--color-terracotta-dark);
+    font-size: 0.76rem;
+    font-weight: 500;
+  }
+
+  .mini-link i {
+    font-style: normal;
+  }
+
+  /* =====================================================
+     AUTRES UNIVERS
+     ===================================================== */
+
+  .other-universes {
+    padding: 50px 0 58px;
+    background: var(--color-bg-soft);
+  }
+
+  .section-heading--compact {
+    max-width: 600px;
+  }
+
+  .other-universes-grid {
+    display: grid;
+    gap: 28px;
+    margin-top: 34px;
+  }
+
+  .universe-card {
+    overflow: hidden;
+    border-radius: 30px;
+    background: #f3e6dc;
+    box-shadow: var(--shadow-card);
+  }
+
+  .universe-card-image {
+    display: block;
+    overflow: hidden;
+    height: 325px;
+  }
+
+  .universe-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .universe-card-image:hover img {
+    transform: scale(1.025);
+  }
+
+  .universe-card-content {
+    padding: 25px 23px 28px;
+  }
+
+  .universe-card h3 {
+    margin-top: 7px;
+    font-size: 2.35rem;
+  }
+
+  .universe-card-content > p:not(.mini-kicker) {
+    margin-top: 14px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .service-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-list li {
+    padding: 7px 11px;
+    border: 1px solid rgba(159, 83, 61, 0.12);
+    border-radius: 999px;
+    background: rgba(255, 253, 251, 0.55);
+    color: var(--color-text-soft);
+    font-size: 0.72rem;
+  }
+
+  /* =====================================================
+     BESOIN D’AIDE
+     ===================================================== */
+
+  .choice-help {
+    padding: 8px 0 42px;
+    background: var(--color-bg-soft);
+  }
+
+  .choice-help-card {
+    padding: 30px 24px;
+    border: 1px solid rgba(159, 83, 61, 0.1);
+    border-radius: 30px;
+    background: var(--color-bg-warm);
+  }
+
+  .choice-help h2 {
+    margin-top: 8px;
+    font-size: clamp(2.5rem, 10vw, 3.4rem);
+    line-height: 0.98;
+  }
+
+  .choice-help h2 span {
+    display: block;
+    color: var(--color-terracotta);
+    font-style: italic;
+  }
+
+  .choice-help p:not(.eyebrow) {
+    max-width: 560px;
+    margin-top: 16px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .choice-help-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .choice-button {
+    display: flex;
+    min-height: 52px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 19px;
+    border-radius: 999px;
+    background: var(--color-terracotta);
+    color: white;
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+
+  .choice-phone {
+    align-self: center;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(159, 83, 61, 0.25);
+    color: var(--color-text-soft);
+    font-size: 0.79rem;
+  }
+
+  /* =====================================================
+     TABLETTE
+     ===================================================== */
+
+  @media (min-width: 700px) {
+    .services-page-hero {
+      padding: 165px 0 76px;
+    }
+
+    .services-page-heading h1 {
+      font-size: 5.2rem;
+    }
+
+    .regard-universe {
+      padding: 78px 0 92px;
+    }
+
+    .section-heading h2 {
+      font-size: 4.7rem;
+    }
+
+    .regard-feature {
+      gap: 34px;
+      margin-top: 48px;
+    }
+
+    .regard-feature-image,
+    .regard-feature-image img {
+      min-height: 500px;
+    }
+
+    .regard-feature-copy h3 {
+      font-size: 3rem;
+    }
+
+    .regard-services {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 50px;
+    }
+
+    .mini-service {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-service-image {
+      height: 260px;
+    }
+
+    .mini-service-image img {
+      min-height: 260px;
+    }
+
+    .mini-service-copy {
+      padding: 22px 20px 23px;
+    }
+
+    .other-universes {
+      padding: 82px 0 88px;
+    }
+
+    .other-universes-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 48px;
+    }
+
+    .universe-card-image {
+      height: 360px;
+    }
+
+    .choice-help {
+      padding-bottom: 75px;
+    }
+
+    .choice-help-card {
+      padding: 40px 36px;
+    }
+
+    .choice-help-actions {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .choice-button {
+      width: 280px;
+    }
+
+    .choice-phone {
+      align-self: auto;
+    }
+  }
+
+  /* =====================================================
+     DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1000px) {
+    .services-page-hero {
+      padding: 180px 0 88px;
+    }
+
+    .services-page-heading h1 {
+      font-size: clamp(5rem, 6vw, 6.5rem);
+    }
+
+    .heading-line {
+      width: 68px;
+    }
+
+    .regard-universe {
+      padding: 92px 0 105px;
+    }
+
+    .regard-feature {
+      grid-template-columns: 1.12fr 0.88fr;
+      align-items: center;
+      gap: 72px;
+      margin-top: 56px;
+    }
+
+    .regard-feature-image {
+      min-height: 610px;
+      border-radius: 150px 30px 30px 30px;
+    }
+
+    .regard-feature-image img {
+      min-height: 610px;
+    }
+
+    .regard-feature-copy {
+      padding-right: 10px;
+    }
+
+    .regard-feature-copy h3 {
+      font-size: 3.65rem;
+    }
+
+    .regard-services {
+      gap: 22px;
+      margin-top: 62px;
+    }
+
+    .mini-service {
+      border-radius: 28px;
+    }
+
+    .mini-service-image {
+      height: 300px;
+    }
+
+    .mini-service-image img {
+      min-height: 300px;
+    }
+
+    .mini-service h3 {
+      font-size: 2rem;
+    }
+
+    .other-universes {
+      padding: 95px 0 105px;
+    }
+
+    .other-universes-grid {
+      gap: 28px;
+      margin-top: 54px;
+    }
+
+    .universe-card {
+      border-radius: 34px;
+    }
+
+    .universe-card--offset {
+      margin-top: 72px;
+    }
+
+    .universe-card-image {
+      height: 440px;
+    }
+
+    .universe-card-content {
+      padding: 30px 28px 33px;
+    }
+
+    .universe-card h3 {
+      font-size: 3rem;
+    }
+
+    .choice-help {
+      padding: 20px 0 82px;
+    }
+
+    .choice-help-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 70px;
+      padding: 46px 48px;
+      border-radius: 36px;
+    }
+
+    .choice-help h2 {
+      font-size: 3.7rem;
+    }
+
+    .choice-help-actions {
+      min-width: 280px;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 0;
+    }
+
+    .choice-button {
+      width: 100%;
+    }
+
+    .choice-phone {
+      align-self: center;
+    }
+  }
+</style>

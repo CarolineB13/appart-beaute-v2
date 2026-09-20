@@ -1,0 +1,201 @@
+<section class="final-cta" aria-labelledby="final-cta-title">
+  <div class="container">
+    <div class="final-cta-card" data-reveal>
+      <div class="final-cta-copy">
+        <p class="eyebrow">Un moment pour vous</p>
+
+        <h2 id="final-cta-title">
+          Et si votre prochain
+          <span>rendez-vous commençait ici ?</span>
+        </h2>
+
+        <p class="final-cta-text">
+          Choisissez votre prestation et le créneau qui vous convient,
+          simplement en ligne.
+        </p>
+      </div>
+
+      <div class="final-cta-actions">
+        <a class="final-cta-button" href="/reservation/">
+          <span>Prendre rendez-vous</span>
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a class="final-cta-phone" href="tel:+33613405635">
+          06 13 40 56 35
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    padding: 28px 0 72px;
+    background: var(--color-bg-soft);
+  }
+
+  .final-cta-card {
+    position: relative;
+    overflow: hidden;
+    padding: 38px 25px 30px;
+    border-radius: 32px;
+    background: var(--color-text);
+    box-shadow: 0 22px 55px rgba(53, 39, 33, 0.12);
+  }
+
+  .final-cta-card::after {
+    position: absolute;
+    top: -95px;
+    right: -80px;
+    width: 230px;
+    height: 230px;
+    border: 1px solid rgba(255, 253, 251, 0.08);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+  }
+
+  .final-cta .eyebrow {
+    color: var(--color-terracotta-light);
+  }
+
+  .final-cta h2 {
+    max-width: 620px;
+    margin-top: 10px;
+    color: var(--color-white);
+    font-size: clamp(2.6rem, 10.5vw, 3.65rem);
+    line-height: 0.98;
+  }
+
+  .final-cta h2 span {
+    display: block;
+    margin-top: 5px;
+    color: var(--color-terracotta-light);
+    font-style: italic;
+  }
+
+  .final-cta-text {
+    max-width: 500px;
+    margin-top: 20px;
+    color: rgba(255, 253, 251, 0.72);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .final-cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    margin-top: 28px;
+  }
+
+  .final-cta-button {
+    display: flex;
+    min-height: 55px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px 21px;
+    border-radius: 999px;
+    background: var(--color-terracotta);
+    color: white;
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    transition:
+      background 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .final-cta-button:hover {
+    background: var(--color-terracotta-dark);
+    transform: translateY(-2px);
+  }
+
+  .final-cta-button span:last-child {
+    font-size: 1rem;
+    transition: transform 0.25s ease;
+  }
+
+  .final-cta-button:hover span:last-child {
+    transform: translateX(4px);
+  }
+
+  .final-cta-phone {
+    align-self: center;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(255, 253, 251, 0.25);
+    color: rgba(255, 253, 251, 0.8);
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 700px) {
+    .final-cta {
+      padding: 38px 0 88px;
+    }
+
+    .final-cta-card {
+      padding: 50px 46px 42px;
+      border-radius: 38px;
+    }
+
+    .final-cta h2 {
+      font-size: 4.4rem;
+    }
+
+    .final-cta-actions {
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .final-cta-button {
+      width: 290px;
+    }
+
+    .final-cta-phone {
+      align-self: auto;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .final-cta {
+      padding: 42px 0 96px;
+    }
+
+    .final-cta-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 70px;
+      padding: 58px 60px 54px;
+      border-radius: 42px;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(4rem, 4.5vw, 5.25rem);
+    }
+
+    .final-cta-text {
+      font-size: 1rem;
+    }
+
+    .final-cta-actions {
+      min-width: 285px;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 0;
+    }
+
+    .final-cta-button {
+      width: 100%;
+    }
+
+    .final-cta-phone {
+      align-self: center;
+    }
+  }
+</style>
