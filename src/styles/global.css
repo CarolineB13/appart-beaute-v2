@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Ms+Madi&family=Oooh+Baby&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Ms+Madi&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500&display=swap');
 
 :root {
   /* Couleurs */
@@ -22,12 +21,15 @@
   /* Typographies */
   --font-title: "Playfair Display", serif;
   --font-body: "DM Sans", sans-serif;
-   --font-handwritten-ms-madi: "Ms Madi", cursive;
-  --font-handwritten-oooh-baby: "Oooh Baby", cursive;
-  --font-handwritten-homemade: "Homemade Apple", cursive;
+  --font-handwritten-ms-madi: "Ms Madi", cursive;
+  
 
   /* Largeurs */
   --container: 1240px;
+
+  /* Rythme vertical des sections */
+  --section-space-top: 58px;
+  --section-space-bottom: 78px;
 
   /* Arrondis */
   --radius-small: 18px;
@@ -96,6 +98,19 @@ a {
   text-decoration: none;
 }
 
+/* Focus clavier — discret mais visible */
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 4px;
+}
+
+/* Les ancres ne passent pas sous le header fixe */
+
+section[id] {
+  scroll-margin-top: 112px;
+}
+
 /* FORMULAIRES */
 
 button,
@@ -142,6 +157,54 @@ p {
   letter-spacing: 0.18em;
 
   text-transform: uppercase;
+}
+
+
+/* Titres de section — langage graphique commun */
+
+.section-title {
+  margin-top: 10px;
+  color: var(--color-text);
+  font-family: var(--font-title);
+  font-size: clamp(3rem, 13vw, 4.1rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+
+.section-title > span {
+  display: block;
+  color: var(--color-terracotta);
+  font-style: italic;
+}
+
+.section-line {
+  display: block;
+  width: 52px;
+  height: 2px;
+  margin-top: 17px;
+  background: var(--color-terracotta);
+}
+
+/* Apparition progressive au scroll — discrète et commune à tout le site */
+
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 0.72s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-ready [data-reveal="image"] {
+  transform: translate3d(0, 16px, 0) scale(0.992);
+}
+
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 /* Bouton principal global */
@@ -223,6 +286,11 @@ p {
 /* TABLETTE */
 
 @media (min-width: 768px) {
+  :root {
+    --section-space-top: 80px;
+    --section-space-bottom: 94px;
+  }
+
   .container {
     width: calc(100% - 70px);
   }
@@ -235,7 +303,37 @@ p {
 /* DESKTOP */
 
 @media (min-width: 1100px) {
+  :root {
+    --section-space-top: 88px;
+    --section-space-bottom: 104px;
+  }
+
   .container {
     width: min(calc(100% - 100px), var(--container));
   }
 }
+
+@media (min-width: 1000px) {
+  .section-title {
+    font-size: clamp(4.5rem, 5.5vw, 5.7rem);
+  }
+
+  .section-line {
+    width: 68px;
+    margin-top: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal-ready [data-reveal],
+  .reveal-ready [data-reveal="image"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+

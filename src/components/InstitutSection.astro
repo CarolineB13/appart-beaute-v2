@@ -1,418 +1,524 @@
 ---
-const photos = [
-  {
-    desktop: "/images/institut/institut-principale-desktop.webp",
-    mobile: "/images/institut/institut-principale-mobile.webp",
-    alt: "Vue générale de l’institut Appart & Beauté avec cheminée, coin détente et espace onglerie.",
-  },
-  {
-    desktop: "/images/institut/institut-onglerie-desktop.webp",
-    mobile: "/images/institut/institut-onglerie-mobile.webp",
-    alt: "Espace onglerie lumineux avec décoration en pampas.",
-  },
-  {
-    desktop: "/images/institut/institut-cabine-desktop.webp",
-    mobile: "/images/institut/institut-cabine-mobile.webp",
-    alt: "Cabine de soins lumineuse dans des tons naturels et chaleureux.",
-  },
-  {
-    desktop: "/images/institut/institut-detail-desktop.webp",
-    mobile: "/images/institut/institut-detail-mobile.webp",
-    alt: "Détail de l’espace onglerie et de la décoration pampas.",
-  },
-];
+import { Image } from "astro:assets";
+
+import accueilInstitutDesktop from "../assets/images/institut/desktop/accueil-institut-desktop.webp";
+import institutCabineDesktop from "../assets/images/institut/desktop/institut-cabine-desktop.webp";
+import institutOnglerieDesktop from "../assets/images/institut/desktop/institut-onglerie-desktop.webp";
+import institutPrincipaleDesktop from "../assets/images/institut/desktop/institut-principale-desktop.webp";
+
+import institutCabineMobile from "../assets/images/institut/mobile/institut-cabine-mobile.webp";
+import institutOnglerieMobile from "../assets/images/institut/mobile/institut-onglerie-mobile.webp";
+import institutPrincipaleMobile from "../assets/images/institut/mobile/institut-principale-mobile.webp";
 ---
 
-<section id="institut" class="institut">
-  <div class="institut__inner">
-    <div class="institut__content">
-      <p class="institut__script">L’institut</p>
+<section class="institut-section" id="institut">
+  <div class="container">
+    <header class="institut-heading" data-reveal>
+      <p class="eyebrow">L’institut</p>
 
-      <h2>Un lieu doux, chaleureux et intimiste</h2>
+      <h2 class="section-title">
+        L’univers
+        <span>Appart & Beauté</span>
+      </h2>
 
-      <p class="institut__lead">
-        Appart & Beauté vous accueille dans un univers pensé comme une
-        parenthèse : des matières naturelles, des tons doux et une ambiance
-        chaleureuse pour profiter pleinement de votre rendez-vous.
+      <span class="section-line" aria-hidden="true"></span>
+
+      <p class="institut-intro">
+        Un lieu chaleureux et intimiste, pensé pour votre bien-être au cœur de
+        La Valentine.
       </p>
+    </header>
 
-      <p class="institut__text">
-        Du coin onglerie à la cabine de soins, chaque espace a été imaginé pour
-        que vous vous sentiez bien, tout simplement.
-      </p>
+    <!-- =====================================================
+         MOBILE : GALERIE ÉDITORIALE ANIMÉE
+         ===================================================== -->
 
-      <a class="institut__link" href="/linstitut">
-        Découvrir l’institut
-        <span aria-hidden="true">→</span>
-      </a>
+    <div class="institut-mobile-gallery">
+      <figure
+        class="institut-photo-card institut-photo-card--main"
+        data-reveal="image"
+        style="--reveal-delay: 70ms"
+      >
+        <Image
+          src={institutPrincipaleMobile}
+          alt="Espace principal de l’institut Appart & Beauté à La Valentine"
+          class="institut-photo"
+          widths={[420, 560, 720]}
+          sizes="(max-width: 699px) 82vw, 560px"
+          loading="lazy"
+        />
+      </figure>
+
+      <div class="institut-photo-pair">
+        <figure
+          class="institut-photo-card institut-photo-card--cabine"
+          data-reveal="image"
+          style="--reveal-delay: 140ms"
+        >
+          <Image
+            src={institutCabineMobile}
+            alt="Cabine de soin de l’institut Appart & Beauté"
+            class="institut-photo"
+            widths={[280, 380, 480]}
+            sizes="(max-width: 699px) 43vw, 340px"
+            loading="lazy"
+          />
+        </figure>
+
+        <figure
+          class="institut-photo-card institut-photo-card--onglerie"
+          data-reveal="image"
+          style="--reveal-delay: 210ms"
+        >
+          <Image
+            src={institutOnglerieMobile}
+            alt="Espace onglerie de l’institut Appart & Beauté"
+            class="institut-photo"
+            widths={[300, 400, 520]}
+            sizes="(max-width: 699px) 49vw, 380px"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+
+      <div class="institut-mobile-note" data-reveal style="--reveal-delay: 245ms">
+        <p>Une parenthèse pensée pour vous.</p>
+        <span>Douceur · intimité</span>
+      </div>
     </div>
 
-    <div class="institut__media">
-      <div class="institut__carousel" data-institut-carousel>
-        <div class="institut__track" data-institut-track>
-          {
-            photos.map((photo, index) => (
-              <figure class="institut__slide" data-slide>
-                <picture>
-                  <source media="(max-width: 768px)" srcset={photo.mobile} />
-                  <img
-                    src={photo.desktop}
-                    alt={photo.alt}
-                    loading={index === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                    width="1600"
-                    height="1200"
-                  />
-                </picture>
-              </figure>
-            ))
-          }
-        </div>
+    <!-- =====================================================
+         DESKTOP : MOSAÏQUE ÉDITORIALE
+         ===================================================== -->
 
-        <div class="institut__controls">
-          <div class="institut__dots" aria-label="Choisir une photo">
-            {
-              photos.map((_, index) => (
-                <button
-                  class:list={["institut__dot", { "is-active": index === 0 }]}
-                  type="button"
-                  aria-label={`Afficher la photo ${index + 1}`}
-                  data-dot={index}
-                />
-              ))
-            }
-          </div>
+    <div class="institut-desktop-gallery">
+      <div class="institut-mosaic">
+        <figure
+          class="mosaic-card mosaic-card--main"
+          data-reveal="image"
+          style="--reveal-delay: 70ms"
+        >
+          <Image
+            src={accueilInstitutDesktop}
+            alt="Vue de l’univers Appart & Beauté à La Valentine"
+            class="mosaic-photo"
+            widths={[700, 900, 1100]}
+            sizes="(min-width: 1000px) 44vw, 700px"
+            loading="lazy"
+          />
+        </figure>
 
-          <div class="institut__arrows">
-            <button
-              class="institut__arrow"
-              type="button"
-              aria-label="Photo précédente"
-              data-prev
-            >
-              ←
-            </button>
-            <button
-              class="institut__arrow"
-              type="button"
-              aria-label="Photo suivante"
-              data-next
-            >
-              →
-            </button>
-          </div>
-        </div>
+        <figure
+          class="mosaic-card mosaic-card--cabine"
+          data-reveal="image"
+          style="--reveal-delay: 140ms"
+        >
+          <Image
+            src={institutCabineDesktop}
+            alt="Cabine de soin de l’institut Appart & Beauté"
+            class="mosaic-photo"
+            widths={[520, 680, 820]}
+            sizes="(min-width: 1000px) 34vw, 560px"
+            loading="lazy"
+          />
+        </figure>
+
+        <figure
+          class="mosaic-card mosaic-card--principale"
+          data-reveal="image"
+          style="--reveal-delay: 210ms"
+        >
+          <Image
+            src={institutPrincipaleDesktop}
+            alt="Espace principal de l’institut Appart & Beauté"
+            class="mosaic-photo"
+            widths={[360, 480, 620]}
+            sizes="(min-width: 1000px) 22vw, 420px"
+            loading="lazy"
+          />
+        </figure>
+
+        <figure
+          class="mosaic-card mosaic-card--onglerie"
+          data-reveal="image"
+          style="--reveal-delay: 245ms"
+        >
+          <Image
+            src={institutOnglerieDesktop}
+            alt="Espace onglerie de l’institut Appart & Beauté"
+            class="mosaic-photo"
+            widths={[360, 480, 620]}
+            sizes="(min-width: 1000px) 22vw, 420px"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+
+      <div class="institut-desktop-note" data-reveal style="--reveal-delay: 245ms">
+        <p>Un lieu pensé pour que chaque rendez-vous soit une vraie parenthèse.</p>
+        <span>Douceur · lumière · intimité</span>
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  document.querySelectorAll("[data-institut-carousel]").forEach((carousel) => {
-    const track = carousel.querySelector("[data-institut-track]");
-    const slides = [...carousel.querySelectorAll("[data-slide]")];
-    const dots = [...carousel.querySelectorAll("[data-dot]")];
-    const prev = carousel.querySelector("[data-prev]");
-    const next = carousel.querySelector("[data-next]");
-
-    if (!track || slides.length === 0) return;
-
-    let current = 0;
-
-    const updateDots = (index) => {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle("is-active", i === index);
-        dot.setAttribute("aria-current", i === index ? "true" : "false");
-      });
-    };
-
-    const goTo = (index) => {
-      current = (index + slides.length) % slides.length;
-      slides[current].scrollIntoView({
-        behavior: "smooth",
-        inline: "start",
-        block: "nearest",
-      });
-      updateDots(current);
-    };
-
-    prev?.addEventListener("click", () => goTo(current - 1));
-    next?.addEventListener("click", () => goTo(current + 1));
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => goTo(index));
-    });
-
-    let ticking = false;
-
-    track.addEventListener(
-      "scroll",
-      () => {
-        if (ticking) return;
-
-        ticking = true;
-        requestAnimationFrame(() => {
-          const trackLeft = track.getBoundingClientRect().left;
-          let nearestIndex = 0;
-          let nearestDistance = Infinity;
-
-          slides.forEach((slide, index) => {
-            const distance = Math.abs(
-              slide.getBoundingClientRect().left - trackLeft,
-            );
-            if (distance < nearestDistance) {
-              nearestDistance = distance;
-              nearestIndex = index;
-            }
-          });
-
-          if (nearestIndex !== current) {
-            current = nearestIndex;
-            updateDots(current);
-          }
-
-          ticking = false;
-        });
-      },
-      { passive: true },
-    );
-  });
-</script>
-
 <style>
-  .institut {
-    --institut-bg: var(--color-cream, #faf6f1);
-    --institut-text: var(--color-text, #3b2925);
-    --institut-muted: var(--color-muted, #705f58);
-    --institut-accent: var(--color-terracotta, #b66f56);
-    --institut-accent-soft: var(--color-terracotta-soft, #d7a18d);
+  /* =====================================================
+     SECTION
+     ===================================================== */
 
-    padding: clamp(5rem, 8vw, 8rem) 1.25rem;
-    background: var(--institut-bg);
-  }
-
-  .institut__inner {
-    width: min(1180px, 100%);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.35fr);
-    gap: clamp(3rem, 7vw, 6.5rem);
-    align-items: center;
-  }
-
-  .institut__content {
-    max-width: 460px;
-  }
-
-  .institut__script {
-    margin: 0 0 0.35rem;
-    color: var(--institut-accent);
-    font-family: "Ms Madi", cursive;
-    font-size: clamp(2.1rem, 3.4vw, 3rem);
-    line-height: 1;
-  }
-
-  .institut h2 {
-    margin: 0 0 1.35rem;
-    color: var(--institut-text);
-    font: inherit;
-    font-family: var(--font-heading, inherit);
-    font-size: clamp(2rem, 3.2vw, 3.15rem);
-    font-weight: 500;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-  }
-
-  .institut__lead,
-  .institut__text {
-    margin: 0;
-    color: var(--institut-muted);
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-
-  .institut__text {
-    margin-top: 0.8rem;
-  }
-
-  .institut__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    margin-top: 1.75rem;
-    color: var(--institut-text);
-    font-size: 0.93rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 1px solid var(--institut-accent-soft);
-    padding-bottom: 0.28rem;
-    transition:
-      color 180ms ease,
-      border-color 180ms ease,
-      gap 180ms ease;
-  }
-
-  .institut__link:hover {
-    color: var(--institut-accent);
-    border-color: var(--institut-accent);
-    gap: 0.85rem;
-  }
-
-  .institut__media {
-    min-width: 0;
-  }
-
-  .institut__carousel {
+  .institut-section {
     position: relative;
+    overflow: hidden;
+    padding: var(--section-space-top) 0 var(--section-space-bottom);
+    background: var(--color-bg-warm);
   }
 
-  .institut__track {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    border-radius: 1.5rem;
+  /* =====================================================
+     TITRE
+     ===================================================== */
+
+  .institut-heading {
+    max-width: 590px;
   }
 
-  .institut__track::-webkit-scrollbar {
+  .institut-intro {
+    max-width: 510px;
+    margin-top: 18px;
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  /* =====================================================
+     MOBILE — COMPOSITION ÉDITORIALE
+     ===================================================== */
+
+  .institut-desktop-gallery {
     display: none;
   }
 
-  .institut__slide {
-    flex: 0 0 100%;
-    margin: 0;
-    scroll-snap-align: start;
+  .institut-mobile-gallery {
+    margin-top: 36px;
+  }
+
+  .institut-photo-card {
+    position: relative;
     overflow: hidden;
-    background: #eadfd7;
+    background: var(--color-beige);
+    box-shadow: var(--shadow-soft);
   }
 
-  .institut__slide picture,
-  .institut__slide img {
-    display: block;
+  .institut-photo-card--main {
+    width: calc(100% - 24px);
+    height: 420px;
+    margin-left: auto;
+    border-radius: 108px 26px 26px 26px;
+  }
+
+  .institut-photo-pair {
+    display: grid;
+    grid-template-columns: 0.88fr 1.12fr;
+    align-items: end;
+    gap: 14px;
+    margin-top: -30px;
+    padding-right: 10px;
+  }
+
+  .institut-photo-card--cabine {
+    height: 205px;
+    border-radius: 24px 24px 72px 24px;
+  }
+
+  .institut-photo-card--onglerie {
+    height: 260px;
+    border-radius: 24px 78px 24px 24px;
+  }
+
+  .institut-photo {
     width: 100%;
-  }
-
-  .institut__slide img {
-    aspect-ratio: 4 / 3;
+    height: 100%;
     object-fit: cover;
   }
 
-  .institut__controls {
+  .institut-photo-card--main .institut-photo {
+    object-position: center 48%;
+  }
+
+  .institut-photo-card--cabine .institut-photo {
+    object-position: center 45%;
+  }
+
+  .institut-photo-card--onglerie .institut-photo {
+    object-position: center 50%;
+  }
+
+  .institut-mobile-note {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    gap: 1rem;
-    margin-top: 1.15rem;
+    gap: 22px;
+    margin-top: 22px;
   }
 
-  .institut__dots {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
+  .institut-mobile-note p {
+    max-width: 210px;
+    color: var(--color-text);
+    font-family: var(--font-title);
+    font-size: 1.16rem;
+    line-height: 1.25;
   }
 
-  .institut__dot {
-    width: 7px;
-    height: 7px;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: #cfbfb7;
-    cursor: pointer;
-    transition:
-      width 180ms ease,
-      border-radius 180ms ease,
-      background 180ms ease;
+  .institut-mobile-note span {
+    flex: 0 0 auto;
+    color: var(--color-terracotta-dark);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
-  .institut__dot.is-active {
-    width: 26px;
-    border-radius: 99px;
-    background: var(--institut-accent);
-  }
+  /* =====================================================
+     PETITS MOBILES
+     ===================================================== */
 
-  .institut__arrows {
-    display: flex;
-    gap: 0.55rem;
-  }
-
-  .institut__arrow {
-    display: grid;
-    place-items: center;
-    width: 42px;
-    height: 42px;
-    border: 1px solid rgba(59, 41, 37, 0.16);
-    border-radius: 50%;
-    background: transparent;
-    color: var(--institut-text);
-    font-size: 1.05rem;
-    cursor: pointer;
-    transition:
-      background 180ms ease,
-      border-color 180ms ease,
-      color 180ms ease;
-  }
-
-  .institut__arrow:hover {
-    background: var(--institut-accent);
-    border-color: var(--institut-accent);
-    color: #fff;
-  }
-
-  @media (max-width: 820px) {
-    .institut {
-      padding: 4.5rem 0;
+  @media (max-width: 390px) {
+    .institut-mobile-gallery {
+      margin-top: 34px;
     }
 
-    .institut__inner {
-      display: block;
+    .institut-photo-card--main {
+      height: 385px;
     }
 
-    .institut__content {
+    .institut-photo-card--cabine {
+      height: 185px;
+    }
+
+    .institut-photo-card--onglerie {
+      height: 235px;
+    }
+
+    .institut-mobile-note {
+      gap: 14px;
+    }
+
+    .institut-mobile-note p {
+      max-width: 180px;
+      font-size: 1.05rem;
+    }
+
+    .institut-mobile-note span {
+      font-size: 0.57rem;
+    }
+  }
+
+  /* =====================================================
+     TABLETTE
+     ===================================================== */
+
+  @media (min-width: 700px) and (max-width: 999px) {
+    .institut-heading {
+      max-width: 670px;
+    }
+
+    .institut-intro {
+      font-size: 1rem;
+    }
+
+    .institut-mobile-gallery {
+      max-width: 720px;
+      margin-top: 46px;
+      margin-inline: auto;
+    }
+
+    .institut-photo-card--main {
+      width: calc(100% - 80px);
+      height: 520px;
+    }
+
+    .institut-photo-pair {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      margin-top: -48px;
+      padding-right: 24px;
+    }
+
+    .institut-photo-card--cabine {
+      height: 250px;
+    }
+
+    .institut-photo-card--onglerie {
+      height: 330px;
+    }
+
+    .institut-mobile-note {
+      margin-top: 30px;
+    }
+
+    .institut-mobile-note p {
       max-width: none;
-      padding: 0 1.15rem;
-      margin-bottom: 2.25rem;
+      font-size: 1.3rem;
     }
 
-    .institut__script {
-      font-size: 2.35rem;
+    .institut-mobile-note span {
+      font-size: 0.7rem;
     }
+  }
 
-    .institut h2 {
-      font-size: clamp(2rem, 8.5vw, 2.75rem);
-      max-width: 11em;
-    }
+  /* =====================================================
+     DESKTOP — MOSAÏQUE PREMIUM
+     ===================================================== */
 
-    .institut__track {
-      gap: 0.85rem;
-      padding: 0 1.15rem;
-      border-radius: 0;
-      scroll-padding-left: 1.15rem;
-    }
-
-    .institut__slide {
-      flex-basis: 84%;
-      border-radius: 1.15rem;
-    }
-
-    .institut__slide img {
-      aspect-ratio: 4 / 5;
-    }
-
-    .institut__controls {
-      margin: 1rem 1.15rem 0;
-    }
-
-    .institut__arrows {
+  @media (min-width: 1000px) {
+    .institut-mobile-gallery {
       display: none;
     }
+
+    .institut-desktop-gallery {
+      display: block;
+      margin-top: 50px;
+    }
+
+    .institut-heading {
+      display: grid;
+      max-width: none;
+      grid-template-columns: 1fr 0.78fr;
+      grid-template-areas:
+        "eyebrow eyebrow"
+        "title intro"
+        "line intro";
+      column-gap: 78px;
+      align-items: end;
+    }
+
+    .institut-heading .eyebrow {
+      grid-area: eyebrow;
+    }
+
+    .institut-heading .section-title {
+      grid-area: title;
+    }
+
+    .institut-heading .section-line {
+      grid-area: line;
+      justify-self: start;
+    }
+
+    .institut-intro {
+      grid-area: intro;
+      align-self: end;
+      margin-top: 0;
+      padding-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .institut-mosaic {
+      display: grid;
+      grid-template-columns: 1.18fr 0.78fr 0.78fr;
+      grid-template-rows: 270px 245px;
+      gap: 18px;
+    }
+
+    .mosaic-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-beige);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mosaic-card--main {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      border-radius: 145px 30px 30px 30px;
+    }
+
+    .mosaic-card--cabine {
+      grid-column: 2 / 4;
+      grid-row: 1;
+      border-radius: 30px 118px 30px 30px;
+    }
+
+    .mosaic-card--principale {
+      grid-column: 2;
+      grid-row: 2;
+      border-radius: 30px 30px 30px 92px;
+    }
+
+    .mosaic-card--onglerie {
+      grid-column: 3;
+      grid-row: 2;
+      border-radius: 30px 30px 92px 30px;
+    }
+
+    .mosaic-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s ease;
+    }
+
+    .mosaic-card--main .mosaic-photo {
+      object-position: center 50%;
+    }
+
+    .mosaic-card--cabine .mosaic-photo {
+      object-position: center 48%;
+    }
+
+    .mosaic-card--principale .mosaic-photo {
+      object-position: center 50%;
+    }
+
+    .mosaic-card--onglerie .mosaic-photo {
+      object-position: center 50%;
+    }
+
+    .mosaic-card:hover .mosaic-photo {
+      transform: scale(1.025);
+    }
+
+    .institut-desktop-note {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 40px;
+      margin-top: 28px;
+    }
+
+    .institut-desktop-note p {
+      max-width: 570px;
+      color: var(--color-text);
+      font-family: var(--font-title);
+      font-size: 1.26rem;
+      line-height: 1.4;
+    }
+
+    .institut-desktop-note span {
+      flex: 0 0 auto;
+      color: var(--color-terracotta-dark);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .institut__link,
-    .institut__dot,
-    .institut__arrow {
-      transition: none;
+  /* =====================================================
+     GRAND DESKTOP
+     ===================================================== */
+
+  @media (min-width: 1400px) {
+    .institut-heading {
+      column-gap: 90px;
+    }
+
+    .institut-desktop-gallery {
+      margin-top: 54px;
+    }
+
+    .institut-mosaic {
+      grid-template-rows: 300px 270px;
+      gap: 20px;
     }
   }
 </style>

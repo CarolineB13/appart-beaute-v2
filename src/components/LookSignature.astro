@@ -1,12 +1,20 @@
+---
+import { Image } from "astro:assets";
+import lashLiftImage from "../assets/images/regard/lash-lift-coreen.webp";
+import browliftImage from "../assets/images/regard/browlift.webp";
+---
+
 <section class="look-section" id="regard">
   <div class="container">
-    <div class="look-heading">
+    <div class="look-heading" data-reveal>
       <p class="eyebrow">Signature Appart & Beauté</p>
 
-      <h2>
+      <h2 class="section-title">
         Le regard,
         <span>notre spécialité</span>
       </h2>
+
+      <span class="section-line" aria-hidden="true"></span>
 
       <p class="look-intro">
         Deux techniques différentes, un même objectif : révéler votre regard
@@ -17,10 +25,10 @@
     <div class="look-editorial">
       <!-- LASH LIFT CORÉEN -->
 
-      <article class="look-card lash-card">
+      <article class="look-card lash-card" data-reveal="image" style="--reveal-delay: 70ms">
         <a href="/lash-lift-coreen-marseille/" class="look-image lash-image">
-          <img
-            src="/images/lash-lift-coreen.webp"
+          <Image
+            src={lashLiftImage}
             alt="Lash Lift Coréen à Marseille chez Appart & Beauté"
           />
 
@@ -57,7 +65,7 @@
 
       <!-- BROWLIFT -->
 
-      <article class="look-card brow-card">
+      <article class="look-card brow-card" data-reveal="image" style="--reveal-delay: 140ms">
         <div class="look-content brow-content">
           <p class="look-type">Beauté des sourcils</p>
 
@@ -81,8 +89,8 @@
         </div>
 
         <a href="/browlift-marseille/" class="look-image brow-image">
-          <img
-            src="/images/browlift.webp"
+          <Image
+            src={browliftImage}
             alt="Browlift à Marseille chez Appart & Beauté"
           />
         </a>
@@ -101,7 +109,7 @@
 
     overflow: hidden;
 
-    padding: 40px 0 72px;
+    padding: var(--section-space-top) 0 var(--section-space-bottom);
 
     background: var(--color-bg-warm);
   }
@@ -114,26 +122,11 @@
     max-width: 580px;
   }
 
-  .look-heading h2 {
-    margin-top: 14px;
-
-    font-size: clamp(3rem, 13vw, 4.1rem);
-
-    line-height: 0.95;
-  }
-
-  .look-heading h2 span {
-    display: block;
-
-    color: var(--color-terracotta);
-
-    font-style: italic;
-  }
 
   .look-intro {
     max-width: 510px;
 
-    margin-top: 22px;
+    margin-top: 18px;
 
     font-size: 0.96rem;
 
@@ -147,7 +140,7 @@
   .look-editorial {
     position: relative;
 
-    margin-top: 38px;
+    margin-top: 36px;
   }
 
   .look-card {
@@ -414,12 +407,9 @@
 
   @media (max-width: 390px) {
     .look-section {
-      padding-bottom: 50px;
+      padding-bottom: 58px;
     }
 
-    .look-heading h2 {
-      font-size: 2.85rem;
-    }
 
     .look-intro {
       font-size: 0.92rem;
@@ -461,14 +451,6 @@
      ===================================================== */
 
   @media (min-width: 700px) and (max-width: 999px) {
-    .look-section {
-      padding: 80px 0 95px;
-    }
-
-    .look-heading h2 {
-      font-size: 5rem;
-    }
-
     .lash-card,
     .brow-card {
       max-width: 650px;
@@ -492,10 +474,6 @@
      ===================================================== */
 
   @media (min-width: 1000px) {
-    .look-section {
-      padding: 88px 0 105px;
-    }
-
     /*
      * Intro plus compacte.
      */
@@ -509,24 +487,34 @@
         1fr
         0.82fr;
 
+      grid-template-areas:
+        "eyebrow eyebrow"
+        "title intro"
+        "line intro";
+
       column-gap: 70px;
 
       align-items: end;
     }
 
     .look-heading .eyebrow {
-      grid-column: 1 / -1;
+      grid-area: eyebrow;
     }
 
-    .look-heading h2 {
-      font-size: clamp(4.5rem, 5.5vw, 5.7rem);
+    .look-heading .section-title {
+      grid-area: title;
+    }
+
+    .look-heading .section-line {
+      grid-area: line;
+      justify-self: start;
     }
 
     .look-intro {
+      grid-area: intro;
+      align-self: end;
       margin-top: 0;
-
       padding-bottom: 5px;
-
       font-size: 1rem;
     }
 
@@ -635,10 +623,6 @@
      ===================================================== */
 
   @media (min-width: 1400px) {
-    .look-section {
-      padding: 95px 0 115px;
-    }
-
     .look-heading {
       column-gap: 85px;
     }

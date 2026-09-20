@@ -1,3 +1,11 @@
+---
+import { Image } from "astro:assets";
+import regardImage from "../assets/images/regard/prestation-regard.webp";
+import extensionsImage from "../assets/images/prestations/prestation-extensions.webp";
+import onglerieImage from "../assets/images/prestations/prestation-onglerie.webp";
+import epilationImage from "../assets/images/prestations/prestation-epilation.webp";
+---
+
 <section class="services-section" id="prestations">
   <div class="container">
     <div class="services-header">
@@ -19,8 +27,8 @@
     <div class="services-grid">
       <a class="service-card service-card-large" href="/beaute-du-regard/">
         <div class="service-image">
-          <img
-            src="/images/prestation-regard.webp"
+          <Image
+            src={regardImage}
             alt="Beauté du regard chez Appart & Beauté"
           />
         </div>
@@ -44,8 +52,8 @@
 
       <a class="service-card" href="/extensions-de-cils-marseille/">
         <div class="service-image">
-          <img
-            src="/images/prestation-extensions.webp"
+          <Image
+            src={extensionsImage}
             alt="Extensions de cils à Marseille chez Appart & Beauté"
           />
         </div>
@@ -69,8 +77,8 @@
 
       <a class="service-card" href="/onglerie-la-valentine/">
         <div class="service-image">
-          <img
-            src="/images/prestation-onglerie.webp"
+          <Image
+            src={onglerieImage}
             alt="Onglerie à La Valentine chez Appart & Beauté"
           />
         </div>
@@ -94,8 +102,8 @@
 
       <a class="service-card service-card-wide" href="/epilation-la-valentine/">
         <div class="service-image">
-          <img
-            src="/images/prestation-epilation.webp"
+          <Image
+            src={epilationImage}
             alt="Épilation à La Valentine chez Appart & Beauté"
           />
         </div>
