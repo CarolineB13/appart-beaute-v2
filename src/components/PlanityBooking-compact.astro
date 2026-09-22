@@ -4,6 +4,7 @@ interface Props {
   serviceSets?: string[];
   servicesNotCollapsed?: boolean;
   containerId?: string;
+  displayTitle?: string;
 }
 
 const {
@@ -11,6 +12,7 @@ const {
   serviceSets = [],
   servicesNotCollapsed = true,
   containerId = "planity-appointment",
+  displayTitle = "",
 } = Astro.props;
 
 const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
@@ -28,7 +30,7 @@ const options = {
   </div>
 </section>
 
-<script define:vars={{ planityKey, options, containerId }}>
+<script define:vars={{ planityKey, options, containerId, displayTitle }}>
   const container = document.getElementById(containerId);
   const viewport = document.getElementById(`${containerId}-viewport`);
 
@@ -54,6 +56,28 @@ const options = {
       [...container.querySelectorAll("button")].filter((button) => {
         return button.textContent?.trim().toLowerCase() === "choisir";
       });
+
+    const replaceCategoryTitle = (firstRowTop) => {
+      if (!displayTitle) return;
+
+      const candidates = [...container.querySelectorAll("h1,h2,h3,h4,h5,h6,div,p,span")]
+        .filter((element) => {
+          if (!(element instanceof HTMLElement)) return false;
+
+          const text = element.textContent?.trim();
+          if (!text || text !== "Lash Lift Coréen") return false;
+
+          const rect = element.getBoundingClientRect();
+          return rect.bottom <= firstRowTop + 16;
+        });
+
+      if (candidates.length) {
+        const heading = candidates[candidates.length - 1];
+        if (heading.textContent?.trim() !== displayTitle) {
+          heading.textContent = displayTitle;
+        }
+      }
+    };
 
     const compactInitialStep = () => {
       if (expanded) return;
@@ -83,11 +107,8 @@ const options = {
         const firstRowRect = rows[0].getBoundingClientRect();
         const lastRowRect = rows[rows.length - 1].getBoundingClientRect();
 
-        /*
-         * On conserve une petite zone au-dessus de la première prestation
-         * pour garder le titre de catégorie "Lash Lift Coréen", mais on
-         * coupe le grand blanc et le titre interne "Prendre un RDV".
-         */
+        replaceCategoryTitle(firstRowRect.top);
+
         const topAllowance = window.innerWidth < 700 ? 88 : 105;
 
         const cropTop = Math.max(
@@ -112,11 +133,6 @@ const options = {
       });
     };
 
-    /*
-     * Dès que l'on clique sur "Choisir", on rend au widget sa hauteur
-     * naturelle afin que le calendrier et les étapes suivantes puissent
-     * s'afficher intégralement.
-     */
     container.addEventListener("click", (event) => {
       const target = event.target;
 

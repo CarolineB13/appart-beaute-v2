@@ -1,123 +1,141 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import PlanityBooking from "../components/PlanityBooking.astro";
 ---
 
 <BaseLayout
   title="Prendre rendez-vous | Appart & Beauté Marseille 11e"
-  description="Prenez rendez-vous en ligne chez Appart & Beauté à La Valentine, Marseille 11e."
+  description="Prenez rendez-vous en ligne chez Appart & Beauté à La Valentine, Marseille 11e. Choisissez votre prestation et votre créneau directement via Planity."
 >
   <Header />
 
   <main class="reservation-page">
     <section class="reservation-intro">
-      <div class="container">
-        <p class="eyebrow">Appart & Beauté · La Valentine</p>
+      <div class="container reservation-heading" data-reveal>
+        <p class="eyebrow">Réservation</p>
 
         <h1>
-          Prendre
+          Choisir votre
           <span>rendez-vous</span>
         </h1>
 
+        <span class="heading-line" aria-hidden="true"></span>
+
         <p class="intro">
-          Choisissez votre prestation et le créneau qui vous convient. Les
-          disponibilités affichées sont directement synchronisées avec l'agenda
-          de l'institut.
+          Choisissez votre prestation puis le créneau qui vous convient.
+          Les disponibilités affichées sont directement synchronisées avec
+          l’agenda Planity de Marjorie.
         </p>
       </div>
     </section>
 
     <section class="booking-section">
       <div class="container">
-        <div class="booking-card">
+        <div class="booking-card" data-reveal style="--reveal-delay: 80ms">
           <PlanityBooking />
         </div>
       </div>
     </section>
   </main>
+
+  <Footer />
 </BaseLayout>
 
 <style>
   .reservation-page {
-    min-height: 100vh;
     background: var(--color-bg-soft);
   }
 
   .reservation-intro {
-    position: relative;
-    overflow: hidden;
-    padding: 175px 0 65px;
-
-    background:
-      radial-gradient(
-        circle at 95% 0%,
-        rgba(219, 169, 147, 0.32),
-        transparent 32%
-      ),
-      var(--color-bg-soft);
+    padding: 108px 0 34px;
+    background: var(--color-bg-soft);
   }
 
-  .reservation-intro .container {
-    max-width: 1200px;
+  .reservation-heading {
+    max-width: 1180px;
   }
 
-  .eyebrow {
-    margin-bottom: 18px;
-    color: var(--color-terracotta-dark);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    font-size: clamp(3.5rem, 6vw, 6rem);
+  .reservation-heading h1 {
+    max-width: 760px;
+    margin-top: 8px;
+    font-size: clamp(3rem, 12vw, 4.45rem);
     line-height: 0.95;
+    letter-spacing: -0.025em;
   }
 
-  h1 span {
+  .reservation-heading h1 span {
     display: block;
     color: var(--color-terracotta);
     font-style: italic;
   }
 
+  .heading-line {
+    display: block;
+    width: 52px;
+    height: 2px;
+    margin-top: 18px;
+    background: var(--color-terracotta);
+  }
+
   .intro {
-    max-width: 620px;
-    margin-top: 26px;
+    max-width: 650px;
+    margin-top: 20px;
     color: var(--color-text-soft);
-    font-size: 1.02rem;
-    line-height: 1.7;
+    font-size: 0.95rem;
+    line-height: 1.68;
   }
 
   .booking-section {
-    padding: 20px 0 100px;
+    padding: 12px 0 58px;
+    background: var(--color-bg-soft);
   }
 
   .booking-card {
-    padding: 35px;
-    border-radius: 30px;
+    overflow: hidden;
+    border-radius: 28px;
     background: #fffdfb;
-
-    box-shadow: 0 20px 65px rgba(90, 56, 42, 0.08);
+    box-shadow: var(--shadow-soft);
   }
 
-  @media (max-width: 560px) {
+  @media (min-width: 700px) {
     .reservation-intro {
-      padding: 140px 0 45px;
+      padding: 145px 0 46px;
     }
 
-    h1 {
-      font-size: clamp(3rem, 14vw, 4.2rem);
+    .reservation-heading h1 {
+      font-size: 5.2rem;
+    }
+
+    .intro {
+      font-size: 1rem;
     }
 
     .booking-section {
-      padding: 10px 0 60px;
+      padding: 12px 0 78px;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .reservation-intro {
+      padding: 170px 0 54px;
+    }
+
+    .reservation-heading h1 {
+      font-size: clamp(5rem, 5.7vw, 6.3rem);
+    }
+
+    .heading-line {
+      width: 68px;
+    }
+
+    .booking-section {
+      padding: 14px 0 96px;
     }
 
     .booking-card {
-      padding: 15px;
-      border-radius: 22px;
+      border-radius: 34px;
     }
   }
 </style>
