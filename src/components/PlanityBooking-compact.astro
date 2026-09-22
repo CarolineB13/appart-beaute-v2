@@ -1,0 +1,188 @@
+---
+interface Props {
+  services?: string[];
+  serviceSets?: string[];
+  servicesNotCollapsed?: boolean;
+  containerId?: string;
+}
+
+const {
+  services = [],
+  serviceSets = [],
+  servicesNotCollapsed = true,
+  containerId = "planity-appointment",
+} = Astro.props;
+
+const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
+
+const options = {
+  ...(services.length > 0 ? { servicesWhitelist: services } : {}),
+  ...(serviceSets.length > 0 ? { serviceSetsWhitelist: serviceSets } : {}),
+  ...(servicesNotCollapsed ? { servicesNotCollapsed: true } : {}),
+};
+---
+
+<section class="planity-booking planity-booking--compact">
+  <div class="planity-viewport" id={`${containerId}-viewport`}>
+    <div class="planity-container" id={containerId}></div>
+  </div>
+</section>
+
+<script define:vars={{ planityKey, options, containerId }}>
+  const container = document.getElementById(containerId);
+  const viewport = document.getElementById(`${containerId}-viewport`);
+
+  if (container && viewport && planityKey) {
+    window.planity = {
+      key: planityKey,
+      primaryColor: "#b86f55",
+      appointmentContainer: container,
+      options,
+    };
+
+    let expanded = false;
+    let raf = 0;
+
+    const resetCrop = () => {
+      viewport.style.removeProperty("height");
+      viewport.style.removeProperty("overflow");
+      container.style.removeProperty("transform");
+      container.style.removeProperty("transform-origin");
+    };
+
+    const getChooseButtons = () =>
+      [...container.querySelectorAll("button")].filter((button) => {
+        return button.textContent?.trim().toLowerCase() === "choisir";
+      });
+
+    const compactInitialStep = () => {
+      if (expanded) return;
+
+      cancelAnimationFrame(raf);
+
+      raf = requestAnimationFrame(() => {
+        const chooseButtons = getChooseButtons();
+
+        if (!chooseButtons.length) {
+          resetCrop();
+          return;
+        }
+
+        const rows = chooseButtons
+          .map(
+            (button) =>
+              button.closest("li") ||
+              button.closest('[itemprop="itemListElement"]') ||
+              button.parentElement
+          )
+          .filter((row) => row instanceof HTMLElement);
+
+        if (!rows.length) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const firstRowRect = rows[0].getBoundingClientRect();
+        const lastRowRect = rows[rows.length - 1].getBoundingClientRect();
+
+        /*
+         * On conserve une petite zone au-dessus de la première prestation
+         * pour garder le titre de catégorie "Lash Lift Coréen", mais on
+         * coupe le grand blanc et le titre interne "Prendre un RDV".
+         */
+        const topAllowance = window.innerWidth < 700 ? 88 : 105;
+
+        const cropTop = Math.max(
+          0,
+          Math.round(firstRowRect.top - containerRect.top - topAllowance)
+        );
+
+        const visibleHeight = Math.ceil(
+          lastRowRect.bottom -
+            containerRect.top -
+            cropTop +
+            (window.innerWidth < 700 ? 24 : 28)
+        );
+
+        if (visibleHeight > 140 && visibleHeight < 520) {
+          viewport.style.height = `${visibleHeight}px`;
+          viewport.style.overflow = "hidden";
+
+          container.style.transform = `translateY(-${cropTop}px)`;
+          container.style.transformOrigin = "top left";
+        }
+      });
+    };
+
+    /*
+     * Dès que l'on clique sur "Choisir", on rend au widget sa hauteur
+     * naturelle afin que le calendrier et les étapes suivantes puissent
+     * s'afficher intégralement.
+     */
+    container.addEventListener("click", (event) => {
+      const target = event.target;
+
+      if (!(target instanceof HTMLElement)) return;
+
+      const button = target.closest("button");
+
+      if (
+        button &&
+        button.textContent?.trim().toLowerCase() === "choisir"
+      ) {
+        expanded = true;
+        resetCrop();
+      }
+    });
+
+    const observer = new MutationObserver(() => {
+      if (!expanded) {
+        compactInitialStep();
+      }
+    });
+
+    observer.observe(container, {
+      childList: true,
+      subtree: true,
+    });
+
+    window.addEventListener("resize", () => {
+      if (!expanded) compactInitialStep();
+    });
+
+    [100, 300, 600, 1000, 1600, 2400].forEach((delay) => {
+      window.setTimeout(compactInitialStep, delay);
+    });
+  }
+</script>
+
+<script
+  is:inline
+  src="https://d2skjte8udjqxw.cloudfront.net/widget/production/2/polyfills.latest.js"
+></script>
+
+<script
+  is:inline
+  src="https://d2skjte8udjqxw.cloudfront.net/widget/production/2/app.latest.js"
+></script>
+
+<style>
+  .planity-booking,
+  .planity-viewport,
+  .planity-container {
+    width: 100%;
+  }
+
+  .planity-booking {
+    min-height: 0;
+  }
+
+  .planity-viewport {
+    position: relative;
+    min-height: 0;
+    background: #fffdfb;
+  }
+
+  .planity-container {
+    min-height: 0;
+    will-change: transform;
+  }
+</style>

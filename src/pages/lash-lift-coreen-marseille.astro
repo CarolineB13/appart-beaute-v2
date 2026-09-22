@@ -1,0 +1,646 @@
+---
+import { Image } from "astro:assets";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PlanityBookingCompact from "../components/PlanityBooking-compact.astro";
+
+import lashLiftPrestationImage from "../assets/images/regard/lash-lift-prestation.webp";
+import lashLiftResultatImage from "../assets/images/regard/lash-lift-resultat.webp";
+---
+
+<BaseLayout
+  title="Lash Lift Coréen à Marseille 11e | Appart & Beauté"
+  description="Découvrez le Lash Lift Coréen chez Appart & Beauté à La Valentine, Marseille 11e : une technique de rehaussement des cils naturels pour un regard lifté et élégant."
+>
+  <Header />
+
+  <main>
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="lash-hero">
+      <div class="container lash-hero-grid">
+        <div class="lash-hero-copy" data-reveal>
+          <a class="back-link" href="/prestations/#regard">
+            <span aria-hidden="true">←</span>
+            Beauté du regard
+          </a>
+
+          <p class="eyebrow">Lash Lift Coréen · Marseille 11e</p>
+
+          <h1>
+            Révéler vos cils
+            <span>tout en naturel</span>
+          </h1>
+
+          <span class="heading-line" aria-hidden="true"></span>
+
+          <p class="hero-text">
+            Une technique de rehaussement pensée pour mettre en valeur vos cils
+            naturels et donner davantage d’ouverture au regard, sans extensions.
+          </p>
+
+          <a class="primary-button" href="#reservation-lash-lift">
+            Réserver
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div
+          class="lash-hero-visual"
+          data-reveal="image"
+          style="--reveal-delay: 80ms"
+        >
+          <Image
+            src={lashLiftResultatImage}
+            alt="Résultat d’un Lash Lift Coréen chez Appart & Beauté à Marseille 11e"
+            widths={[520, 760, 980, 1200]}
+            sizes="(min-width: 1000px) 48vw, 100vw"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         QU'EST-CE QUE LE LASH LIFT
+         ===================================================== -->
+
+    <section class="about-section">
+      <div class="container about-grid">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Le principe</p>
+
+          <h2>
+            Le Lash Lift
+            <span>Coréen</span>
+          </h2>
+
+          <span class="heading-line" aria-hidden="true"></span>
+        </div>
+
+        <div class="about-copy" data-reveal style="--reveal-delay: 80ms">
+          <p>
+            Le Lash Lift Coréen travaille directement sur la courbure des cils.
+            L’objectif n’est pas d’ajouter de la longueur artificielle, mais de
+            révéler celle qui est déjà là.
+          </p>
+
+          <p>
+            Marjorie adapte la prestation à votre base naturelle et au résultat
+            recherché pour conserver un effet souple, harmonieux et élégant.
+          </p>
+        </div>
+      </div>
+
+      <div class="container benefits-grid">
+        <article class="benefit-card" data-reveal>
+          <p class="benefit-kicker">01</p>
+          <h3>Courbure souple</h3>
+          <p>Les cils sont rehaussés pour créer un effet lifté et fluide.</p>
+        </article>
+
+        <article class="benefit-card" data-reveal style="--reveal-delay: 70ms">
+          <p class="benefit-kicker">02</p>
+          <h3>Cils naturels</h3>
+          <p>La prestation met en valeur vos propres cils, sans extensions.</p>
+        </article>
+
+        <article class="benefit-card" data-reveal style="--reveal-delay: 140ms">
+          <p class="benefit-kicker">03</p>
+          <h3>Résultat personnalisé</h3>
+          <p>La courbure est adaptée à votre regard et à l’effet souhaité.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         DÉROULEMENT
+         ===================================================== -->
+
+    <section class="process-section">
+      <div class="container process-grid">
+        <div class="process-image" data-reveal="image">
+          <Image
+            src={lashLiftPrestationImage}
+            alt="Déroulement d’une prestation de Lash Lift Coréen"
+            widths={[520, 760, 980]}
+            sizes="(min-width: 1000px) 46vw, 100vw"
+          />
+        </div>
+
+        <div class="process-copy" data-reveal style="--reveal-delay: 90ms">
+          <p class="eyebrow">Le rendez-vous</p>
+
+          <h2>
+            Une heure
+            <span>pour votre regard</span>
+          </h2>
+
+          <span class="heading-line" aria-hidden="true"></span>
+
+          <div class="steps-list">
+            <div>
+              <strong>Observer</strong>
+              <p>
+                Marjorie commence par regarder la longueur, l’implantation et la
+                courbure naturelle de vos cils.
+              </p>
+            </div>
+
+            <div>
+              <strong>Rehausser</strong>
+              <p>
+                Les cils sont travaillés pour obtenir la courbure choisie et un
+                résultat équilibré.
+              </p>
+            </div>
+
+            <div>
+              <strong>Finaliser</strong>
+              <p>
+                La prestation se termine par les finitions et les conseils
+                adaptés au protocole utilisé.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         RÉSULTAT / TENUE
+         ===================================================== -->
+
+    <section class="results-section">
+      <div class="container">
+        <header class="results-heading" data-reveal>
+          <p class="eyebrow">En pratique</p>
+
+          <h2>
+            Le Lash Lift
+            <span>en deux repères</span>
+          </h2>
+
+          <span class="heading-line" aria-hidden="true"></span>
+        </header>
+
+        <div class="results-grid">
+          <article class="result-card" data-reveal>
+            <strong>1 h</strong>
+            <span>Durée du rendez-vous</span>
+          </article>
+
+          <article class="result-card" data-reveal style="--reveal-delay: 70ms">
+            <strong>6 à 8 semaines</strong>
+            <span>
+              Tenue généralement observée selon le cycle naturel des cils
+            </span>
+          </article>
+        </div>
+
+        <div class="duo-note" data-reveal style="--reveal-delay: 180ms">
+          <div>
+            <p class="eyebrow">Le duo regard</p>
+            <h3>Lash Lift Coréen + Browlift</h3>
+            <p>
+              Pour travailler les cils et les sourcils lors du même rendez-vous,
+              le forfait combiné est également disponible.
+            </p>
+          </div>
+
+          <a href="#reservation-lash-lift">
+            Voir les disponibilités
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         RÉSERVATION
+         ===================================================== -->
+
+    <section class="booking-section" id="reservation-lash-lift">
+      <div class="container">
+        <header class="booking-heading" data-reveal>
+          <p class="eyebrow">Réservation</p>
+
+          <h2>
+            Choisir votre
+            <span>rendez-vous</span>
+          </h2>
+
+          <span class="heading-line" aria-hidden="true"></span>
+
+          <p>
+            Sélectionnez le Lash Lift Coréen seul ou le forfait Lash Lift Coréen
+            + Browlift, puis choisissez votre créneau.
+          </p>
+        </header>
+
+        <div class="booking-card" data-reveal style="--reveal-delay: 80ms">
+          <PlanityBookingCompact
+            services={["-OurTIjrS77GgPv7PTWd", "-OurU21PVXpcdhz_tTbL"]}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .heading-line {
+    display: block;
+    width: 52px;
+    height: 2px;
+    margin-top: 18px;
+    background: var(--color-terracotta);
+  }
+
+  .lash-hero,
+  .process-section,
+  .booking-section {
+    background: var(--color-bg-soft);
+  }
+
+  .about-section,
+  .results-section {
+    background: var(--color-bg-warm);
+  }
+
+  .lash-hero {
+    padding: 108px 0 54px;
+  }
+
+  .lash-hero-grid,
+  .about-grid,
+  .process-grid {
+    display: grid;
+    gap: 32px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 22px;
+    color: var(--color-text-soft);
+    font-size: 0.75rem;
+  }
+
+  .lash-hero-copy h1,
+  .section-heading h2,
+  .process-copy h2,
+  .results-heading h2,
+  .booking-heading h2 {
+    margin-top: 8px;
+    font-size: clamp(2.9rem, 11vw, 4.35rem);
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+  }
+
+  .lash-hero-copy h1 span,
+  .section-heading h2 span,
+  .process-copy h2 span,
+  .results-heading h2 span,
+  .booking-heading h2 span {
+    display: block;
+    color: var(--color-terracotta);
+    font-style: italic;
+  }
+
+  .hero-text,
+  .about-copy p,
+  .booking-heading > p:not(.eyebrow) {
+    font-size: 0.94rem;
+    line-height: 1.68;
+  }
+
+  .about-copy p + p {
+    margin-top: 14px;
+  }
+
+  .primary-button {
+    display: flex;
+    width: min(100%, 280px);
+    min-height: 52px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 24px;
+    padding: 13px 20px;
+    border-radius: 999px;
+    background: var(--color-terracotta);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .lash-hero-visual,
+  .process-image {
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .lash-hero-visual {
+    height: 420px;
+    border-radius: 105px 24px 24px 24px;
+  }
+
+  .lash-hero-visual img,
+  .process-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lash-hero-visual img {
+    object-position: center 42%;
+  }
+
+  .about-section,
+  .process-section,
+  .results-section,
+  .booking-section {
+    padding: 58px 0 66px;
+  }
+
+  .benefits-grid {
+    display: grid;
+    gap: 14px;
+    margin-top: 36px;
+  }
+
+  .benefit-card {
+    padding: 23px 20px;
+    border: 1px solid rgba(159, 83, 61, 0.09);
+    border-radius: 24px;
+    background: rgba(255, 253, 251, 0.68);
+  }
+
+  .benefit-kicker {
+    color: var(--color-terracotta);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+  }
+
+  .benefit-card h3 {
+    margin-top: 8px;
+    font-size: 1.65rem;
+  }
+
+  .benefit-card p:last-child {
+    margin-top: 8px;
+    font-size: 0.84rem;
+    line-height: 1.56;
+  }
+
+  .process-image {
+    height: 405px;
+    border-radius: 24px 24px 105px 24px;
+  }
+
+  .process-image img {
+    object-position: center 45%;
+  }
+
+  .steps-list {
+    display: grid;
+    gap: 18px;
+    margin-top: 26px;
+  }
+
+  .steps-list > div {
+    padding-left: 16px;
+    border-left: 2px solid rgba(196, 119, 91, 0.3);
+  }
+
+  .steps-list strong {
+    display: block;
+    font-family: var(--font-title);
+    font-size: 1.16rem;
+    font-weight: 500;
+  }
+
+  .steps-list p {
+    margin-top: 4px;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .results-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 34px;
+  }
+
+  .result-card {
+    padding: 22px 20px;
+    border: 1px solid rgba(159, 83, 61, 0.09);
+    border-radius: 22px;
+    background: rgba(255, 253, 251, 0.68);
+  }
+
+  .result-card strong {
+    display: block;
+    font-family: var(--font-title);
+    font-size: 1.75rem;
+    font-weight: 500;
+  }
+
+  .result-card span {
+    display: block;
+    margin-top: 5px;
+    color: var(--color-text-soft);
+    font-size: 0.81rem;
+    line-height: 1.5;
+  }
+
+  .duo-note {
+    margin-top: 18px;
+    padding: 24px 21px;
+    border-radius: 24px;
+    background: var(--color-text);
+    color: white;
+  }
+
+  .duo-note .eyebrow {
+    color: var(--color-terracotta-light);
+  }
+
+  .duo-note h3 {
+    margin-top: 6px;
+    color: white;
+    font-size: 1.8rem;
+  }
+
+  .duo-note p:not(.eyebrow) {
+    margin-top: 9px;
+    color: rgba(255, 253, 251, 0.72);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .duo-note > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    color: var(--color-terracotta-light);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .booking-section {
+    scroll-margin-top: 0;
+  }
+
+  .booking-card {
+    margin-top: 28px;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #fffdfb;
+    box-shadow: var(--shadow-soft);
+  }
+
+  @media (min-width: 700px) {
+    .lash-hero {
+      padding: 145px 0 74px;
+    }
+
+    .lash-hero-copy h1 {
+      font-size: 5.2rem;
+    }
+
+    .lash-hero-visual {
+      height: 520px;
+    }
+
+    .about-section,
+    .process-section,
+    .results-section,
+    .booking-section {
+      padding-top: 78px;
+      padding-bottom: 88px;
+    }
+
+    .benefits-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .results-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .process-image {
+      height: 500px;
+    }
+
+    .duo-note {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 28px;
+    }
+
+    .duo-note > div {
+      max-width: 580px;
+    }
+
+    .duo-note > a {
+      flex: 0 0 auto;
+      margin-top: 0;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .heading-line {
+      width: 68px;
+    }
+
+    .lash-hero {
+      padding: 170px 0 94px;
+    }
+
+    .lash-hero-grid {
+      grid-template-columns: 0.94fr 1.06fr;
+      align-items: center;
+      gap: 74px;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr 0.82fr;
+      align-items: end;
+      gap: 76px;
+    }
+
+    .process-grid {
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: center;
+      gap: 78px;
+    }
+
+    .lash-hero-copy h1,
+    .section-heading h2,
+    .process-copy h2,
+    .results-heading h2,
+    .booking-heading h2 {
+      font-size: clamp(4.2rem, 4.8vw, 5.3rem);
+    }
+
+    .lash-hero-visual {
+      height: 620px;
+      border-radius: 150px 32px 32px 32px;
+    }
+
+    .about-section,
+    .process-section,
+    .results-section,
+    .booking-section {
+      padding-top: 96px;
+      padding-bottom: 105px;
+    }
+
+    .benefits-grid {
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .benefit-card {
+      min-height: 205px;
+      padding: 27px 25px;
+    }
+
+    .process-image {
+      height: 590px;
+      border-radius: 32px 32px 150px 32px;
+    }
+
+    .results-grid {
+      gap: 18px;
+      margin-top: 42px;
+    }
+
+    .duo-note {
+      margin-top: 24px;
+      padding: 34px 36px;
+      border-radius: 30px;
+    }
+
+    .booking-card {
+      margin-top: 36px;
+      border-radius: 34px;
+    }
+  }
+</style>

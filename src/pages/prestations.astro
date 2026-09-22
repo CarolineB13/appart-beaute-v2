@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
-import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
 
 import regardImage from "../assets/images/regard/prestation-regard.webp";
@@ -47,7 +46,7 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
          REGARD — UNIVERS PRIORITAIRE
          ===================================================== -->
 
-    <section class="regard-universe">
+    <section class="regard-universe" id="regard">
       <div class="container">
         <div class="section-heading" data-reveal>
           <p class="eyebrow">Cils & sourcils</p>
@@ -64,41 +63,6 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
             pensée pour ouvrir le regard, structurer les sourcils et sublimer
             vos traits sans les transformer.
           </p>
-        </div>
-
-        <div class="regard-feature">
-          <a
-            class="regard-feature-image"
-            href="/beaute-du-regard-marseille/"
-            data-reveal="image"
-          >
-            <Image
-              src={regardImage}
-              alt="Beauté du regard chez Appart & Beauté à La Valentine Marseille 11e"
-              widths={[640, 900, 1200]}
-              sizes="(min-width: 1000px) 55vw, 100vw"
-            />
-          </a>
-
-          <div
-            class="regard-feature-copy"
-            data-reveal
-            style="--reveal-delay: 80ms"
-          >
-            <p class="feature-label">Notre expertise signature</p>
-
-            <h3>Révéler le regard sans le transformer</h3>
-
-            <p>
-              Courber, discipliner, intensifier ou structurer : nous vous
-              orientons vers la technique la plus adaptée au résultat souhaité.
-            </p>
-
-            <a class="primary-link" href="/beaute-du-regard-marseille/">
-              Découvrir la beauté du regard
-              <span>→</span>
-            </a>
-          </div>
         </div>
 
         <div class="regard-services">
@@ -171,10 +135,20 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
             <div class="mini-service-copy">
               <p class="mini-kicker">Intensité sur mesure</p>
               <h3>Extensions de cils</h3>
-              <p>Cil à cil, hybride ou volume pour intensifier le regard.</p>
+              <p>
+                Cil à cil, hybride ou volume russe pour intensifier le regard.
+              </p>
               <span class="mini-link">Découvrir <i>→</i></span>
             </div>
           </a>
+        </div>
+
+        <div class="regard-more" data-reveal style="--reveal-delay: 210ms">
+          <p>
+            <strong>Également disponibles :</strong>
+            Teinture de cils · Teinture de sourcils · Teinture + épilation sourcils
+            · Forfait Lash Lift Coréen + Browlift
+          </p>
         </div>
       </div>
     </section>
@@ -287,8 +261,8 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
 
             <p>
               Consultez les prestations et disponibilités sur Planity, ou
-              contactez directement Marjorie si vous avez besoin d’être
-              conseillée.
+              contactez directement Marjorie si vous avez besoin d’aide pour
+              choisir.
             </p>
           </div>
 
@@ -303,8 +277,6 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
         </div>
       </div>
     </section>
-
-    <FinalCTA />
   </main>
 
   <Footer />
@@ -379,55 +351,12 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
     font-style: italic;
   }
 
-  .regard-feature {
-    display: grid;
-    gap: 26px;
-    margin-top: 34px;
-  }
-
-  .regard-feature-image {
-    display: block;
-    overflow: hidden;
-    min-height: 390px;
-    border-radius: 92px 24px 24px 24px;
-    box-shadow: var(--shadow-soft);
-  }
-
-  .regard-feature-image img {
-    width: 100%;
-    height: 100%;
-    min-height: 390px;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-
-  .regard-feature-image:hover img {
-    transform: scale(1.025);
-  }
-
-  .regard-feature-copy {
-    padding: 2px 2px 0;
-  }
-
-  .feature-label,
   .mini-kicker {
     color: var(--color-terracotta-dark);
     font-size: 0.63rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-  }
-
-  .regard-feature-copy h3 {
-    margin-top: 9px;
-    font-size: 2.35rem;
-    line-height: 1.02;
-  }
-
-  .regard-feature-copy > p:not(.feature-label) {
-    margin-top: 16px;
-    font-size: 0.94rem;
-    line-height: 1.68;
   }
 
   .primary-link {
@@ -453,7 +382,7 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
   .regard-services {
     display: grid;
     gap: 16px;
-    margin-top: 34px;
+    margin-top: 30px;
   }
 
   .mini-service {
@@ -503,6 +432,24 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
 
   .mini-link i {
     font-style: normal;
+  }
+
+  .regard-more {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(53, 39, 33, 0.08);
+  }
+
+  .regard-more p {
+    max-width: 880px;
+    color: var(--color-text-soft);
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+
+  .regard-more strong {
+    color: var(--color-text);
+    font-weight: 600;
   }
 
   /* =====================================================
@@ -669,24 +616,19 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
       font-size: 4.7rem;
     }
 
-    .regard-feature {
-      gap: 34px;
-      margin-top: 48px;
-    }
-
-    .regard-feature-image,
-    .regard-feature-image img {
-      min-height: 500px;
-    }
-
-    .regard-feature-copy h3 {
-      font-size: 3rem;
-    }
-
     .regard-services {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
       margin-top: 50px;
+    }
+
+    .regard-more {
+      margin-top: 30px;
+      padding-top: 20px;
+    }
+
+    .regard-more p {
+      font-size: 0.84rem;
     }
 
     .mini-service {
@@ -768,19 +710,6 @@ import epilationImage from "../assets/images/prestations/prestation-epilation.we
       align-items: center;
       gap: 72px;
       margin-top: 56px;
-    }
-
-    .regard-feature-image {
-      min-height: 610px;
-      border-radius: 150px 30px 30px 30px;
-    }
-
-    .regard-feature-image img {
-      min-height: 610px;
-    }
-
-    .regard-feature-copy {
-      padding-right: 10px;
     }
 
     .regard-feature-copy h3 {
