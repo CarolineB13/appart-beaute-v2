@@ -42,8 +42,8 @@ const options = {
       options,
     };
 
-    let expanded = false;
     let raf = 0;
+    let showMoreClickInProgress = false;
 
     const resetCrop = () => {
       viewport.style.removeProperty("height");
@@ -57,22 +57,37 @@ const options = {
         return button.textContent?.trim().toLowerCase() === "choisir";
       });
 
+    const getShowMoreControl = () =>
+      [...container.querySelectorAll("button, a")].find((element) => {
+        const text = element.textContent?.trim().toLowerCase() || "";
+        return /^voir\s+\d+\s+autre[s]?\s+prestation[s]?/.test(
+          text.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        );
+      });
+
     const replaceCategoryTitle = (firstRowTop) => {
       if (!displayTitle) return;
 
-      const candidates = [...container.querySelectorAll("h1,h2,h3,h4,h5,h6,div,p,span")]
-        .filter((element) => {
-          if (!(element instanceof HTMLElement)) return false;
+      const candidates = [
+        ...container.querySelectorAll("h1,h2,h3,h4,h5,h6,div,p,span"),
+      ].filter((element) => {
+        if (!(element instanceof HTMLElement)) return false;
 
-          const text = element.textContent?.trim();
-          if (!text || text !== "Lash Lift Coréen") return false;
+        const text = element.textContent?.trim();
+        if (!text || text.length > 70) return false;
+        if (text.toLowerCase() === "prendre un rdv") return false;
 
-          const rect = element.getBoundingClientRect();
-          return rect.bottom <= firstRowTop + 16;
-        });
+        const rect = element.getBoundingClientRect();
+
+        return (
+          rect.bottom <= firstRowTop + 16 &&
+          firstRowTop - rect.bottom < 130
+        );
+      });
 
       if (candidates.length) {
         const heading = candidates[candidates.length - 1];
+
         if (heading.textContent?.trim() !== displayTitle) {
           heading.textContent = displayTitle;
         }
@@ -80,13 +95,34 @@ const options = {
     };
 
     const compactInitialStep = () => {
-      if (expanded) return;
-
       cancelAnimationFrame(raf);
 
       raf = requestAnimationFrame(() => {
+        /*
+         * Planity replie parfois la 6e prestation derrière
+         * "Voir 1 autre prestation". On l'ouvre automatiquement
+         * afin que toutes les prestations filtrées soient visibles.
+         */
+        const showMoreControl = getShowMoreControl();
+
+        if (showMoreControl && !showMoreClickInProgress) {
+          showMoreClickInProgress = true;
+          showMoreControl.click();
+
+          window.setTimeout(() => {
+            showMoreClickInProgress = false;
+            compactInitialStep();
+          }, 120);
+
+          return;
+        }
+
         const chooseButtons = getChooseButtons();
 
+        /*
+         * Si aucun bouton "Choisir" n'est présent, Planity est passé
+         * à l'étape calendrier / réservation : on enlève le recadrage.
+         */
         if (!chooseButtons.length) {
           resetCrop();
           return;
@@ -101,7 +137,10 @@ const options = {
           )
           .filter((row) => row instanceof HTMLElement);
 
-        if (!rows.length) return;
+        if (!rows.length) {
+          resetCrop();
+          return;
+        }
 
         const containerRect = container.getBoundingClientRect();
         const firstRowRect = rows[0].getBoundingClientRect();
@@ -120,15 +159,21 @@ const options = {
           lastRowRect.bottom -
             containerRect.top -
             cropTop +
-            (window.innerWidth < 700 ? 24 : 28)
+            (window.innerWidth < 700 ? 26 : 30)
         );
 
-        if (visibleHeight > 140 && visibleHeight < 520) {
+        /*
+         * 760 px laisse assez de place aux catégories comportant
+         * 6 prestations, notamment les Extensions de cils.
+         */
+        if (visibleHeight > 140 && visibleHeight < 760) {
           viewport.style.height = `${visibleHeight}px`;
           viewport.style.overflow = "hidden";
 
           container.style.transform = `translateY(-${cropTop}px)`;
           container.style.transformOrigin = "top left";
+        } else {
+          resetCrop();
         }
       });
     };
@@ -144,15 +189,23 @@ const options = {
         button &&
         button.textContent?.trim().toLowerCase() === "choisir"
       ) {
-        expanded = true;
+        /*
+         * Le calendrier doit retrouver la hauteur complète du widget.
+         */
         resetCrop();
       }
     });
 
+    /*
+     * À chaque changement interne de Planity :
+     * - retour à la liste => recadrage automatique ;
+     * - passage au calendrier => hauteur complète.
+     *
+     * Cela corrige notamment le problème après avoir choisi puis
+     * supprimé une prestation / être revenu à la liste.
+     */
     const observer = new MutationObserver(() => {
-      if (!expanded) {
-        compactInitialStep();
-      }
+      compactInitialStep();
     });
 
     observer.observe(container, {
@@ -160,9 +213,7 @@ const options = {
       subtree: true,
     });
 
-    window.addEventListener("resize", () => {
-      if (!expanded) compactInitialStep();
-    });
+    window.addEventListener("resize", compactInitialStep);
 
     [100, 300, 600, 1000, 1600, 2400].forEach((delay) => {
       window.setTimeout(compactInitialStep, delay);
