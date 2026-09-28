@@ -43,4 +43,46 @@ const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
       min-height: 500px;
     }
   }
+  @media (max-width: 699px) {
+  .planity-booking,
+  .planity-container {
+    background: transparent !important;
+  }
+
+  .planity-booking :global(.planity_ui_appointment_background) {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+}
+@media (max-width: 699px) {
+  .planity-booking,
+  .planity-container,
+  .planity-container :global(.planity_ui_appointment_background) {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Blocs catégories Planity */
+  .planity-container :global([class*="service-set"]) {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  /* En-têtes des accordéons */
+  .planity-container :global(button[aria-expanded]),
+  .planity-container :global([role="button"][aria-expanded]) {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Une séparation très légère entre les catégories */
+  .planity-container :global(button[aria-expanded]),
+  .planity-container :global([role="button"][aria-expanded]) {
+    border-bottom: 1px solid rgba(159, 83, 61, 0.12) !important;
+  }
+}
 </style>
