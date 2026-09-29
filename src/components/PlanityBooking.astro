@@ -3,117 +3,117 @@ const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
 ---
 
 <section class="planity-booking">
-  <div class="planity-container" id="planity-appointment"></div>
+  <div
+    class="booking-confirmation"
+    id="booking-confirmation"
+    hidden
+    aria-live="polite"
+  >
+    <p class="confirmation-kicker">Rendez-vous enregistré</p>
+
+    <h2>Votre rendez-vous est confirmé</h2>
+
+    <p class="confirmation-text">
+      Merci pour votre réservation chez Appart & Beauté.
+      Vous allez recevoir un e-mail Planity avec le récapitulatif de votre rendez-vous.
+    </p>
+
+    <div class="confirmation-actions">
+      <a class="confirmation-primary" href="/">
+        Retour à l’accueil
+        <span aria-hidden="true">→</span>
+      </a>
+
+      <button class="confirmation-secondary" id="book-another" type="button">
+        Prendre un autre rendez-vous
+      </button>
+    </div>
+  </div>
+
+  <div id="planity-widget-wrap">
+    <div class="planity-container" id="planity-appointment"></div>
+  </div>
 </section>
 
 <script define:vars={{ planityKey }}>
   const container = document.getElementById("planity-appointment");
+  const widgetWrap = document.getElementById("planity-widget-wrap");
+  const confirmationBox = document.getElementById("booking-confirmation");
+  const bookAnotherButton = document.getElementById("book-another");
 
-  if (container && planityKey) {
+  if (container && widgetWrap && confirmationBox && planityKey) {
     window.planity = {
       key: planityKey,
       primaryColor: "#b86f55",
       appointmentContainer: container,
     };
 
-    const bookingRoot = container.closest(".planity-booking");
-    let scrollAnchor = null;
-    let scrollGuardUntil = 0;
+    let confirmationShown = false;
 
-    const isElementVisible = (element) => {
-      if (!(element instanceof HTMLElement)) return false;
+    const normalizeText = (value = "") =>
+      value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
 
-      const style = window.getComputedStyle(element);
-      const rect = element.getBoundingClientRect();
+    const hasPlanityConfirmation = () =>
+      [...container.querySelectorAll("h1,h2,h3,h4,h5,h6,p,div,span")].some(
+        (element) => {
+          if (!(element instanceof HTMLElement)) return false;
 
-      return (
-        style.display !== "none" &&
-        style.visibility !== "hidden" &&
-        Number(style.opacity || 1) !== 0 &&
-        rect.width > 0 &&
-        rect.height > 0
+          const text = normalizeText(element.textContent || "");
+
+          return (
+            text.length > 0 &&
+            text.length < 220 &&
+            text.includes("rendez-vous") &&
+            text.includes("confirm")
+          );
+        }
       );
-    };
 
-    const getVisibleDialog = () =>
-      [...document.querySelectorAll('[role="dialog"], [aria-modal="true"]')].find(
-        (element) => isElementVisible(element)
-      );
+    const showPersistentConfirmation = () => {
+      if (confirmationShown || !hasPlanityConfirmation()) return;
 
-    const isPlanityInteraction = (target) => {
-      if (!(target instanceof Node)) return false;
-      if (container.contains(target)) return true;
-
-      const dialog = getVisibleDialog();
-      return Boolean(dialog && dialog.contains(target));
-    };
-
-    const rememberScrollAnchor = () => {
-      if (!(bookingRoot instanceof HTMLElement)) return;
-
-      scrollAnchor = {
-        rootTop: bookingRoot.getBoundingClientRect().top,
-        scrollY: window.scrollY,
-      };
-
-      scrollGuardUntil = performance.now() + 1200;
-    };
-
-    const restoreScrollAnchor = () => {
-      if (!scrollAnchor || performance.now() > scrollGuardUntil) return;
-      if (!(bookingRoot instanceof HTMLElement)) return;
-
-      const currentRootTop = bookingRoot.getBoundingClientRect().top;
-      const drift = currentRootTop - scrollAnchor.rootTop;
+      confirmationShown = true;
 
       /*
-       * Planity peut demander au navigateur de remonter brutalement pendant
-       * un changement d'étape. On compense uniquement ce saut vertical ;
-       * le défilement manuel de l'utilisatrice reste libre hors interaction.
+       * Planity affiche sa confirmation seulement quelques secondes
+       * avant de revenir à sa vue initiale. Dès que cette confirmation
+       * est détectée, on affiche notre propre confirmation persistante.
        */
-      if (Math.abs(drift) > 40) {
-        window.scrollBy({ top: drift, left: 0, behavior: "auto" });
-        return;
-      }
+      window.setTimeout(() => {
+        widgetWrap.hidden = true;
+        confirmationBox.hidden = false;
 
-      /* Sécurité supplémentaire pour le cas typique d'un retour à y = 0. */
-      if (scrollAnchor.scrollY > 180 && window.scrollY < 80) {
-        window.scrollTo({
-          top: scrollAnchor.scrollY,
-          left: 0,
-          behavior: "auto",
+        confirmationBox.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
-      }
+      }, 120);
     };
 
-    const scheduleScrollRestore = () => {
-      [0, 40, 100, 220, 450, 800].forEach((delay) => {
-        window.setTimeout(() => {
-          window.requestAnimationFrame(restoreScrollAnchor);
-        }, delay);
-      });
-    };
-
-    document.addEventListener(
-      "click",
-      (event) => {
-        if (!isPlanityInteraction(event.target)) return;
-
-        rememberScrollAnchor();
-        scheduleScrollRestore();
-      },
-      true
-    );
-
-    const scrollObserver = new MutationObserver(() => {
-      scheduleScrollRestore();
+    const observer = new MutationObserver(() => {
+      showPersistentConfirmation();
     });
 
-    scrollObserver.observe(container, {
+    observer.observe(container, {
       childList: true,
       subtree: true,
-      attributes: true,
-      attributeFilter: ["style", "class", "aria-hidden", "aria-expanded"],
+      characterData: true,
+    });
+
+    bookAnotherButton?.addEventListener("click", () => {
+      confirmationShown = false;
+      confirmationBox.hidden = true;
+      widgetWrap.hidden = false;
+
+      widgetWrap.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     });
   }
 </script>
@@ -138,9 +138,96 @@ const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
     min-height: 600px;
   }
 
+  .booking-confirmation {
+    scroll-margin-top: 120px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 38px 26px;
+    border: 1px solid rgba(159, 83, 61, 0.1);
+    border-radius: 32px;
+    background: rgba(255, 253, 251, 0.94);
+    text-align: center;
+    box-shadow: 0 18px 48px rgba(73, 48, 39, 0.08);
+  }
+
+  .confirmation-kicker {
+    margin: 0;
+    color: var(--color-terracotta-dark);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .booking-confirmation h2 {
+    margin-top: 10px;
+    font-size: clamp(2.5rem, 9vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .confirmation-text {
+    max-width: 560px;
+    margin: 20px auto 0;
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .confirmation-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    margin-top: 28px;
+  }
+
+  .confirmation-primary,
+  .confirmation-secondary {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .confirmation-primary {
+    background: var(--color-terracotta);
+    color: #fff;
+  }
+
+  .confirmation-secondary {
+    border: 1px solid rgba(159, 83, 61, 0.2);
+    background: transparent;
+    color: var(--color-terracotta-dark);
+  }
+
   @media (max-width: 560px) {
     .planity-container {
       min-height: 500px;
+    }
+
+    .booking-confirmation {
+      padding: 32px 20px;
+      border-radius: 26px;
+    }
+  }
+
+  @media (min-width: 700px) {
+    .confirmation-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .confirmation-primary,
+    .confirmation-secondary {
+      min-width: 220px;
     }
   }
 </style>

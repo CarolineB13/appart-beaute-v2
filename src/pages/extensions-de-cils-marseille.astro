@@ -4,19 +4,11 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import PlanityBookingCompact from "../components/PlanityBooking-compact.astro";
+import FinalCTA from "../components/FinalCTA.astro";
 
 import extensionsImage from "../assets/images/prestations/prestation-extensions.webp";
 import regardImage from "../assets/images/regard/prestation-extension.webp";
 
-const extensionServices = [
-  "-O3Ha0NF1KuoZiP2Vm3J", // Cil à cil — pose complète
-  "-O3Ha1bvz8983Xd_UzZh", // Cil à cil — remplissage
-  "-O3Ha8t_xqpQgqyw2HII", // Hybride — pose complète
-  "-O3Ha91IgWSExNZmHra_", // Hybride — remplissage
-  "-O3HaKMxavyVpelnwUA2", // Volume russe — pose complète
-  "-O3HaKYSc7Wn1JQs4ToA", // Volume russe — remplissage
-];
 ---
 
 <BaseLayout
@@ -48,7 +40,7 @@ const extensionServices = [
 
           <p class="hero-types">Cil à cil · Hybride · Volume russe</p>
 
-          <a class="hero-button" href="#reservation-extensions">
+          <a class="hero-button" href="/reservation/">
             Voir les rendez-vous
             <span aria-hidden="true">→</span>
           </a>
@@ -244,37 +236,7 @@ const extensionServices = [
       </div>
     </section>
 
-    <!-- =====================================================
-         RÉSERVATION PLANITY
-         ===================================================== -->
-    <section class="booking-section" id="reservation-extensions">
-      <div class="container booking-container">
-        <header class="booking-heading" data-reveal>
-          <p class="eyebrow">Réservation</p>
-
-          <h2>
-            Choisir votre
-            <span>rendez-vous</span>
-          </h2>
-
-          <span class="heading-line" aria-hidden="true"></span>
-
-          <p>
-            Sélectionnez votre pose ou votre remplissage, puis le créneau qui
-            vous convient. Les tarifs affichés dans Planity sont les tarifs à
-            jour de l’institut.
-          </p>
-        </header>
-
-        <div class="booking-card" data-reveal style="--reveal-delay: 90ms">
-          <PlanityBookingCompact
-            services={extensionServices}
-            containerId="planity-extensions"
-            displayTitle="Extensions de cils"
-          />
-        </div>
-      </div>
-    </section>
+    <FinalCTA />
   </main>
 
   <Footer />
@@ -294,8 +256,7 @@ const extensionServices = [
   }
 
   .section-heading h2,
-  .process-copy h2,
-  .booking-heading h2 {
+  .process-copy h2 {
     margin-top: 9px;
     font-size: clamp(2.85rem, 11vw, 3.95rem);
     line-height: 0.96;
@@ -303,8 +264,7 @@ const extensionServices = [
   }
 
   .section-heading h2 span,
-  .process-copy h2 span,
-  .booking-heading h2 span {
+  .process-copy h2 span {
     display: block;
     color: var(--color-terracotta);
     font-style: italic;
@@ -616,36 +576,6 @@ const extensionServices = [
   }
 
   /* =====================================================
-     RÉSERVATION
-     ===================================================== */
-
-  .booking-section {
-    scroll-margin-top: 110px;
-    padding: 62px 0 74px;
-    background: var(--color-bg-soft);
-  }
-
-  .booking-heading {
-    max-width: 680px;
-  }
-
-  .booking-heading > p:last-child {
-    max-width: 590px;
-    margin-top: 20px;
-    font-size: 0.95rem;
-    line-height: 1.68;
-  }
-
-  .booking-card {
-    margin-top: 34px;
-    overflow: hidden;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  /* =====================================================
      PETITS MOBILES
      ===================================================== */
 
@@ -696,15 +626,13 @@ const extensionServices = [
 
     .about-section,
     .process-section,
-    .practice-section,
-    .booking-section {
+    .practice-section {
       padding-top: 82px;
       padding-bottom: 88px;
     }
 
     .section-heading h2,
-    .process-copy h2,
-    .booking-heading h2 {
+    .process-copy h2 {
       font-size: 4.7rem;
     }
 
@@ -772,15 +700,13 @@ const extensionServices = [
 
     .about-section,
     .process-section,
-    .practice-section,
-    .booking-section {
+    .practice-section {
       padding-top: 92px;
       padding-bottom: 100px;
     }
 
     .section-heading,
-    .practice-heading,
-    .booking-heading {
+    .practice-heading {
       display: grid;
       max-width: none;
       grid-template-columns: 1fr 0.78fr;
@@ -793,27 +719,23 @@ const extensionServices = [
     }
 
     .section-heading .eyebrow,
-    .practice-heading .eyebrow,
-    .booking-heading .eyebrow {
+    .practice-heading .eyebrow {
       grid-area: eyebrow;
     }
 
     .section-heading h2,
-    .practice-heading h2,
-    .booking-heading h2 {
+    .practice-heading h2 {
       grid-area: title;
       font-size: clamp(4.35rem, 5vw, 5.25rem);
     }
 
     .section-heading .heading-line,
-    .practice-heading .heading-line,
-    .booking-heading .heading-line {
+    .practice-heading .heading-line {
       grid-area: line;
       justify-self: start;
     }
 
-    .section-intro,
-    .booking-heading > p:last-child {
+    .section-intro {
       grid-area: intro;
       align-self: end;
       margin-top: 0;
@@ -886,9 +808,6 @@ const extensionServices = [
       font-size: 2.5rem;
     }
 
-    .booking-card {
-      margin-top: 48px;
-    }
   }
 
   /* =====================================================

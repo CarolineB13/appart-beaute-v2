@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import PlanityBookingCompact from "../components/PlanityBooking-compact.astro";
+import FinalCTA from "../components/FinalCTA.astro";
 
 import browliftPrestationImage from "../assets/images/regard/browlift-prestation.webp";
 import browliftResultatImage from "../assets/images/regard/browlift-resultat.webp";
@@ -44,7 +44,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
             regard sans tatouage.
           </p>
 
-          <a class="primary-button" href="#reservation-browlift">
+          <a class="primary-button" href="/reservation/">
             Réserver
             <span aria-hidden="true">→</span>
           </a>
@@ -223,7 +223,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
             </p>
           </div>
 
-          <a href="#reservation-browlift">
+          <a href="/reservation/">
             Voir les disponibilités
             <span aria-hidden="true">→</span>
           </a>
@@ -231,39 +231,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
       </div>
     </section>
 
-    <!-- =====================================================
-         RÉSERVATION
-         ===================================================== -->
-
-    <section class="booking-section" id="reservation-browlift">
-      <div class="container">
-        <header class="booking-heading" data-reveal>
-          <p class="eyebrow">Réservation</p>
-
-          <h2>
-            Choisir votre
-            <span>rendez-vous</span>
-          </h2>
-
-          <span class="heading-line" aria-hidden="true"></span>
-
-          <p>
-            Sélectionnez le Browlift seul ou le forfait Lash Lift Coréen +
-            Browlift, puis choisissez votre créneau.
-          </p>
-        </header>
-
-        <div class="booking-card" data-reveal style="--reveal-delay: 80ms">
-          <PlanityBookingCompact
-            services={[
-              "-OurTlOv9ZvyyeiI6l-I",
-              "-OurU21PVXpcdhz_tTbL",
-            ]}
-            displayTitle="Browlift"
-          />
-        </div>
-      </div>
-    </section>
+    <FinalCTA />
   </main>
 
   <Footer />
@@ -279,8 +247,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
   }
 
   .brow-hero,
-  .process-section,
-  .booking-section {
+  .process-section {
     background: var(--color-bg-soft);
   }
 
@@ -312,8 +279,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
   .brow-hero-copy h1,
   .section-heading h2,
   .process-copy h2,
-  .results-heading h2,
-  .booking-heading h2 {
+  .results-heading h2 {
     margin-top: 8px;
     font-size: clamp(2.9rem, 11vw, 4.35rem);
     line-height: 0.96;
@@ -323,16 +289,14 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
   .brow-hero-copy h1 span,
   .section-heading h2 span,
   .process-copy h2 span,
-  .results-heading h2 span,
-  .booking-heading h2 span {
+  .results-heading h2 span {
     display: block;
     color: var(--color-terracotta);
     font-style: italic;
   }
 
   .hero-text,
-  .about-copy p,
-  .booking-heading > p:not(.eyebrow) {
+  .about-copy p {
     font-size: 0.94rem;
     line-height: 1.68;
   }
@@ -383,8 +347,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
 
   .about-section,
   .process-section,
-  .results-section,
-  .booking-section {
+  .results-section {
     padding: 58px 0 66px;
   }
 
@@ -515,17 +478,6 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
     font-weight: 600;
   }
 
-  .booking-section {
-    scroll-margin-top: 90px;
-  }
-
-  .booking-card {
-  margin-top: 28px;
-  overflow: hidden;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
 
   @media (min-width: 700px) {
     .brow-hero {
@@ -542,8 +494,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
 
     .about-section,
     .process-section,
-    .results-section,
-    .booking-section {
+    .results-section {
       padding-top: 78px;
       padding-bottom: 88px;
     }
@@ -610,8 +561,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
     .brow-hero-copy h1,
     .section-heading h2,
     .process-copy h2,
-    .results-heading h2,
-    .booking-heading h2 {
+    .results-heading h2 {
       font-size: clamp(4.2rem, 4.8vw, 5.3rem);
     }
 
@@ -622,8 +572,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
 
     .about-section,
     .process-section,
-    .results-section,
-    .booking-section {
+    .results-section {
       padding-top: 96px;
       padding-bottom: 105px;
     }
@@ -654,9 +603,5 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
       border-radius: 30px;
     }
 
-    .booking-card {
-      margin-top: 36px;
-      border-radius: 34px;
-    }
   }
 </style>
