@@ -44,6 +44,96 @@ const options = {
 
     let raf = 0;
     let showMoreClickInProgress = false;
+    let bookingFlowActive = false;
+
+    const bookingRoot = container.closest(".planity-booking");
+    let scrollAnchor = null;
+    let scrollGuardUntil = 0;
+
+    const isElementVisible = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+
+      const style = window.getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+
+      return (
+        style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        Number(style.opacity || 1) !== 0 &&
+        rect.width > 0 &&
+        rect.height > 0
+      );
+    };
+
+    const getVisibleDialog = () =>
+      [
+        ...document.querySelectorAll('[role="dialog"], [aria-modal="true"]'),
+      ].find((element) => isElementVisible(element));
+
+    const isPlanityInteraction = (target) => {
+      if (!(target instanceof Node)) return false;
+      if (container.contains(target)) return true;
+
+      const dialog = getVisibleDialog();
+      return Boolean(dialog && dialog.contains(target));
+    };
+
+    const rememberScrollAnchor = () => {
+      if (!(bookingRoot instanceof HTMLElement)) return;
+
+      scrollAnchor = {
+        rootTop: bookingRoot.getBoundingClientRect().top,
+        scrollY: window.scrollY,
+      };
+
+      scrollGuardUntil = performance.now() + 1200;
+    };
+
+    const restoreScrollAnchor = () => {
+      if (!scrollAnchor || performance.now() > scrollGuardUntil) return;
+      if (!(bookingRoot instanceof HTMLElement)) return;
+
+      const currentRootTop = bookingRoot.getBoundingClientRect().top;
+      const drift = currentRootTop - scrollAnchor.rootTop;
+
+      /*
+       * Planity peut demander au navigateur de remonter brutalement pendant
+       * un changement d'étape. On compense uniquement ce saut vertical ;
+       * le défilement manuel de l'utilisatrice reste libre hors interaction.
+       */
+      if (Math.abs(drift) > 40) {
+        window.scrollBy({ top: drift, left: 0, behavior: "auto" });
+        return;
+      }
+
+      /* Sécurité supplémentaire pour le cas typique d'un retour à y = 0. */
+      if (scrollAnchor.scrollY > 180 && window.scrollY < 80) {
+        window.scrollTo({
+          top: scrollAnchor.scrollY,
+          left: 0,
+          behavior: "auto",
+        });
+      }
+    };
+
+    const scheduleScrollRestore = () => {
+      [0, 40, 100, 220, 450, 800].forEach((delay) => {
+        window.setTimeout(() => {
+          window.requestAnimationFrame(restoreScrollAnchor);
+        }, delay);
+      });
+    };
+
+    document.addEventListener(
+      "click",
+      (event) => {
+        if (!isPlanityInteraction(event.target)) return;
+
+        rememberScrollAnchor();
+        scheduleScrollRestore();
+      },
+      true,
+    );
 
     const resetCrop = () => {
       viewport.style.removeProperty("height");
@@ -52,18 +142,31 @@ const options = {
       container.style.removeProperty("transform-origin");
     };
 
+    const isVisible = isElementVisible;
+
     const getChooseButtons = () =>
       [...container.querySelectorAll("button")].filter((button) => {
-        return button.textContent?.trim().toLowerCase() === "choisir";
+        return (
+          button.textContent?.trim().toLowerCase() === "choisir" &&
+          isVisible(button)
+        );
       });
 
     const getShowMoreControl = () =>
       [...container.querySelectorAll("button, a")].find((element) => {
+        if (!isVisible(element)) return false;
+
         const text = element.textContent?.trim().toLowerCase() || "";
+
         return /^voir\s+\d+\s+autre[s]?\s+prestation[s]?/.test(
-          text.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          text.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
         );
       });
+
+    const hasVisibleDialog = () =>
+      [
+        ...document.querySelectorAll('[role="dialog"], [aria-modal="true"]'),
+      ].some((element) => isVisible(element));
 
     const replaceCategoryTitle = (firstRowTop) => {
       if (!displayTitle) return;
@@ -72,6 +175,7 @@ const options = {
         ...container.querySelectorAll("h1,h2,h3,h4,h5,h6,div,p,span"),
       ].filter((element) => {
         if (!(element instanceof HTMLElement)) return false;
+        if (!isVisible(element)) return false;
 
         const text = element.textContent?.trim();
         if (!text || text.length > 70) return false;
@@ -80,8 +184,7 @@ const options = {
         const rect = element.getBoundingClientRect();
 
         return (
-          rect.bottom <= firstRowTop + 16 &&
-          firstRowTop - rect.bottom < 130
+          rect.bottom <= firstRowTop + 16 && firstRowTop - rect.bottom < 130
         );
       });
 
@@ -99,10 +202,32 @@ const options = {
 
       raf = requestAnimationFrame(() => {
         /*
-         * Planity replie parfois la 6e prestation derrière
-         * "Voir 1 autre prestation". On l'ouvre automatiquement
-         * afin que toutes les prestations filtrées soient visibles.
+         * Dès qu'une fenêtre Planity est ouverte (information,
+         * identification, confirmation...), on laisse le widget totalement
+         * libre : aucun recadrage ni transform ne doit perturber la modale.
          */
+        if (hasVisibleDialog()) {
+          resetCrop();
+          return;
+        }
+
+        const chooseButtons = getChooseButtons();
+
+        /*
+         * Après un clic sur "Choisir", on ne recadre plus le widget tant que
+         * la vraie liste des prestations n'est pas redevenue visible.
+         * Cela évite qu'une liste cachée dans le DOM réactive le transform
+         * pendant le calendrier ou l'identification.
+         */
+        if (bookingFlowActive) {
+          if (!chooseButtons.length) {
+            resetCrop();
+            return;
+          }
+
+          bookingFlowActive = false;
+        }
+
         const showMoreControl = getShowMoreControl();
 
         if (showMoreControl && !showMoreClickInProgress) {
@@ -117,12 +242,6 @@ const options = {
           return;
         }
 
-        const chooseButtons = getChooseButtons();
-
-        /*
-         * Si aucun bouton "Choisir" n'est présent, Planity est passé
-         * à l'étape calendrier / réservation : on enlève le recadrage.
-         */
         if (!chooseButtons.length) {
           resetCrop();
           return;
@@ -133,9 +252,9 @@ const options = {
             (button) =>
               button.closest("li") ||
               button.closest('[itemprop="itemListElement"]') ||
-              button.parentElement
+              button.parentElement,
           )
-          .filter((row) => row instanceof HTMLElement);
+          .filter((row) => row instanceof HTMLElement && isVisible(row));
 
         if (!rows.length) {
           resetCrop();
@@ -152,20 +271,16 @@ const options = {
 
         const cropTop = Math.max(
           0,
-          Math.round(firstRowRect.top - containerRect.top - topAllowance)
+          Math.round(firstRowRect.top - containerRect.top - topAllowance),
         );
 
         const visibleHeight = Math.ceil(
           lastRowRect.bottom -
             containerRect.top -
             cropTop +
-            (window.innerWidth < 700 ? 26 : 30)
+            (window.innerWidth < 700 ? 26 : 30),
         );
 
-        /*
-         * 760 px laisse assez de place aux catégories comportant
-         * 6 prestations, notamment les Extensions de cils.
-         */
         if (visibleHeight > 140 && visibleHeight < 760) {
           viewport.style.height = `${visibleHeight}px`;
           viewport.style.overflow = "hidden";
@@ -185,32 +300,22 @@ const options = {
 
       const button = target.closest("button");
 
-      if (
-        button &&
-        button.textContent?.trim().toLowerCase() === "choisir"
-      ) {
-        /*
-         * Le calendrier doit retrouver la hauteur complète du widget.
-         */
+      if (button && button.textContent?.trim().toLowerCase() === "choisir") {
+        bookingFlowActive = true;
         resetCrop();
       }
     });
 
-    /*
-     * À chaque changement interne de Planity :
-     * - retour à la liste => recadrage automatique ;
-     * - passage au calendrier => hauteur complète.
-     *
-     * Cela corrige notamment le problème après avoir choisi puis
-     * supprimé une prestation / être revenu à la liste.
-     */
     const observer = new MutationObserver(() => {
       compactInitialStep();
+      scheduleScrollRestore();
     });
 
     observer.observe(container, {
       childList: true,
       subtree: true,
+      attributes: true,
+      attributeFilter: ["style", "class", "aria-hidden", "aria-expanded"],
     });
 
     window.addEventListener("resize", compactInitialStep);
@@ -243,14 +348,14 @@ const options = {
   }
 
   .planity-viewport {
-  position: relative;
-  min-height: 0;
-  background: transparent;
-}
+    position: relative;
+    min-height: 0;
+    background: transparent;
+  }
 
   .planity-container {
     min-height: 0;
     will-change: transform;
-     background: transparent;
+    background: transparent;
   }
 </style>

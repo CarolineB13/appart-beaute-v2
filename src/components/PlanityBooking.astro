@@ -15,6 +15,106 @@ const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
       primaryColor: "#b86f55",
       appointmentContainer: container,
     };
+
+    const bookingRoot = container.closest(".planity-booking");
+    let scrollAnchor = null;
+    let scrollGuardUntil = 0;
+
+    const isElementVisible = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+
+      const style = window.getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+
+      return (
+        style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        Number(style.opacity || 1) !== 0 &&
+        rect.width > 0 &&
+        rect.height > 0
+      );
+    };
+
+    const getVisibleDialog = () =>
+      [...document.querySelectorAll('[role="dialog"], [aria-modal="true"]')].find(
+        (element) => isElementVisible(element)
+      );
+
+    const isPlanityInteraction = (target) => {
+      if (!(target instanceof Node)) return false;
+      if (container.contains(target)) return true;
+
+      const dialog = getVisibleDialog();
+      return Boolean(dialog && dialog.contains(target));
+    };
+
+    const rememberScrollAnchor = () => {
+      if (!(bookingRoot instanceof HTMLElement)) return;
+
+      scrollAnchor = {
+        rootTop: bookingRoot.getBoundingClientRect().top,
+        scrollY: window.scrollY,
+      };
+
+      scrollGuardUntil = performance.now() + 1200;
+    };
+
+    const restoreScrollAnchor = () => {
+      if (!scrollAnchor || performance.now() > scrollGuardUntil) return;
+      if (!(bookingRoot instanceof HTMLElement)) return;
+
+      const currentRootTop = bookingRoot.getBoundingClientRect().top;
+      const drift = currentRootTop - scrollAnchor.rootTop;
+
+      /*
+       * Planity peut demander au navigateur de remonter brutalement pendant
+       * un changement d'étape. On compense uniquement ce saut vertical ;
+       * le défilement manuel de l'utilisatrice reste libre hors interaction.
+       */
+      if (Math.abs(drift) > 40) {
+        window.scrollBy({ top: drift, left: 0, behavior: "auto" });
+        return;
+      }
+
+      /* Sécurité supplémentaire pour le cas typique d'un retour à y = 0. */
+      if (scrollAnchor.scrollY > 180 && window.scrollY < 80) {
+        window.scrollTo({
+          top: scrollAnchor.scrollY,
+          left: 0,
+          behavior: "auto",
+        });
+      }
+    };
+
+    const scheduleScrollRestore = () => {
+      [0, 40, 100, 220, 450, 800].forEach((delay) => {
+        window.setTimeout(() => {
+          window.requestAnimationFrame(restoreScrollAnchor);
+        }, delay);
+      });
+    };
+
+    document.addEventListener(
+      "click",
+      (event) => {
+        if (!isPlanityInteraction(event.target)) return;
+
+        rememberScrollAnchor();
+        scheduleScrollRestore();
+      },
+      true
+    );
+
+    const scrollObserver = new MutationObserver(() => {
+      scheduleScrollRestore();
+    });
+
+    scrollObserver.observe(container, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["style", "class", "aria-hidden", "aria-expanded"],
+    });
   }
 </script>
 
@@ -43,46 +143,4 @@ const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
       min-height: 500px;
     }
   }
-  @media (max-width: 699px) {
-  .planity-booking,
-  .planity-container {
-    background: transparent !important;
-  }
-
-  .planity-booking :global(.planity_ui_appointment_background) {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: 0 !important;
-  }
-}
-@media (max-width: 699px) {
-  .planity-booking,
-  .planity-container,
-  .planity-container :global(.planity_ui_appointment_background) {
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-
-  /* Blocs catégories Planity */
-  .planity-container :global([class*="service-set"]) {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-  }
-
-  /* En-têtes des accordéons */
-  .planity-container :global(button[aria-expanded]),
-  .planity-container :global([role="button"][aria-expanded]) {
-    background: transparent !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-
-  /* Une séparation très légère entre les catégories */
-  .planity-container :global(button[aria-expanded]),
-  .planity-container :global([role="button"][aria-expanded]) {
-    border-bottom: 1px solid rgba(159, 83, 61, 0.12) !important;
-  }
-}
 </style>
