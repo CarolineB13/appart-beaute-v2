@@ -1,0 +1,387 @@
+---
+import { Image, getImage } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+import institutMobile from "../assets/images/institut/mobile/institut-principale-mobile.webp";
+import institutDesktop from "../assets/images/institut/desktop/institut-principale-desktop.webp";
+
+const desktopPhoto = await getImage({ src: institutDesktop, width: 1100, format: "webp" });
+
+// Activer l'envoi uniquement après configuration Turnstile + PHP sur IONOS.
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "";
+const formEnabled = Boolean(turnstileSiteKey);
+---
+
+<BaseLayout
+  title="Contact et accès institut de beauté La Valentine | Appart & Beauté"
+  description="Contactez Appart & Beauté à La Valentine, Marseille 11e : formulaire, téléphone, horaires, parking à 5 minutes à pied et itinéraire Google Maps."
+>
+  <Header />
+
+  <main>
+    <!-- INTRODUCTION : UNE SEULE PRISE DE PAROLE, SANS RÉPÉTER LES COORDONNÉES -->
+    <section class="contact-hero" aria-labelledby="contact-title">
+      <div class="container hero-grid">
+        <div class="hero-content" data-reveal>
+          <p class="eyebrow">Appart & Beauté · La Valentine</p>
+          <h1 id="contact-title">Restons <span>en contact</span></h1>
+          <span class="heading-line" aria-hidden="true"></span>
+          <p class="hero-intro">
+            Une question sur une prestation ou besoin d’un renseignement ?
+            Marjorie est à votre écoute. Retrouvez ci-dessous toutes les
+            informations pour la contacter et venir à l’institut.
+          </p>
+        </div>
+
+        <figure class="hero-visual" data-reveal="image" style="--reveal-delay: 100ms">
+          <picture>
+            <source media="(min-width: 700px)" srcset={desktopPhoto.src} />
+            <Image
+              src={institutMobile}
+              alt="L'espace d'accueil de l'institut Appart & Beauté à La Valentine"
+              class="hero-photo"
+              widths={[520, 720, 960]}
+              sizes="(min-width: 1000px) 48vw, 100vw"
+              fetchpriority="high"
+            />
+          </picture>
+          <figcaption>Un instant <span>rien que pour vous.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FORMULAIRE + MOYENS DE CONTACT : CHAQUE INFO APPARAÎT UNE FOIS -->
+    <section class="message-section" aria-labelledby="message-title">
+      <div class="container message-grid">
+        <div class="contact-details" data-reveal>
+          <p class="eyebrow">Un mot pour Marjorie</p>
+          <h2 id="message-title">Une question ? <span>Écrivez-nous.</span></h2>
+          <span class="heading-line" aria-hidden="true"></span>
+          <p class="details-intro">
+            Utilisez le formulaire ci-contre. Vous pouvez également joindre
+            directement l’institut par téléphone.
+          </p>
+
+          <div class="contact-methods">
+            <div class="contact-method">
+              <p class="method-label">Téléphone</p>
+              <a class="method-primary" href="tel:+33613405635">06 13 40 56 35</a>
+            </div>
+            <div class="contact-method">
+              <p class="method-label">Adresse email</p>
+              <p class="method-email">contact@appartbeauteinstitut.com</p>
+            </div>
+            <div class="contact-method">
+              <p class="method-label">Suivez l’institut</p>
+              <a
+                class="instagram-link"
+                href="https://www.instagram.com/appartbeaute_institut/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Appart Beauté Institut (nouvel onglet)"
+              >
+                <svg viewBox="0 0 24 24" width="25" height="25" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5.5" />
+                  <circle cx="12" cy="12" r="4.1" />
+                  <circle cx="18" cy="6" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                @appartbeaute_institut <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card" data-reveal style="--reveal-delay: 100ms">
+          <h3>Votre message</h3>
+          <p class="form-subtitle">Les champs marqués d’un astérisque sont obligatoires.</p>
+
+          <div class="form-status form-status--success" id="form-success" role="status" hidden>
+            Merci, votre message a bien été envoyé. Marjorie vous répondra dès que possible.
+          </div>
+          <div class="form-status form-status--error" id="form-error" role="alert" hidden>
+            Le message n’a pas pu être envoyé. Réessayez dans quelques instants ou appelez l’institut.
+          </div>
+
+          <form method="post" action="/api/contact.php" id="contact-form" accept-charset="UTF-8">
+            <div class="form-row">
+              <label for="contact-name">Nom *</label>
+              <input type="text" id="contact-name" name="name" maxlength="90" autocomplete="name" required />
+            </div>
+            <div class="form-row">
+              <label for="contact-email">Email *</label>
+              <input type="email" id="contact-email" name="email" maxlength="190" autocomplete="email" required />
+            </div>
+            <div class="form-row">
+              <label for="contact-phone">Téléphone <span>(facultatif)</span></label>
+              <input
+                type="tel"
+                id="contact-phone"
+                name="phone"
+                maxlength="25"
+                autocomplete="tel"
+                inputmode="tel"
+              />
+            </div>
+            <div class="form-row">
+              <label for="contact-topic">Objet *</label>
+              <select id="contact-topic" name="topic" required>
+                <option value="" selected disabled>Choisissez un sujet</option>
+                <option value="Renseignement sur une prestation">Renseignement sur une prestation</option>
+                <option value="Question sur l’institut">Question sur l’institut</option>
+                <option value="Autre demande">Autre demande</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="contact-message">Message *</label>
+              <textarea id="contact-message" name="message" rows="5" minlength="10" maxlength="3000" required></textarea>
+            </div>
+
+            <!-- Piège invisible pour les robots ; toujours validé côté PHP. -->
+            <div class="contact-trap" aria-hidden="true">
+              <label for="contact-website">Site web (ne pas remplir)</label>
+              <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+            <input type="hidden" name="started_at" id="contact-started-at" value="" />
+
+            <label class="privacy-check">
+              <input type="checkbox" name="privacy" value="yes" required />
+              <span>
+                J’accepte l’utilisation de mes informations pour obtenir une réponse.
+                Consulter la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.
+              </span>
+            </label>
+
+            {formEnabled ? (
+              <div class="turnstile-wrap">
+                <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light" data-language="fr"></div>
+              </div>
+            ) : (
+              <p class="preview-notice">Formulaire en aperçu : l’envoi sera activé après configuration de l’antispam et des emails sur IONOS.</p>
+            )}
+
+            <button class="primary-button submit-button" type="submit" disabled={!formEnabled}>
+              Envoyer mon message <span aria-hidden="true">→</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNE SEULE SECTION PRATIQUE : ADRESSE, HORAIRES, PARKING ET CARTE -->
+    <section class="access-section" aria-labelledby="access-title">
+      <div class="container">
+        <div class="access-heading" data-reveal>
+          <p class="eyebrow">Nous trouver</p>
+          <h2 id="access-title">Venir à <span>l’institut</span></h2>
+          <span class="heading-line" aria-hidden="true"></span>
+        </div>
+
+        <div class="access-grid">
+          <div class="access-details" data-reveal>
+            <div class="address-panel">
+              <p class="method-label">Appart & Beauté · Marseille 11e</p>
+              <h3>La Valentine</h3>
+              <p>17 rue de l’Audience<br />13011 Marseille</p>
+              <a
+                class="text-link"
+                href="https://www.google.com/maps/dir/?api=1&destination=17+rue+de+l%27Audience%2C+13011+Marseille"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Itinéraire vers l’institut <span aria-hidden="true">↗</span></a>
+            </div>
+
+            <div class="hours-panel">
+              <h3>Horaires d’ouverture</h3>
+              <dl class="hours-list">
+                <div><dt>Du lundi au vendredi</dt><dd>9h30 – 19h</dd></div>
+                <div><dt>Samedi</dt><dd>10h – 14h</dd></div>
+              </dl>
+            </div>
+
+            <div class="parking-panel">
+              <div class="parking-header">
+                <span class="parking-icon" aria-hidden="true">P</span>
+                <div>
+                  <h3>Parking à proximité</h3>
+                  <p>À environ 5 minutes à pied de l’institut</p>
+                </div>
+              </div>
+              <p class="parking-address">265 route des Trois Lucs à La Valentine<br />13011 Marseille</p>
+              <a
+                class="text-link"
+                href="https://www.google.com/maps/dir/?api=1&destination=265+route+des+Trois+Lucs+a+la+Valentine%2C+13011+Marseille"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Itinéraire vers le parking <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <div class="map-wrap" data-reveal style="--reveal-delay: 100ms">
+            <iframe
+              class="map-frame"
+              title="Google Maps : emplacement de l’institut Appart & Beauté à La Valentine"
+              src="https://www.google.com/maps?q=17%20rue%20de%20l%27Audience%2C%2013011%20Marseille&amp;output=embed"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+            <p class="map-caption">
+              Carte Google Maps intégrée. L’affichage peut transmettre des données à Google.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNE SEULE INVITATION À RÉSERVER -->
+    <section class="booking-strip">
+      <div class="container booking-content" data-reveal>
+        <div>
+          <p class="eyebrow">Votre rendez-vous</p>
+          <h2>Un moment <span>pour vous.</span></h2>
+        </div>
+        <a class="primary-button" href="/reservation/">
+          Voir les tarifs & réserver <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  {formEnabled && (
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  )}
+</BaseLayout>
+
+<script>
+  const startedAt = document.querySelector<HTMLInputElement>("#contact-started-at");
+  if (startedAt) startedAt.value = String(Date.now());
+
+  const params = new URLSearchParams(window.location.search);
+  const success = document.querySelector<HTMLElement>("#form-success");
+  const error = document.querySelector<HTMLElement>("#form-error");
+  if (params.get("contact") === "ok" && success) {
+    success.hidden = false;
+    success.scrollIntoView({ block: "center" });
+  }
+  if (params.get("contact") === "erreur" && error) {
+    error.hidden = false;
+    error.scrollIntoView({ block: "center" });
+  }
+</script>
+
+<style>
+  .heading-line { display: block; width: 52px; height: 2px; margin-top: 21px; background: var(--color-terracotta); }
+  .contact-hero { padding: 122px 0 64px; overflow: hidden; background: var(--color-bg-soft); }
+  .hero-grid { display: grid; gap: 34px; }
+  .hero-content { max-width: 570px; }
+  .hero-content h1 { margin-top: 12px; font-size: clamp(3.4rem, 13vw, 4.65rem); line-height: .93; letter-spacing: -.029em; }
+  .hero-content h1 span, .contact-details h2 span, .access-heading h2 span, .booking-content h2 span { display: block; color: var(--color-terracotta); font-style: italic; }
+  .hero-intro { max-width: 510px; margin-top: 25px; font-size: .96rem; line-height: 1.75; }
+  .hero-visual { position: relative; width: calc(100% - 22px); height: 410px; margin-left: auto; overflow: hidden; border-radius: 100px 25px 25px 25px; background: var(--color-beige); box-shadow: var(--shadow-soft); }
+  .hero-visual picture, .hero-photo { display: block; width: 100%; height: 100%; }
+  .hero-photo { object-fit: cover; }
+  .hero-visual figcaption { position: absolute; right: 15px; bottom: 15px; max-width: 240px; padding: 13px 18px; border-radius: 20px; background: rgba(255,253,251,.92); color: var(--color-terracotta-dark); font-family: "Playfair Display", Georgia, serif; font-size: 1.1rem; line-height: 1.3; box-shadow: 0 12px 32px rgba(89,54,39,.09); backdrop-filter: blur(6px); }
+  .hero-visual figcaption span { font-style: italic; }
+
+  .message-section { padding: 68px 0 85px; background: var(--color-bg-warm); }
+  .message-grid { display: grid; gap: 36px; }
+  .contact-details h2, .access-heading h2 { margin-top: 10px; font-size: clamp(2.8rem, 10.5vw, 4rem); line-height: .98; letter-spacing: -.025em; }
+  .details-intro { max-width: 520px; margin-top: 23px; font-size: .96rem; line-height: 1.73; }
+  .contact-methods { margin-top: 33px; }
+  .contact-method { padding: 20px 0; border-top: 1px solid rgba(159,83,61,.18); }
+  .contact-method:last-child { border-bottom: 1px solid rgba(159,83,61,.18); }
+  .method-label { margin-bottom: 8px; color: var(--color-terracotta-dark); font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+  .method-primary { color: var(--color-text); font-family: "Playfair Display", Georgia, serif; font-size: 1.8rem; }
+  .method-email { font-size: .94rem; overflow-wrap: anywhere; }
+  .instagram-link { display: inline-flex; align-items: center; gap: 10px; color: var(--color-terracotta-dark); font-size: .87rem; font-weight: 600; overflow-wrap: anywhere; }
+  .instagram-link svg { flex: 0 0 auto; }
+  .instagram-link span { margin-left: 3px; }
+
+  .form-card { padding: 29px 23px 34px; border: 1px solid rgba(159,83,61,.13); border-radius: 31px; background: #fffefa; box-shadow: var(--shadow-soft); }
+  .form-card h3 { font-size: clamp(2rem, 8vw, 2.7rem); line-height: 1.05; }
+  .form-subtitle { margin-top: 9px; color: var(--color-text-soft); font-size: .8rem; }
+  #contact-form { display: grid; gap: 16px; margin-top: 27px; }
+  .form-row { display: flex; flex-direction: column; min-width: 0; gap: 7px; }
+  .form-row label { color: var(--color-text); font-size: .8rem; font-weight: 600; }
+  .form-row label span { color: var(--color-text-soft); font-weight: 400; }
+  .form-row input, .form-row select, .form-row textarea { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid rgba(113,78,62,.25); border-radius: 12px; outline-offset: 3px; background: #fff; color: var(--color-text); font: inherit; font-size: .91rem; }
+  .form-row textarea { min-height: 138px; resize: vertical; }
+  .form-row :is(input, select, textarea):focus { border-color: var(--color-terracotta); outline: 2px solid rgba(196,119,91,.17); }
+  .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .privacy-check { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0; cursor: pointer; }
+  .privacy-check input { flex: 0 0 auto; width: 17px; height: 17px; margin-top: 3px; accent-color: var(--color-terracotta); }
+  .privacy-check span { font-size: .77rem; line-height: 1.6; }
+  .privacy-check a { color: var(--color-terracotta-dark); text-decoration: underline; text-underline-offset: 3px; }
+  .turnstile-wrap { max-width: 100%; overflow: auto; }
+  .preview-notice { padding: 11px 13px; border-radius: 11px; background: #f9efe8; color: #724a39; font-size: .77rem; line-height: 1.55; }
+  .primary-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 52px; padding: 13px 21px; border: 0; border-radius: 999px; background: var(--color-terracotta); color: white; font-family: inherit; font-size: .73rem; font-weight: 600; letter-spacing: .035em; text-transform: uppercase; transition: background .2s ease, transform .2s ease; }
+  .primary-button:hover { background: var(--color-terracotta-dark); transform: translateY(-2px); }
+  .submit-button { width: 100%; margin-top: 5px; cursor: pointer; }
+  .submit-button:disabled { background: #c4aaa0; cursor: not-allowed; transform: none; }
+  .form-status { margin-top: 20px; padding: 15px 16px; border: 1px solid; border-radius: 12px; font-size: .88rem; line-height: 1.55; }
+  .form-status[hidden] { display: none; }
+  .form-status--success { border-color: #a9cfb1; background: #edf8ef; color: #234b2e; }
+  .form-status--error { border-color: #dcae9e; background: #fff1ea; color: #773d2d; }
+
+  .access-section { padding: 72px 0 88px; background: var(--color-bg-soft); }
+  .access-heading { max-width: 680px; margin-bottom: 35px; }
+  .access-grid { display: grid; gap: 28px; }
+  .access-details { display: grid; gap: 15px; }
+  .address-panel, .hours-panel, .parking-panel { padding: 24px; border: 1px solid rgba(159,83,61,.1); border-radius: 25px; background: white; }
+  .address-panel h3, .hours-panel h3, .parking-panel h3 { font-size: 1.64rem; line-height: 1.06; }
+  .address-panel > p:not(.method-label) { margin-top: 13px; font-size: .94rem; line-height: 1.6; }
+  .text-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding-bottom: 3px; border-bottom: 1px solid rgba(159,83,61,.35); color: var(--color-terracotta-dark); font-size: .83rem; font-weight: 600; }
+  .hours-list { margin-top: 17px; }
+  .hours-list > div { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; padding: 11px 0; border-top: 1px solid rgba(159,83,61,.12); font-size: .88rem; }
+  .hours-list dt { color: var(--color-text-soft); }
+  .hours-list dd { flex: 0 0 auto; font-weight: 600; }
+  .parking-header { display: flex; align-items: flex-start; gap: 15px; }
+  .parking-header p { margin-top: 8px; font-size: .87rem; line-height: 1.5; }
+  .parking-icon { display: grid; flex: 0 0 41px; height: 41px; place-items: center; border: 1.5px solid var(--color-terracotta); border-radius: 12px; color: var(--color-terracotta-dark); font-size: 1.2rem; font-weight: 700; }
+  .parking-address { margin-top: 16px; font-size: .91rem; line-height: 1.6; }
+  .map-wrap { overflow: hidden; align-self: stretch; border: 1px solid rgba(159,83,61,.14); border-radius: 32px; background: #f3e9e0; box-shadow: var(--shadow-soft); }
+  .map-frame { display: block; width: 100%; height: 470px; border: 0; }
+  .map-caption { padding: 10px 14px 12px; color: var(--color-text-soft); background: #fffefa; font-size: .68rem; line-height: 1.45; }
+
+  .booking-strip { padding: 46px 0 54px; background: var(--color-bg-warm); }
+  .booking-content { display: flex; flex-direction: column; align-items: flex-start; gap: 26px; }
+  .booking-content h2 { margin-top: 10px; font-size: clamp(2.6rem, 10vw, 4.4rem); line-height: .98; }
+
+  @media (max-width: 380px) {
+    .contact-hero { padding-top: 112px; }
+    .hero-visual { height: 350px; }
+    .method-primary { font-size: 1.6rem; }
+    .hours-list > div { font-size: .8rem; }
+  }
+  @media (min-width: 700px) {
+    .contact-hero { padding: 145px 0 85px; }
+    .hero-content h1 { font-size: 5.35rem; }
+    .hero-visual { max-width: 760px; height: 560px; }
+    .message-section, .access-section { padding: 92px 0 103px; }
+    .message-grid { grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 45px; align-items: start; }
+    .contact-details h2, .access-heading h2 { font-size: clamp(3.4rem, 5vw, 4.55rem); }
+    .form-card { padding: 35px; }
+    .access-grid { grid-template-columns: .87fr 1.13fr; align-items: start; gap: 30px; }
+    .map-wrap { position: sticky; top: 96px; }
+    .map-frame { height: 570px; }
+    .booking-content { flex-direction: row; align-items: center; justify-content: space-between; gap: 35px; }
+    .booking-content h2 span { display: inline; }
+  }
+  @media (min-width: 1020px) {
+    .contact-hero { padding-top: 148px; }
+    .hero-grid { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); align-items: center; gap: 76px; }
+    .hero-content h1 { font-size: clamp(4.8rem,5.4vw,6.2rem); }
+    .hero-visual { width: 100%; height: 580px; margin-left: 0; border-radius: 145px 28px 28px 28px; }
+    .message-grid { gap: 86px; }
+    .form-card { padding: 40px; }
+    .access-grid { grid-template-columns: .86fr 1.14fr; gap: 60px; }
+    .map-frame { height: 640px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .primary-button { transition: none; }
+  }
+</style>

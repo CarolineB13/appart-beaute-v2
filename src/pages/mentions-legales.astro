@@ -1,0 +1,461 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+// IMPORTANT : avant mise en ligne, renseigner les coordonnées du médiateur
+// effectivement désigné par l'institut et vérifier le numéro de TVA s'il existe.
+// Vérifier également que l'adresse ci-dessous est celle de domiciliation de l'EI.
+const mediateur = {
+  nom: "",
+  adresse: "",
+  site: "",
+};
+
+const mediateurRenseigne = Boolean(
+  mediateur.nom.trim() && mediateur.adresse.trim() && mediateur.site.trim(),
+);
+---
+
+<BaseLayout
+  title="Mentions légales | Appart & Beauté Institut Marseille 11e"
+  description="Consultez les mentions légales du site Appart & Beauté Institut : éditeur, coordonnées, responsable de publication, hébergement et informations juridiques."
+>
+  <Header />
+
+  <main>
+    <section class="legal-hero" aria-labelledby="legal-title">
+      <div class="container hero-inner" data-reveal>
+        <p class="eyebrow">Appart & Beauté · Informations légales</p>
+        <h1 id="legal-title">Mentions <span>légales</span></h1>
+        <span class="heading-line" aria-hidden="true"></span>
+        <p class="hero-intro">
+          Les informations relatives à l’édition, à la conception et à
+          l’hébergement du présent site.
+        </p>
+      </div>
+      <span class="hero-ornament" aria-hidden="true">A & B</span>
+    </section>
+
+    <section class="legal-content" aria-label="Informations légales">
+      <div class="container legal-layout">
+        <div class="legal-main">
+          <article class="legal-panel legal-panel--editor" data-reveal>
+            <p class="section-kicker">01 · Identification</p>
+            <h2>Éditeur du site</h2>
+            <span class="heading-line" aria-hidden="true"></span>
+
+            <dl class="identity-list">
+              <div>
+                <dt>Nom commercial</dt>
+                <dd>Appart & Beauté Institut</dd>
+              </div>
+              <div>
+                <dt>Entrepreneure</dt>
+                <dd>Marjorie Laudicina, entrepreneure individuelle (EI)</dd>
+              </div>
+              <div>
+                <dt>SIRET</dt>
+                <dd>929 733 343 00024</dd>
+              </div>
+              <div>
+                <dt>Adresse</dt>
+                <dd>17 rue de l’Audience, 13011 Marseille, France</dd>
+              </div>
+              <div>
+                <dt>Téléphone</dt>
+                <dd><a href="tel:+33613405635">06 13 40 56 35</a></dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>
+                  <a href="mailto:contact@appartbeauteinstitut.com">
+                    contact@appartbeauteinstitut.com
+                  </a>
+                </dd>
+              </div>
+            </dl>
+          </article>
+
+          <div class="legal-card-grid">
+            <article class="legal-panel" data-reveal style="--reveal-delay: 60ms">
+              <p class="section-kicker">02 · Publication</p>
+              <h2>Responsable de la publication</h2>
+              <p>Marjorie Laudicina</p>
+            </article>
+
+            <article class="legal-panel" data-reveal style="--reveal-delay: 120ms">
+              <p class="section-kicker">03 · Hébergement</p>
+              <h2>Hébergeur</h2>
+              <address>
+                IONOS SARL<br />
+                7 place de la Gare<br />
+                57200 Sarreguemines, France<br />
+                Téléphone : <a href="tel:+33970808911">09 70 80 89 11</a><br />
+                <a href="https://www.ionos.fr/" target="_blank" rel="noopener noreferrer">
+                  Site de IONOS <span aria-hidden="true">↗</span>
+                </a>
+              </address>
+            </article>
+          </div>
+
+          <article class="legal-panel" data-reveal>
+            <p class="section-kicker">04 · Création</p>
+            <h2>Conception & développement</h2>
+            <p>
+              Le site a été conçu et développé par
+              <a href="https://www.happyclicks.fr/" target="_blank" rel="noopener noreferrer">
+                HappyClicks <span aria-hidden="true">↗</span>
+              </a>.
+            </p>
+          </article>
+
+          <article class="legal-text" data-reveal>
+            <p class="section-kicker">05 · Contenus</p>
+            <h2>Propriété intellectuelle</h2>
+            <p>
+              Les contenus présents sur ce site, notamment les textes, visuels,
+              photographies, éléments graphiques et le logo, sont protégés par
+              les droits de propriété intellectuelle applicables. Ils
+              appartiennent à leurs titulaires respectifs ou sont utilisés
+              avec leur autorisation.
+            </p>
+            <p>
+              Toute reproduction ou réutilisation non autorisée de ces
+              contenus, en dehors des exceptions prévues par la loi, est interdite.
+            </p>
+          </article>
+
+          <article class="legal-text" data-reveal>
+            <p class="section-kicker">06 · Données personnelles</p>
+            <h2>Confidentialité</h2>
+            <p>
+              Pour connaître les informations relatives au formulaire de
+              contact, aux données personnelles et aux services externes
+              utilisés sur ce site, consultez notre
+              <a href="/politique-de-confidentialite/">politique de confidentialité</a>.
+            </p>
+          </article>
+
+          <article class="legal-text" data-reveal>
+            <p class="section-kicker">07 · Réclamations</p>
+            <h2>Médiation de la consommation</h2>
+            <p>
+              En cas de différend concernant une prestation, vous pouvez
+              adresser dans un premier temps une réclamation écrite à
+              <a href="mailto:contact@appartbeauteinstitut.com">
+                contact@appartbeauteinstitut.com</a>.
+            </p>
+
+            {mediateurRenseigne ? (
+              <div class="mediator-details">
+                <p>
+                  Si votre réclamation n’aboutit pas, vous pouvez recourir
+                  gratuitement au médiateur de la consommation désigné par
+                  l’institut :
+                </p>
+                <p><strong>{mediateur.nom}</strong></p>
+                <p>{mediateur.adresse}</p>
+                <p>
+                  <a href={mediateur.site} target="_blank" rel="noopener noreferrer">
+                    Site du médiateur <span aria-hidden="true">↗</span>
+                  </a>
+                </p>
+              </div>
+            ) : (
+              <div class="draft-warning" role="note">
+                <strong>À compléter avant publication</strong>
+                <p>
+                  Insérer ici le nom, les coordonnées et le site internet du
+                  médiateur de la consommation auquel l’institut a adhéré.
+                </p>
+              </div>
+            )}
+          </article>
+        </div>
+
+        <aside class="legal-aside" data-reveal>
+          <div class="aside-card">
+            <p class="eyebrow">Une question ?</p>
+            <h2>Nous sommes <span>à votre écoute.</span></h2>
+            <p>
+              Pour toute demande concernant l’institut ou les informations
+              présentées sur ce site, contactez Marjorie.
+            </p>
+            <a href="/contact/">
+              Nous contacter <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .heading-line {
+    display: block;
+    width: 52px;
+    height: 2px;
+    margin-top: 19px;
+    background: var(--color-terracotta);
+  }
+
+  .legal-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 142px 0 78px;
+    background: var(--color-bg-soft);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .legal-hero h1 {
+    margin-top: 14px;
+    font-size: clamp(3.4rem, 12vw, 5.8rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+  }
+
+  .legal-hero h1 span,
+  .aside-card h2 span {
+    color: var(--color-terracotta);
+    font-style: italic;
+  }
+
+  .hero-intro {
+    max-width: 570px;
+    margin-top: 25px;
+    font-size: 0.97rem;
+    line-height: 1.73;
+  }
+
+  .hero-ornament {
+    position: absolute;
+    right: -28px;
+    bottom: -78px;
+    color: rgba(196, 119, 91, 0.07);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(7rem, 21vw, 18rem);
+    font-style: italic;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .legal-content {
+    padding: 58px 0 88px;
+    background: var(--color-bg-warm);
+  }
+
+  .legal-layout,
+  .legal-main {
+    display: grid;
+    gap: 22px;
+  }
+
+  .legal-panel {
+    min-width: 0;
+    padding: 26px 23px;
+    border: 1px solid rgba(159, 83, 61, 0.12);
+    border-radius: 26px;
+    background: #fffdfb;
+    box-shadow: 0 12px 38px rgba(73, 48, 39, 0.035);
+  }
+
+  .legal-panel--editor {
+    padding-bottom: 14px;
+  }
+
+  .section-kicker {
+    margin-bottom: 12px;
+    color: var(--color-terracotta-dark);
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .legal-panel h2,
+  .legal-text h2 {
+    margin-bottom: 14px;
+    color: var(--color-text);
+    font-size: clamp(1.8rem, 6.5vw, 2.35rem);
+    line-height: 1.11;
+  }
+
+  .identity-list {
+    margin-top: 26px;
+  }
+
+  .identity-list > div {
+    display: grid;
+    gap: 6px;
+    padding: 14px 0;
+    border-top: 1px solid rgba(159, 83, 61, 0.11);
+  }
+
+  .identity-list dt {
+    color: var(--color-text-soft);
+    font-size: 0.76rem;
+  }
+
+  .identity-list dd,
+  .legal-panel p,
+  .legal-panel address,
+  .legal-text p {
+    margin: 0;
+    font-size: 0.91rem;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+  }
+
+  .legal-card-grid {
+    display: grid;
+    gap: 22px;
+  }
+
+  .legal-panel address {
+    font-style: normal;
+  }
+
+  .legal-panel a,
+  .legal-text a {
+    color: var(--color-terracotta-dark);
+    text-decoration: underline;
+    text-decoration-color: rgba(159, 83, 61, 0.35);
+    text-underline-offset: 4px;
+  }
+
+  .legal-text {
+    padding: 30px 4px 5px;
+    border-top: 1px solid rgba(159, 83, 61, 0.2);
+  }
+
+  .legal-text p + p {
+    margin-top: 11px;
+  }
+
+  .draft-warning {
+    margin-top: 19px;
+    padding: 18px 20px;
+    border: 1px solid #cfb19f;
+    border-radius: 14px;
+    background: #fff6ed;
+    color: #674d3e;
+  }
+
+  .draft-warning strong {
+    font-size: 0.84rem;
+  }
+
+  .draft-warning p {
+    margin-top: 6px;
+    font-size: 0.83rem;
+  }
+
+  .mediator-details {
+    margin-top: 17px;
+    padding: 17px 20px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.66);
+  }
+
+  .legal-aside {
+    align-self: start;
+  }
+
+  .aside-card {
+    padding: 31px 25px;
+    border-radius: 28px;
+    background: var(--color-text);
+    color: #fff;
+  }
+
+  .aside-card h2 {
+    margin-top: 12px;
+    color: #fff;
+    font-size: clamp(2.1rem, 8.5vw, 3.0rem);
+    line-height: 1.03;
+  }
+
+  .aside-card h2 span {
+    display: block;
+    color: var(--color-terracotta-light);
+  }
+
+  .aside-card p:not(.eyebrow) {
+    margin-top: 19px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .aside-card > a {
+    display: inline-flex;
+    justify-content: space-between;
+    gap: 22px;
+    align-items: center;
+    margin-top: 24px;
+    padding: 13px 19px;
+    border-radius: 999px;
+    background: var(--color-terracotta);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  @media (min-width: 700px) {
+    .legal-hero {
+      padding: 157px 0 98px;
+    }
+
+    .legal-content {
+      padding: 86px 0 118px;
+    }
+
+    .legal-panel {
+      padding: 35px 37px;
+    }
+
+    .legal-panel--editor {
+      padding-bottom: 23px;
+    }
+
+    .identity-list > div {
+      grid-template-columns: 180px minmax(0, 1fr);
+      align-items: baseline;
+      gap: 19px;
+    }
+
+    .legal-card-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .legal-text {
+      padding: 36px 10px 13px;
+    }
+
+    .aside-card {
+      padding: 37px;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .legal-layout {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      align-items: start;
+      gap: 48px;
+    }
+
+    .legal-aside {
+      position: sticky;
+      top: 111px;
+    }
+  }
+</style>
