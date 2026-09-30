@@ -1,0 +1,41 @@
+# Appart & Beauté Institut — IONOS / Apache
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Anciennes URL indexées par Google -> nouvelles URL V2
+  RewriteRule ^tarifs\.html$ /reservation/ [R=301,L,NE]
+  RewriteRule ^tarifs/tarifs\.html$ /reservation/ [R=301,L,NE]
+  RewriteRule ^contact\.html$ /contact/ [R=301,L,NE]
+  RewriteRule ^prestations\.html$ /prestations/ [R=301,L,NE]
+  RewriteRule ^prestations/prestations\.html$ /prestations/ [R=301,L,NE]
+
+  # À activer uniquement lors de la bascule définitive du domaine :
+  # force HTTPS + www, cohérent avec les URL canoniques du site.
+  # RewriteCond %{HTTPS} !=on [OR]
+  # RewriteCond %{HTTP_HOST} !^www\.appartbeauteinstitut\.com$ [NC]
+  # RewriteRule ^ https://www.appartbeauteinstitut.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Compression texte si le module est disponible sur l'hébergement IONOS.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Cache raisonnable des ressources statiques.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/x-icon "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType font/woff2 "access plus 30 days"
+</IfModule>

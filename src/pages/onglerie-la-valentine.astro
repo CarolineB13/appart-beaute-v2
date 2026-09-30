@@ -54,6 +54,8 @@ import onglerieImage from "../assets/images/prestations/prestation-onglerie.webp
             src={onglerieImage}
             alt="Onglerie à La Valentine chez Appart & Beauté"
             class="hero-photo"
+            loading="eager"
+            fetchpriority="high"
             widths={[520, 720, 960, 1200]}
             sizes="(min-width: 1000px) 46vw, 100vw"
           />
@@ -85,16 +87,24 @@ import onglerieImage from "../assets/images/prestations/prestation-onglerie.webp
         </header>
 
         <div class="services-grid">
-          <article class="service-card" data-reveal style="--reveal-delay: 50ms">
+          <article
+            class="service-card"
+            data-reveal
+            style="--reveal-delay: 50ms"
+          >
             <p class="service-kicker">Mains & pieds</p>
             <h3>Vernis semi-permanent</h3>
             <p>
-              Une finition nette et brillante pour les mains ou les pieds,
-              avec dépose possible lors du rendez-vous suivant.
+              Une finition nette et brillante pour les mains ou les pieds, avec
+              dépose possible lors du rendez-vous suivant.
             </p>
           </article>
 
-          <article class="service-card" data-reveal style="--reveal-delay: 100ms">
+          <article
+            class="service-card"
+            data-reveal
+            style="--reveal-delay: 100ms"
+          >
             <p class="service-kicker">Structure & tenue</p>
             <h3>Ongles en gel</h3>
             <p>
@@ -103,7 +113,11 @@ import onglerieImage from "../assets/images/prestations/prestation-onglerie.webp
             </p>
           </article>
 
-          <article class="service-card" data-reveal style="--reveal-delay: 150ms">
+          <article
+            class="service-card"
+            data-reveal
+            style="--reveal-delay: 150ms"
+          >
             <p class="service-kicker">Entretien</p>
             <h3>Comblage</h3>
             <p>
@@ -112,7 +126,11 @@ import onglerieImage from "../assets/images/prestations/prestation-onglerie.webp
             </p>
           </article>
 
-          <article class="service-card" data-reveal style="--reveal-delay: 200ms">
+          <article
+            class="service-card"
+            data-reveal
+            style="--reveal-delay: 200ms"
+          >
             <p class="service-kicker">Soin essentiel</p>
             <h3>Beauté des mains</h3>
             <p>
@@ -360,7 +378,7 @@ import onglerieImage from "../assets/images/prestations/prestation-onglerie.webp
     gap: 26px;
     padding: 13px 21px;
     border-radius: 999px;
-    background: var(--color-terracotta);
+    background: var(--color-terracotta-dark);
     color: white;
     font-size: 0.72rem;
     font-weight: 600;

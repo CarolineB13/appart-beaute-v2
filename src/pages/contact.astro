@@ -16,7 +16,7 @@ const formEnabled = Boolean(turnstileSiteKey);
 
 <BaseLayout
   title="Contact et accès institut de beauté La Valentine | Appart & Beauté"
-  description="Contactez Appart & Beauté à La Valentine, Marseille 11e : formulaire, téléphone, horaires, parking à 5 minutes à pied et itinéraire Google Maps."
+  description="Contactez Appart & Beauté à La Valentine, Marseille 11e : formulaire, téléphone, horaires, parking à 5 minutes à pied et itinéraires."
 >
   <Header />
 
@@ -148,14 +148,20 @@ const formEnabled = Boolean(turnstileSiteKey);
             <label class="privacy-check">
               <input type="checkbox" name="privacy" value="yes" required />
               <span>
-                J’accepte l’utilisation de mes informations pour obtenir une réponse.
-                Consulter la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.
+                J’ai pris connaissance de la <a href="/politique-de-confidentialite/">politique de confidentialité</a>.
               </span>
             </label>
 
             {formEnabled ? (
               <div class="turnstile-wrap">
-                <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light" data-language="fr"></div>
+                <div
+                  class="cf-turnstile"
+                  data-sitekey={turnstileSiteKey}
+                  data-theme="light"
+                  data-language="fr"
+                  data-size="flexible"
+                  data-action="contact"
+                ></div>
               </div>
             ) : (
               <p class="preview-notice">Formulaire en aperçu : l’envoi sera activé après configuration de l’antispam et des emails sur IONOS.</p>
@@ -169,7 +175,7 @@ const formEnabled = Boolean(turnstileSiteKey);
       </div>
     </section>
 
-    <!-- UNE SEULE SECTION PRATIQUE : ADRESSE, HORAIRES, PARKING ET CARTE -->
+    <!-- INFORMATIONS PRATIQUES : ADRESSE, HORAIRES ET PARKING -->
     <section class="access-section" aria-labelledby="access-title">
       <div class="container">
         <div class="access-heading" data-reveal>
@@ -218,19 +224,6 @@ const formEnabled = Boolean(turnstileSiteKey);
             </div>
           </div>
 
-          <div class="map-wrap" data-reveal style="--reveal-delay: 100ms">
-            <iframe
-              class="map-frame"
-              title="Google Maps : emplacement de l’institut Appart & Beauté à La Valentine"
-              src="https://www.google.com/maps?q=17%20rue%20de%20l%27Audience%2C%2013011%20Marseille&amp;output=embed"
-              loading="lazy"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            ></iframe>
-            <p class="map-caption">
-              Carte Google Maps intégrée. L’affichage peut transmettre des données à Google.
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -271,6 +264,7 @@ const formEnabled = Boolean(turnstileSiteKey);
     error.hidden = false;
     error.scrollIntoView({ block: "center" });
   }
+
 </script>
 
 <style>
@@ -329,7 +323,7 @@ const formEnabled = Boolean(turnstileSiteKey);
 
   .access-section { padding: 72px 0 88px; background: var(--color-bg-soft); }
   .access-heading { max-width: 680px; margin-bottom: 35px; }
-  .access-grid { display: grid; gap: 28px; }
+  .access-grid { display: block; }
   .access-details { display: grid; gap: 15px; }
   .address-panel, .hours-panel, .parking-panel { padding: 24px; border: 1px solid rgba(159,83,61,.1); border-radius: 25px; background: white; }
   .address-panel h3, .hours-panel h3, .parking-panel h3 { font-size: 1.64rem; line-height: 1.06; }
@@ -343,9 +337,6 @@ const formEnabled = Boolean(turnstileSiteKey);
   .parking-header p { margin-top: 8px; font-size: .87rem; line-height: 1.5; }
   .parking-icon { display: grid; flex: 0 0 41px; height: 41px; place-items: center; border: 1.5px solid var(--color-terracotta); border-radius: 12px; color: var(--color-terracotta-dark); font-size: 1.2rem; font-weight: 700; }
   .parking-address { margin-top: 16px; font-size: .91rem; line-height: 1.6; }
-  .map-wrap { overflow: hidden; align-self: stretch; border: 1px solid rgba(159,83,61,.14); border-radius: 32px; background: #f3e9e0; box-shadow: var(--shadow-soft); }
-  .map-frame { display: block; width: 100%; height: 470px; border: 0; }
-  .map-caption { padding: 10px 14px 12px; color: var(--color-text-soft); background: #fffefa; font-size: .68rem; line-height: 1.45; }
 
   .booking-strip { padding: 46px 0 54px; background: var(--color-bg-warm); }
   .booking-content { display: flex; flex-direction: column; align-items: flex-start; gap: 26px; }
@@ -365,9 +356,8 @@ const formEnabled = Boolean(turnstileSiteKey);
     .message-grid { grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 45px; align-items: start; }
     .contact-details h2, .access-heading h2 { font-size: clamp(3.4rem, 5vw, 4.55rem); }
     .form-card { padding: 35px; }
-    .access-grid { grid-template-columns: .87fr 1.13fr; align-items: start; gap: 30px; }
-    .map-wrap { position: sticky; top: 96px; }
-    .map-frame { height: 570px; }
+    .access-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .parking-panel { grid-column: 1 / -1; }
     .booking-content { flex-direction: row; align-items: center; justify-content: space-between; gap: 35px; }
     .booking-content h2 span { display: inline; }
   }
@@ -378,10 +368,11 @@ const formEnabled = Boolean(turnstileSiteKey);
     .hero-visual { width: 100%; height: 580px; margin-left: 0; border-radius: 145px 28px 28px 28px; }
     .message-grid { gap: 86px; }
     .form-card { padding: 40px; }
-    .access-grid { grid-template-columns: .86fr 1.14fr; gap: 60px; }
-    .map-frame { height: 640px; }
+    .access-details { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 19px; }
+    .parking-panel { grid-column: auto; }
   }
   @media (prefers-reduced-motion: reduce) {
     .primary-button { transition: none; }
   }
+
 </style>

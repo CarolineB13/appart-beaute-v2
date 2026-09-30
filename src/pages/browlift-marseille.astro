@@ -58,6 +58,8 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
           <Image
             src={browliftResultatImage}
             alt="Résultat d’un Browlift chez Appart & Beauté à Marseille 11e"
+            loading="eager"
+            fetchpriority="high"
             widths={[520, 760, 980, 1200]}
             sizes="(min-width: 1000px) 48vw, 100vw"
           />
@@ -104,24 +106,19 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
           <p>Les poils sont assouplis et plus faciles à orienter.</p>
         </article>
 
-        <article
-          class="benefit-card"
-          data-reveal
-          style="--reveal-delay: 70ms"
-        >
+        <article class="benefit-card" data-reveal style="--reveal-delay: 70ms">
           <p class="benefit-kicker">02</p>
           <h3>Ligne structurée</h3>
           <p>Le sourcil paraît plus net et encadre davantage le regard.</p>
         </article>
 
-        <article
-          class="benefit-card"
-          data-reveal
-          style="--reveal-delay: 140ms"
-        >
+        <article class="benefit-card" data-reveal style="--reveal-delay: 140ms">
           <p class="benefit-kicker">03</p>
           <h3>Effet plus fourni</h3>
-          <p>Le repositionnement des poils aide à combler visuellement les petits manques.</p>
+          <p>
+            Le repositionnement des poils aide à combler visuellement les petits
+            manques.
+          </p>
         </article>
       </div>
     </section>
@@ -203,11 +200,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
             <span>Durée du Browlift proposé actuellement sur Planity</span>
           </article>
 
-          <article
-            class="result-card"
-            data-reveal
-            style="--reveal-delay: 70ms"
-          >
+          <article class="result-card" data-reveal style="--reveal-delay: 70ms">
             <strong>4 à 6 semaines</strong>
             <span>Tenue généralement observée selon la nature des poils</span>
           </article>
@@ -315,7 +308,7 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
     margin-top: 24px;
     padding: 13px 20px;
     border-radius: 999px;
-    background: var(--color-terracotta);
+    background: var(--color-terracotta-dark);
     color: white;
     font-size: 0.72rem;
     font-weight: 600;
@@ -478,7 +471,6 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
     font-weight: 600;
   }
 
-
   @media (min-width: 700px) {
     .brow-hero {
       padding: 145px 0 74px;
@@ -602,6 +594,5 @@ import browliftResultatImage from "../assets/images/regard/browlift-resultat.web
       padding: 34px 36px;
       border-radius: 30px;
     }
-
   }
 </style>

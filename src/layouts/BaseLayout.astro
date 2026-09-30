@@ -4,23 +4,156 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  imageAlt?: string;
+  robots?: string;
+  preloadHero?: boolean;
 }
 
 const {
   title = "Appart & Beauté | Institut de beauté à La Valentine",
   description = "Institut de beauté à La Valentine, Marseille 11e : Lash Lift Coréen, extensions de cils, browlift, onglerie et épilation.",
+  image = "/images/og/og-appart-beaute.webp",
+  imageAlt = "Appart & Beauté Institut à La Valentine, Marseille 11e",
+  robots = "index, follow, max-image-preview:large",
+  preloadHero = false,
 } = Astro.props;
+
+const site = Astro.site ?? new URL("https://www.appartbeauteinstitut.com");
+const canonicalURL = new URL(Astro.url.pathname, site);
+const homeURL = new URL("/", site);
+const ogImageURL = new URL(image, site);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BeautySalon",
+      "@id": `${homeURL.toString()}#institut`,
+      name: "Appart & Beauté Institut",
+      url: homeURL.toString(),
+      image: ogImageURL.toString(),
+      telephone: "+33613405635",
+      email: "contact@appartbeauteinstitut.com",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "17 rue de l’Audience",
+        postalCode: "13011",
+        addressLocality: "Marseille",
+        addressCountry: "FR",
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "https://schema.org/Monday",
+            "https://schema.org/Tuesday",
+            "https://schema.org/Wednesday",
+            "https://schema.org/Thursday",
+            "https://schema.org/Friday",
+          ],
+          opens: "09:30",
+          closes: "19:00",
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: "https://schema.org/Saturday",
+          opens: "10:00",
+          closes: "14:00",
+        },
+      ],
+      sameAs: [
+        "https://www.instagram.com/appartbeaute_institut/",
+        "https://www.planity.com/appart-beaute-13011-marseille",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${homeURL.toString()}#website`,
+      url: homeURL.toString(),
+      name: "Appart & Beauté Institut",
+      inLanguage: "fr-FR",
+      publisher: { "@id": `${homeURL.toString()}#institut` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonicalURL.toString()}#webpage`,
+      url: canonicalURL.toString(),
+      name: title,
+      description,
+      inLanguage: "fr-FR",
+      isPartOf: { "@id": `${homeURL.toString()}#website` },
+      about: { "@id": `${homeURL.toString()}#institut` },
+    },
+  ],
+};
+
+const structuredDataJson = JSON.stringify(structuredData).replace(
+  /</g,
+  "\\u003c",
+);
 ---
 
 <!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
     <meta name="theme-color" content="#fcf8f4" />
+
+    <link rel="canonical" href={canonicalURL.toString()} />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Appart & Beauté Institut" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:image" content={ogImageURL.toString()} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL.toString()} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    {
+      preloadHero && (
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-pampas-mobile.webp"
+          media="(max-width: 767px)"
+          fetchpriority="high"
+        />
+      )
+    }
+    {
+      preloadHero && (
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-pampas-desktop.webp"
+          media="(min-width: 768px)"
+          fetchpriority="high"
+        />
+      )
+    }
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -29,6 +162,8 @@ const {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <script type="application/ld+json" set:html={structuredDataJson} />
 
     <script is:inline>
       document.documentElement.classList.add("reveal-ready");

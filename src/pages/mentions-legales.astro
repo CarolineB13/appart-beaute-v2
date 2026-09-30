@@ -3,18 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
-// IMPORTANT : avant mise en ligne, renseigner les coordonnées du médiateur
-// effectivement désigné par l'institut et vérifier le numéro de TVA s'il existe.
-// Vérifier également que l'adresse ci-dessous est celle de domiciliation de l'EI.
-const mediateur = {
-  nom: "",
-  adresse: "",
-  site: "",
-};
-
-const mediateurRenseigne = Boolean(
-  mediateur.nom.trim() && mediateur.adresse.trim() && mediateur.site.trim(),
-);
+// Avant publication : vérifier le numéro de TVA s'il existe et confirmer
+// que l'adresse affichée est bien celle de domiciliation de l'EI.
 ---
 
 <BaseLayout
@@ -103,14 +93,14 @@ const mediateurRenseigne = Boolean(
             <p class="section-kicker">04 · Création</p>
             <h2>Conception & développement</h2>
             <p>
-              Le site a été conçu et développé par
+              Le site a été conçu et développé par{" "}
               <a href="https://www.happyclicks.fr/" target="_blank" rel="noopener noreferrer">
                 HappyClicks <span aria-hidden="true">↗</span>
               </a>.
             </p>
           </article>
 
-          <article class="legal-text" data-reveal>
+          <article class="legal-panel legal-text" data-reveal>
             <p class="section-kicker">05 · Contenus</p>
             <h2>Propriété intellectuelle</h2>
             <p>
@@ -126,52 +116,17 @@ const mediateurRenseigne = Boolean(
             </p>
           </article>
 
-          <article class="legal-text" data-reveal>
+          <article class="legal-panel legal-text" data-reveal>
             <p class="section-kicker">06 · Données personnelles</p>
             <h2>Confidentialité</h2>
             <p>
               Pour connaître les informations relatives au formulaire de
               contact, aux données personnelles et aux services externes
-              utilisés sur ce site, consultez notre
+              utilisés sur ce site, consultez notre{" "}
               <a href="/politique-de-confidentialite/">politique de confidentialité</a>.
             </p>
           </article>
 
-          <article class="legal-text" data-reveal>
-            <p class="section-kicker">07 · Réclamations</p>
-            <h2>Médiation de la consommation</h2>
-            <p>
-              En cas de différend concernant une prestation, vous pouvez
-              adresser dans un premier temps une réclamation écrite à
-              <a href="mailto:contact@appartbeauteinstitut.com">
-                contact@appartbeauteinstitut.com</a>.
-            </p>
-
-            {mediateurRenseigne ? (
-              <div class="mediator-details">
-                <p>
-                  Si votre réclamation n’aboutit pas, vous pouvez recourir
-                  gratuitement au médiateur de la consommation désigné par
-                  l’institut :
-                </p>
-                <p><strong>{mediateur.nom}</strong></p>
-                <p>{mediateur.adresse}</p>
-                <p>
-                  <a href={mediateur.site} target="_blank" rel="noopener noreferrer">
-                    Site du médiateur <span aria-hidden="true">↗</span>
-                  </a>
-                </p>
-              </div>
-            ) : (
-              <div class="draft-warning" role="note">
-                <strong>À compléter avant publication</strong>
-                <p>
-                  Insérer ici le nom, les coordonnées et le site internet du
-                  médiateur de la consommation auquel l’institut a adhéré.
-                </p>
-              </div>
-            )}
-          </article>
         </div>
 
         <aside class="legal-aside" data-reveal>
@@ -333,37 +288,12 @@ const mediateurRenseigne = Boolean(
   }
 
   .legal-text {
-    padding: 30px 4px 5px;
-    border-top: 1px solid rgba(159, 83, 61, 0.2);
+    /* Les sections 05 et 06 reprennent les mêmes cartes blanches que 01 à 04. */
+    padding: 26px 23px;
   }
 
   .legal-text p + p {
     margin-top: 11px;
-  }
-
-  .draft-warning {
-    margin-top: 19px;
-    padding: 18px 20px;
-    border: 1px solid #cfb19f;
-    border-radius: 14px;
-    background: #fff6ed;
-    color: #674d3e;
-  }
-
-  .draft-warning strong {
-    font-size: 0.84rem;
-  }
-
-  .draft-warning p {
-    margin-top: 6px;
-    font-size: 0.83rem;
-  }
-
-  .mediator-details {
-    margin-top: 17px;
-    padding: 17px 20px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.66);
   }
 
   .legal-aside {
@@ -438,7 +368,7 @@ const mediateurRenseigne = Boolean(
     }
 
     .legal-text {
-      padding: 36px 10px 13px;
+      padding: 35px 37px;
     }
 
     .aside-card {

@@ -8,7 +8,6 @@ import FinalCTA from "../components/FinalCTA.astro";
 
 import extensionsImage from "../assets/images/prestations/prestation-extensions.webp";
 import regardImage from "../assets/images/regard/prestation-extension.webp";
-
 ---
 
 <BaseLayout
@@ -55,6 +54,8 @@ import regardImage from "../assets/images/regard/prestation-extension.webp";
             src={extensionsImage}
             alt="Extensions de cils à Marseille chez Appart & Beauté"
             class="hero-photo"
+            loading="eager"
+            fetchpriority="high"
             widths={[520, 720, 960, 1200]}
             sizes="(min-width: 1000px) 46vw, 100vw"
           />
@@ -327,7 +328,7 @@ import regardImage from "../assets/images/regard/prestation-extension.webp";
     margin-top: 25px;
     padding: 13px 21px;
     border-radius: 999px;
-    background: var(--color-terracotta);
+    background: var(--color-terracotta-dark);
     color: white;
     font-size: 0.72rem;
     font-weight: 600;
@@ -481,7 +482,7 @@ import regardImage from "../assets/images/regard/prestation-extension.webp";
 
   .step {
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(159, 83, 61, 0.10);
+    border-bottom: 1px solid rgba(159, 83, 61, 0.1);
   }
 
   .step:last-child {
@@ -807,7 +808,6 @@ import regardImage from "../assets/images/regard/prestation-extension.webp";
     .advice-card h3 {
       font-size: 2.5rem;
     }
-
   }
 
   /* =====================================================
