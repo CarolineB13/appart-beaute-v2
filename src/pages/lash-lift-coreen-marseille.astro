@@ -5,6 +5,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FinalCTA from "../components/FinalCTA.astro";
+import PlanityBookingCompact from "../components/PlanityBookingCompact.astro";
 
 import lashLiftPrestationImage from "../assets/images/regard/lash-lift-prestation.webp";
 import lashLiftResultatImage from "../assets/images/regard/lash-lift-resultat.webp";
@@ -43,7 +44,7 @@ import lashLiftResultatImage from "../assets/images/regard/lash-lift-resultat.we
             naturels et donner davantage d’ouverture au regard, sans extensions.
           </p>
 
-          <a class="primary-button" href="/reservation/">
+          <a class="primary-button" href="#reserver-lash-lift">
             Réserver
             <span aria-hidden="true">→</span>
           </a>
@@ -213,14 +214,60 @@ import lashLiftResultatImage from "../assets/images/regard/lash-lift-resultat.we
             </p>
           </div>
 
-          <a href="/reservation/">
+          <a href="#reserver-lash-lift">
             Voir les disponibilités
             <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
     </section>
+    <section class="booking-section" id="reserver-lash-lift">
+      <div class="container">
+        <header class="section-heading" data-reveal>
+          <p class="eyebrow">Réserver en ligne</p>
 
+          <h2>
+            Votre rendez-vous
+            <span>Lash Lift & Browlift</span>
+          </h2>
+
+          <span class="heading-line" aria-hidden="true"></span>
+
+          <p class="booking-intro">
+            Choisissez directement votre prestation et poursuivez votre
+            réservation sans quitter cette page.
+          </p>
+        </header>
+
+        <aside
+          class="booking-note"
+          aria-label="Informations pratiques"
+          data-reveal
+        >
+          <p class="booking-note-title">À savoir avant votre rendez-vous</p>
+          <p>
+            L’institut est situé au 1er étage · Paiement en espèces ou par
+            chèque.
+          </p>
+        </aside>
+
+        <div class="booking-widget">
+          <PlanityBookingCompact
+            services={[
+              "-OurTIjrS77GgPv7PTWd",
+              "-OurTlOv9ZvyyeiI6l-I",
+              "-OurU21PVXpcdhz_tTbL",
+            ]}
+            containerId="planity-lash-lift"
+          />
+        </div>
+
+        <p class="booking-fallback">
+          Vous souhaitez consulter toutes les prestations ?
+          <a href="/reservation/">Voir tous les tarifs et réserver</a>
+        </p>
+      </div>
+    </section>
     <FinalCTA />
   </main>
 
@@ -592,4 +639,75 @@ import lashLiftResultatImage from "../assets/images/regard/lash-lift-resultat.we
       border-radius: 30px;
     }
   }
+
+  .booking-section {
+    padding: 58px 0 66px;
+    background: var(--color-bg-soft);
+    scroll-margin-top: 90px;
+  }
+
+  .booking-intro {
+    max-width: 620px;
+    margin-top: 20px;
+    font-size: 0.94rem;
+    line-height: 1.68;
+  }
+
+  .booking-note {
+    max-width: 760px;
+    margin: 28px 0 0;
+    padding: 15px 18px;
+    border-left: 2px solid var(--color-terracotta);
+    background: rgba(196, 119, 91, 0.08);
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .booking-note p {
+    margin: 0;
+  }
+
+  .booking-note-title {
+    margin-bottom: 3px !important;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .booking-widget {
+    margin-top: 28px;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .booking-fallback {
+    margin-top: 18px;
+    color: var(--color-text-soft);
+    font-size: 0.78rem;
+  }
+
+  .booking-fallback a {
+    color: var(--color-terracotta-dark);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (min-width: 700px) {
+    .booking-widget {
+      border: 1px solid rgba(159, 83, 61, 0.08);
+      border-radius: 24px;
+      background: #fffdfb;
+      box-shadow: var(--shadow-soft);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .booking-widget {
+      border-radius: 34px;
+    }
+  }
+
 </style>

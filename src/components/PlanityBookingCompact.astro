@@ -1,0 +1,341 @@
+---
+interface Props {
+  services?: string[];
+  serviceSets?: string[];
+  servicesNotCollapsed?: boolean;
+  containerId?: string;
+}
+
+const {
+  services = [],
+  serviceSets = [],
+  servicesNotCollapsed = true,
+  containerId = "planity-filtered",
+} = Astro.props;
+
+const planityKey = import.meta.env.PUBLIC_PLANITY_KEY;
+
+const options = {
+  ...(services.length > 0 ? { servicesWhitelist: services } : {}),
+  ...(serviceSets.length > 0 ? { serviceSetsWhitelist: serviceSets } : {}),
+  ...(servicesNotCollapsed ? { servicesNotCollapsed: true } : {}),
+};
+---
+
+<section class="planity-booking">
+  <div
+    class="booking-confirmation"
+    id={`${containerId}-confirmation`}
+    hidden
+    aria-live="polite"
+  >
+    <p class="confirmation-kicker">Rendez-vous enregistré</p>
+
+    <h2>Votre rendez-vous est confirmé</h2>
+
+    <p class="confirmation-text">
+      Merci pour votre réservation chez Appart & Beauté.
+      Vous allez recevoir un e-mail Planity avec le récapitulatif de votre rendez-vous.
+    </p>
+
+    <div class="confirmation-actions">
+      <a class="confirmation-primary" href="/">
+        Retour à l’accueil
+        <span aria-hidden="true">→</span>
+      </a>
+
+      <button
+        class="confirmation-secondary"
+        id={`${containerId}-book-another`}
+        type="button"
+      >
+        Prendre un autre rendez-vous
+      </button>
+    </div>
+  </div>
+
+  <div id={`${containerId}-widget-wrap`}>
+    <div class="planity-container" id={containerId}></div>
+  </div>
+</section>
+
+<script define:vars={{ planityKey, options, containerId }}>
+  const container = document.getElementById(containerId);
+  const widgetWrap = document.getElementById(`${containerId}-widget-wrap`);
+  const confirmationBox = document.getElementById(`${containerId}-confirmation`);
+  const bookAnotherButton = document.getElementById(`${containerId}-book-another`);
+
+  if (container && widgetWrap && confirmationBox && planityKey) {
+    window.planity = {
+      key: planityKey,
+      primaryColor: "#b86f55",
+      appointmentContainer: container,
+      options,
+    };
+
+    let confirmationShown = false;
+
+    const normalizeText = (value = "") =>
+      value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’']/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
+
+    // Même logique que sur la page /reservation/ :
+    // on ferme uniquement le message d'information Planity "J'ai compris".
+    const dismissPlanityBusinessMessage = () => {
+      const popup = document.querySelector(
+        '[class*="business_popup-module_businessPopup"]',
+      );
+
+      if (!popup) return false;
+
+      const button = [...popup.querySelectorAll("button")].find((candidate) =>
+        normalizeText(candidate.textContent || "").includes("jai compris"),
+      );
+
+      if (!(button instanceof HTMLButtonElement)) return false;
+
+      button.click();
+      return true;
+    };
+
+    const hasPlanityConfirmation = () =>
+      [...container.querySelectorAll("h1,h2,h3,h4,h5,h6,p,div,span")].some(
+        (element) => {
+          if (!(element instanceof HTMLElement)) return false;
+
+          const text = normalizeText(element.textContent || "");
+
+          return (
+            text.length > 0 &&
+            text.length < 220 &&
+            text.includes("rendez-vous") &&
+            text.includes("confirm")
+          );
+        },
+      );
+
+    const showPersistentConfirmation = () => {
+      if (confirmationShown || !hasPlanityConfirmation()) return;
+
+      confirmationShown = true;
+
+      window.setTimeout(() => {
+        widgetWrap.hidden = true;
+        confirmationBox.hidden = false;
+
+        confirmationBox.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 120);
+    };
+
+    /*
+     * Le widget Planity conserve parfois une grande hauteur interne même avec
+     * une liste filtrée. On ajuste donc la hauteur du conteneur sur le dernier
+     * élément réellement visible. Quand Planity affiche le calendrier ou les
+     * étapes suivantes, le MutationObserver recalcule automatiquement la hauteur.
+     */
+    let fitRaf = 0;
+
+    const fitPlanityHeight = () => {
+      cancelAnimationFrame(fitRaf);
+
+      fitRaf = requestAnimationFrame(() => {
+        if (widgetWrap.hidden || confirmationShown) return;
+
+        const containerRect = container.getBoundingClientRect();
+
+        const visibleContent = [
+          ...container.querySelectorAll(
+            "button,a,input,select,textarea,h1,h2,h3,h4,h5,h6,p,li,[role='button'],[role='option'],[role='gridcell']",
+          ),
+        ].filter((element) => {
+          if (!(element instanceof HTMLElement)) return false;
+
+          const style = window.getComputedStyle(element);
+          const rect = element.getBoundingClientRect();
+
+          return (
+            style.display !== "none" &&
+            style.visibility !== "hidden" &&
+            rect.width > 0 &&
+            rect.height > 0 &&
+            style.position !== "fixed"
+          );
+        });
+
+        if (!visibleContent.length) return;
+
+        const bottom = Math.max(
+          ...visibleContent.map(
+            (element) => element.getBoundingClientRect().bottom,
+          ),
+        );
+
+        const requiredHeight = Math.max(
+          180,
+          Math.ceil(bottom - containerRect.top + 24),
+        );
+
+        container.style.setProperty("height", `${requiredHeight}px`, "important");
+        container.style.setProperty("min-height", "0", "important");
+      });
+    };
+
+    const observer = new MutationObserver(() => {
+      dismissPlanityBusinessMessage();
+      showPersistentConfirmation();
+      fitPlanityHeight();
+
+      window.setTimeout(fitPlanityHeight, 80);
+      window.setTimeout(fitPlanityHeight, 220);
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    dismissPlanityBusinessMessage();
+    showPersistentConfirmation();
+    fitPlanityHeight();
+
+    [100, 300, 700, 1200, 2000].forEach((delay) => {
+      window.setTimeout(fitPlanityHeight, delay);
+    });
+
+    window.addEventListener("resize", fitPlanityHeight);
+
+    bookAnotherButton?.addEventListener("click", () => {
+      confirmationShown = false;
+      confirmationBox.hidden = true;
+      widgetWrap.hidden = false;
+
+      widgetWrap.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      window.setTimeout(fitPlanityHeight, 80);
+      window.setTimeout(fitPlanityHeight, 250);
+    });
+  }
+</script>
+
+<script
+  is:inline
+  src="https://d2skjte8udjqxw.cloudfront.net/widget/production/2/polyfills.latest.js"
+></script>
+
+<script
+  is:inline
+  src="https://d2skjte8udjqxw.cloudfront.net/widget/production/2/app.latest.js"
+></script>
+
+<style>
+  .planity-booking {
+    width: 100%;
+  }
+
+  .planity-container {
+    width: 100%;
+    min-height: 0;
+    height: auto;
+  }
+
+  .booking-confirmation {
+    scroll-margin-top: 120px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 38px 26px;
+    border: 1px solid rgba(159, 83, 61, 0.1);
+    border-radius: 32px;
+    background: rgba(255, 253, 251, 0.94);
+    text-align: center;
+    box-shadow: 0 18px 48px rgba(73, 48, 39, 0.08);
+  }
+
+  .confirmation-kicker {
+    margin: 0;
+    color: var(--color-terracotta-dark);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .booking-confirmation h2 {
+    margin-top: 10px;
+    font-size: clamp(2.5rem, 9vw, 4rem);
+    line-height: 0.98;
+  }
+
+  .confirmation-text {
+    max-width: 560px;
+    margin: 20px auto 0;
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .confirmation-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    margin-top: 28px;
+  }
+
+  .confirmation-primary,
+  .confirmation-secondary {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .confirmation-primary {
+    background: var(--color-terracotta);
+    color: #fff;
+  }
+
+  .confirmation-secondary {
+    border: 1px solid rgba(159, 83, 61, 0.2);
+    background: transparent;
+    color: var(--color-terracotta-dark);
+  }
+
+  @media (max-width: 560px) {
+    .booking-confirmation {
+      padding: 32px 20px;
+      border-radius: 26px;
+    }
+  }
+
+  @media (min-width: 700px) {
+    .confirmation-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .confirmation-primary,
+    .confirmation-secondary {
+      min-width: 220px;
+    }
+  }
+</style>
