@@ -24,15 +24,27 @@ import PlanityBooking from "../components/PlanityBooking.astro";
         <span class="heading-line" aria-hidden="true"></span>
 
         <p class="intro">
-          Choisissez votre prestation puis le créneau qui vous convient.
-          Les disponibilités affichées sont directement synchronisées avec
-          l’agenda Planity de Marjorie.
+          Choisissez votre prestation puis le créneau qui vous convient. Les
+          disponibilités affichées sont directement synchronisées avec l’agenda
+          Planity de Marjorie.
         </p>
       </div>
     </section>
 
     <section class="booking-section">
       <div class="container">
+        <aside
+          class="booking-note"
+          aria-label="Informations pratiques"
+          data-reveal
+        >
+          <p class="booking-note-title">À savoir avant votre rendez-vous</p>
+          <p>
+            L’institut est situé au 1er étage · Paiement en espèces ou par
+            chèque.
+          </p>
+        </aside>
+
         <div class="booking-card" data-reveal style="--reveal-delay: 80ms">
           <PlanityBooking />
         </div>
@@ -42,6 +54,50 @@ import PlanityBooking from "../components/PlanityBooking.astro";
 
   <Footer />
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const POPUP_SELECTOR = '[class*="business_popup-module_businessPopup"]';
+
+    const normalizeText = (value = "") =>
+      value.toLowerCase().replace(/[’']/g, "").replace(/\s+/g, " ").trim();
+
+    const dismissPlanityBusinessMessage = () => {
+      const popup = document.querySelector(POPUP_SELECTOR);
+      if (!popup) return false;
+
+      const button = [...popup.querySelectorAll("button")].find((candidate) =>
+        normalizeText(candidate.textContent).includes("jai compris"),
+      );
+
+      if (!button) return false;
+
+      button.click();
+      return true;
+    };
+
+    const observer = new MutationObserver(() => {
+      dismissPlanityBusinessMessage();
+    });
+
+    const startObserver = () => {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+
+      dismissPlanityBusinessMessage();
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", startObserver, {
+        once: true,
+      });
+    } else {
+      startObserver();
+    }
+  })();
+</script>
 
 <style>
   .reservation-page {
@@ -92,13 +148,34 @@ import PlanityBooking from "../components/PlanityBooking.astro";
     background: var(--color-bg-soft);
   }
 
+  .booking-note {
+    max-width: 760px;
+    margin: 10px 0 0;
+    padding: 15px 18px;
+    border-left: 2px solid var(--color-terracotta);
+    background: rgba(196, 119, 91, 0.08);
+    color: var(--color-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .booking-note p {
+    margin: 0;
+  }
+
+  .booking-note-title {
+    margin-bottom: 3px !important;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
   .booking-card {
-  margin-top: 28px;
-  overflow: hidden;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
+    margin-top: 28px;
+    overflow: hidden;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
 
   @media (min-width: 700px) {
     .reservation-intro {
