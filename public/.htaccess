@@ -7,14 +7,14 @@ DirectoryIndex index.html
   RewriteEngine On
 
   # Anciennes URL indexées par Google -> nouvelles URL V2
+  RewriteRule ^index\.html$ / [R=301,L,NE]
   RewriteRule ^tarifs\.html$ /reservation/ [R=301,L,NE]
   RewriteRule ^tarifs/tarifs\.html$ /reservation/ [R=301,L,NE]
   RewriteRule ^contact\.html$ /contact/ [R=301,L,NE]
   RewriteRule ^prestations\.html$ /prestations/ [R=301,L,NE]
   RewriteRule ^prestations/prestations\.html$ /prestations/ [R=301,L,NE]
 
-  # À activer uniquement lors de la bascule définitive du domaine :
-  # force HTTPS + www, cohérent avec les URL canoniques du site.
+  # À activer uniquement lors de la bascule définitive du domaine
   # RewriteCond %{HTTPS} !=on [OR]
   # RewriteCond %{HTTP_HOST} !^www\.appartbeauteinstitut\.com$ [NC]
   # RewriteRule ^ https://www.appartbeauteinstitut.com%{REQUEST_URI} [R=301,L]

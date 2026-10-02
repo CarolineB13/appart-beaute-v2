@@ -17,6 +17,8 @@ const formEnabled = Boolean(turnstileSiteKey);
 <BaseLayout
   title="Contact et accès institut de beauté La Valentine | Appart & Beauté"
   description="Contactez Appart & Beauté à La Valentine, Marseille 11e : formulaire, téléphone, horaires, parking à 5 minutes à pied et itinéraires."
+  image="/images/og/og-contact.webp"
+  imageAlt="Contact et accès Appart & Beauté Institut à La Valentine, Marseille 11e"
 >
   <Header />
 
@@ -154,12 +156,12 @@ const formEnabled = Boolean(turnstileSiteKey);
 
             {formEnabled ? (
               <div class="turnstile-wrap">
-                <div
+                  <div
                   class="cf-turnstile"
                   data-sitekey={turnstileSiteKey}
                   data-theme="light"
                   data-language="fr"
-                  data-size="flexible"
+                  data-size="invisible"
                   data-action="contact"
                 ></div>
               </div>
