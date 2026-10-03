@@ -65,6 +65,7 @@ foreach ($requiredConfigKeys as $key) {
 // Vérification de tous les champs côté serveur (le HTML seul ne protège pas).
 $name = trim((string) ($_POST['name'] ?? ''));
 $email = trim((string) ($_POST['email'] ?? ''));
+$phone = trim((string) ($_POST['phone'] ?? ''));
 $topic = trim((string) ($_POST['topic'] ?? ''));
 $message = trim((string) ($_POST['message'] ?? ''));
 $trap = trim((string) ($_POST['website'] ?? ''));
@@ -92,6 +93,8 @@ if (
     $privacy !== 'yes' ||
     $name === '' || strlen($name) > 180 || preg_match('/[\r\n\x00]/', $name) ||
     !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 190 ||
+    strlen($phone) > 25 ||
+    preg_match('/[\r\n\x00]/', $phone) ||
     !in_array($topic, $allowedTopics, true) ||
     strlen($message) < 10 || strlen($message) > 9000 ||
     preg_match('/\x00/', $message) ||
@@ -160,6 +163,7 @@ $verification = json_decode($verifyResponse, true);
 if (
     !is_array($verification) ||
     ($verification['success'] ?? false) !== true ||
+    (string) ($verification['action'] ?? '') !== 'contact' ||
     !in_array((string) ($verification['hostname'] ?? ''), $config['turnstile_allowed_hosts'], true)
 ) {
     failContact(400, 'Vérification anti-spam refusée');
@@ -192,7 +196,10 @@ try {
     $mailer->Subject = 'Contact du site : ' . $topic;
     $mailer->isHTML(false);
     $mailer->Body = "Nouveau message depuis le formulaire Appart & Beauté\n\n"
-        . "Nom : {$name}\nEmail : {$email}\nSujet : {$topic}\n\n"
+        . "Nom : {$name}\n"
+        . "Email : {$email}\n"
+        . "Téléphone : " . ($phone !== '' ? $phone : 'Non renseigné') . "\n"
+        . "Sujet : {$topic}\n\n"
         . "Message :\n{$message}\n";
     $mailer->send();
 } catch (\Throwable $e) {
