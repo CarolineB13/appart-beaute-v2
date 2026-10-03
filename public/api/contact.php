@@ -37,8 +37,9 @@ if ((int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > 16000) {
  * Adapter la ligne ci-dessous si l'arborescence de votre hébergement diffère.
  */
 $documentRoot = realpath($_SERVER['DOCUMENT_ROOT'] ?? '') ?: '';
+
 $configPath = $documentRoot !== ''
-    ? dirname($documentRoot) . '/appartbeaute-private/contact-config.php'
+    ? $documentRoot . '/appartbeaute-private/contact-config.php'
     : '';
 
 if ($configPath === '' || !is_readable($configPath)) {
